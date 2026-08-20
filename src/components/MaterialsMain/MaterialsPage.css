@@ -1,0 +1,691 @@
+.materialStudio {
+  background: #f3f0ea;
+  color: #24221f;
+  overflow: hidden;
+}
+
+.materialStudio img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.materialStudio-hero {
+  height: 82vh;
+  min-height: 680px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.materialStudio-hero-image {
+  position: absolute;
+  inset: 0;
+}
+
+.materialStudio-hero-image img {
+  transform: scale(1.04);
+  animation: materialStudioHeroZoom 10s ease-out forwards;
+}
+
+.materialStudio-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(20, 18, 16, 0.68),
+      rgba(20, 18, 16, 0.18),
+      rgba(20, 18, 16, 0.08)
+    );
+}
+
+.materialStudio-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  padding: 0 8vw;
+  color: #fff;
+}
+
+.materialStudio-eyebrow,
+.materialStudio-section-heading > span,
+.materialStudio-palette-heading > span,
+.materialStudio-story-content > span,
+.materialStudio-details-header > span,
+.materialStudio-cta-content > span {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+}
+
+.materialStudio-hero h1 {
+  font-size: clamp(62px, 8vw, 125px);
+  line-height: 0.88;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  margin: 28px 0;
+}
+
+.materialStudio-hero h1 em,
+.materialStudio-section-heading h2 em,
+.materialStudio-palette-heading h2 em,
+.materialStudio-story-content h2 em,
+.materialStudio-details-header h2 em,
+.materialStudio-cta-content h2 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.materialStudio-hero p {
+  max-width: 390px;
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+.materialStudio-scroll {
+  margin-top: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+  padding-bottom: 9px;
+}
+
+.materialStudio-explorer {
+  padding: 150px 7vw;
+}
+
+.materialStudio-section-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 75px;
+}
+
+.materialStudio-section-heading h2,
+.materialStudio-palette-heading h2,
+.materialStudio-details-header h2 {
+  font-size: clamp(50px, 6vw, 88px);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.materialStudio-section-heading p {
+  max-width: 280px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #77716a;
+}
+
+.materialStudio-explorer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr;
+  gap: 30px;
+}
+
+.materialStudio-material-card {
+  height: 550px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+.materialStudio-material-card img {
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+
+.materialStudio-material-card:hover img {
+  transform: scale(1.045);
+}
+
+.materialStudio-material-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.25),
+    transparent 45%,
+    rgba(0,0,0,.65)
+  );
+}
+
+.materialStudio-material-top {
+  position: absolute;
+  top: 30px;
+  left: 32px;
+  right: 32px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: .18em;
+}
+
+.materialStudio-material-bottom {
+  position: absolute;
+  left: 34px;
+  bottom: 36px;
+}
+
+.materialStudio-material-bottom span {
+  font-size: 10px;
+  letter-spacing: .22em;
+}
+
+.materialStudio-material-bottom h3 {
+  font-family: Georgia, serif;
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 400;
+  margin: 13px 0 0;
+  letter-spacing: -.04em;
+}
+
+.materialStudio-material-navigation {
+  padding: 15px 5px;
+}
+
+.materialStudio-small-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .2em;
+  color: #928b83;
+  margin-bottom: 24px;
+}
+
+.materialStudio-nav-item {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #d8d3cb;
+  background: transparent;
+  padding: 21px 3px;
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  text-align: left;
+  align-items: center;
+  cursor: pointer;
+  color: #8d8780;
+  transition: .3s ease;
+}
+
+.materialStudio-nav-item strong {
+  font-size: 13px;
+  letter-spacing: .08em;
+  font-weight: 500;
+}
+
+.materialStudio-nav-item.active {
+  color: #24221f;
+  padding-left: 12px;
+}
+
+.materialStudio-nav-item:hover {
+  color: #24221f;
+}
+
+.materialStudio-description {
+  padding: 45px 5px 0;
+}
+
+.materialStudio-description > p {
+  color: #77716a;
+  line-height: 1.8;
+  font-size: 13px;
+  max-width: 360px;
+}
+
+.materialStudio-details {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.materialStudio-details div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #56514c;
+}
+
+.materialStudio-palettes {
+  background: #e8e3da;
+  padding: 140px 7vw;
+}
+
+.materialStudio-palette-heading {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 90px;
+}
+
+.materialStudio-palette-content {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.materialStudio-palette-visual {
+  height: 520px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.materialStudio-palette-orbit {
+  width: 390px;
+  height: 390px;
+  border: 1px solid rgba(40,35,30,.18);
+  border-radius: 50%;
+  position: relative;
+  animation: materialStudioRotate 25s linear infinite;
+}
+
+.materialStudio-swatch {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  position: absolute;
+  border: 8px solid #e8e3da;
+}
+
+.materialStudio-swatch:nth-child(1) {
+  top: -35px;
+  left: 142px;
+}
+
+.materialStudio-swatch:nth-child(2) {
+  right: -25px;
+  top: 142px;
+}
+
+.materialStudio-swatch:nth-child(3) {
+  bottom: -35px;
+  left: 142px;
+}
+
+.materialStudio-swatch:nth-child(4) {
+  left: -25px;
+  top: 142px;
+}
+
+.materialStudio-palette-center {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.materialStudio-palette-center span {
+  font-size: 9px;
+  letter-spacing: .2em;
+  color: #8d857c;
+}
+
+.materialStudio-palette-center strong {
+  margin-top: 8px;
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.materialStudio-palette-option {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #cbc5bb;
+  padding: 22px 0;
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  cursor: pointer;
+  text-align: left;
+  color: #918a82;
+}
+
+.materialStudio-palette-option strong {
+  font-size: 14px;
+  letter-spacing: .1em;
+}
+
+.materialStudio-palette-option.active {
+  color: #24221f;
+}
+
+.materialStudio-palette-copy > p {
+  color: #77716a;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: 35px;
+  max-width: 300px;
+}
+
+.materialStudio-story {
+  min-height: 800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.materialStudio-story-image {
+  min-height: 700px;
+}
+
+.materialStudio-story-content {
+  padding: 110px 8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.materialStudio-story-content h2 {
+  font-size: clamp(55px, 6vw, 90px);
+  line-height: .9;
+  letter-spacing: -.055em;
+  font-weight: 400;
+  margin: 35px 0;
+}
+
+.materialStudio-story-content > p {
+  color: #77716a;
+  line-height: 1.9;
+  max-width: 420px;
+  font-size: 14px;
+}
+
+.materialStudio-story-steps {
+  margin-top: 65px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.materialStudio-story-steps div {
+  border-top: 1px solid #cbc5bd;
+  padding-top: 16px;
+}
+
+.materialStudio-story-steps span {
+  font-size: 9px;
+  color: #968f86;
+}
+
+.materialStudio-story-steps strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .14em;
+  margin-top: 20px;
+}
+
+.materialStudio-story-steps p {
+  font-size: 11px;
+  color: #817a73;
+  line-height: 1.6;
+}
+
+.materialStudio-details-section {
+  padding: 150px 7vw;
+}
+
+.materialStudio-details-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+.materialStudio-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.materialStudio-detail-card {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.materialStudio-detail-card img {
+  transition: transform .8s ease;
+}
+
+.materialStudio-detail-card:hover img {
+  transform: scale(1.05);
+}
+
+.materialStudio-detail-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    transparent 40%,
+    rgba(0,0,0,.7)
+  );
+}
+
+.materialStudio-detail-card > span,
+.materialStudio-detail-card h3,
+.materialStudio-detail-card p {
+  position: absolute;
+  z-index: 2;
+  left: 25px;
+}
+
+.materialStudio-detail-card > span {
+  top: 25px;
+  font-size: 10px;
+}
+
+.materialStudio-detail-card h3 {
+  bottom: 55px;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.materialStudio-detail-card p {
+  bottom: 25px;
+  font-size: 10px;
+  opacity: .8;
+  margin: 0;
+}
+
+.materialStudio-cta {
+  height: 700px;
+  position: relative;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.materialStudio-cta-image,
+.materialStudio-cta-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.materialStudio-cta-image img {
+  object-position: center;
+}
+
+.materialStudio-cta-overlay {
+  background: rgba(20,18,16,.5);
+}
+
+.materialStudio-cta-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 8vw;
+  max-width: 700px;
+}
+
+.materialStudio-cta-content h2 {
+  font-size: clamp(60px, 8vw, 110px);
+  line-height: .88;
+  letter-spacing: -.06em;
+  font-weight: 400;
+  margin: 28px 0;
+}
+
+.materialStudio-cta-content p {
+  max-width: 350px;
+  line-height: 1.8;
+  font-size: 14px;
+  opacity: .85;
+}
+
+.materialStudio-cta-content a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: 10px;
+  margin-top: 35px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.6);
+}
+
+@keyframes materialStudioHeroZoom {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes materialStudioRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+
+  .materialStudio-section-heading,
+  .materialStudio-palette-heading,
+  .materialStudio-details-header {
+    grid-template-columns: 1fr;
+  }
+
+  .materialStudio-explorer-grid,
+  .materialStudio-palette-content,
+  .materialStudio-story {
+    grid-template-columns: 1fr;
+  }
+
+  .materialStudio-material-card {
+    height: 560px;
+  }
+
+  .materialStudio-palette-content {
+    gap: 50px;
+  }
+
+  .materialStudio-story-image {
+    min-height: 500px;
+  }
+
+  .materialStudio-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .materialStudio-detail-card {
+    height: 480px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .materialStudio-hero {
+    min-height: 650px;
+  }
+
+  .materialStudio-hero-content {
+    padding: 0 25px;
+  }
+
+  .materialStudio-hero h1 {
+    font-size: 65px;
+  }
+
+  .materialStudio-explorer,
+  .materialStudio-palettes,
+  .materialStudio-details-section {
+    padding: 90px 22px;
+  }
+
+  .materialStudio-section-heading {
+    margin-bottom: 50px;
+  }
+
+  .materialStudio-material-card {
+    height: 470px;
+  }
+
+  .materialStudio-material-bottom h3 {
+    font-size: 38px;
+  }
+
+  .materialStudio-palette-visual {
+    height: 390px;
+  }
+
+  .materialStudio-palette-orbit {
+    width: 280px;
+    height: 280px;
+  }
+
+  .materialStudio-swatch {
+    width: 75px;
+    height: 75px;
+  }
+
+  .materialStudio-swatch:nth-child(1),
+  .materialStudio-swatch:nth-child(3) {
+    left: 102px;
+  }
+
+  .materialStudio-swatch:nth-child(2),
+  .materialStudio-swatch:nth-child(4) {
+    top: 102px;
+  }
+
+  .materialStudio-story-content {
+    padding: 80px 25px;
+  }
+
+  .materialStudio-story-steps {
+    gap: 12px;
+  }
+
+  .materialStudio-cta {
+    height: 600px;
+  }
+
+  .materialStudio-cta-content {
+    padding: 0 25px;
+  }
+}

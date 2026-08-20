@@ -1,0 +1,516 @@
+.project-showcase {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: minmax(190px, 260px) minmax(0, 1fr);
+
+  gap: clamp(30px, 5vw, 65px);
+
+  padding: clamp(60px, 8vw, 100px) 0
+           clamp(60px, 8vw, 100px)
+           clamp(22px, 7vw, 100px);
+
+  background: #f8f6f2;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   LEFT CONTENT
+========================================= */
+
+.project-showcase-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding-right: 10px;
+}
+
+.project-showcase-eyebrow {
+  display: block;
+
+  margin-bottom: 16px;
+
+  font-size: 9px;
+  line-height: 1;
+
+  font-weight: 700;
+  letter-spacing: .16em;
+
+  color: #77716a;
+}
+
+.project-showcase-content h2 {
+  margin: 0;
+
+  font-size: clamp(30px, 3vw, 43px);
+  line-height: .98;
+
+  font-weight: 500;
+  letter-spacing: -.045em;
+
+  color: #272522;
+}
+
+.project-showcase-content h2 em {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+
+/* =========================================
+   VIEW ALL PROJECTS
+========================================= */
+
+.project-showcase-link {
+  width: fit-content;
+  max-width: 100%;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 25px;
+
+  color: #272522;
+  text-decoration: none;
+
+  font-size: 9px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: .08em;
+
+  border-bottom: 1px solid #77716a;
+
+  padding-bottom: 7px;
+
+  transition:
+    gap .3s ease,
+    color .3s ease,
+    border-color .3s ease;
+}
+
+.project-showcase-link:hover {
+  gap: 13px;
+  color: #000;
+  border-color: #272522;
+}
+
+
+/* =========================================
+   SLIDER AREA
+========================================= */
+
+.project-showcase-slider-wrapper {
+  position: relative;
+
+  min-width: 0;
+  width: 100%;
+}
+
+
+/* =========================================
+   SLIDER
+========================================= */
+
+.project-showcase-slider {
+  width: 100%;
+
+  display: flex;
+  align-items: stretch;
+
+  gap: 10px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-behavior: smooth;
+
+  scrollbar-width: none;
+
+  -webkit-overflow-scrolling: touch;
+
+  padding-right: clamp(22px, 7vw, 100px);
+  box-sizing: border-box;
+}
+
+.project-showcase-slider::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* =========================================
+   PROJECT CARD
+========================================= */
+
+.project-showcase-card {
+  flex: 0 0 clamp(190px, 23vw, 245px);
+  width: clamp(190px, 23vw, 245px);
+  min-width: 0;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.project-showcase-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.18 / 1.5;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #ddd8cf;
+}
+
+.project-showcase-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition:
+    transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.project-showcase-card:hover
+.project-showcase-image img {
+  transform: scale(1.045);
+}
+
+
+/* =========================================
+   CARD OVERLAY
+========================================= */
+
+.project-showcase-card-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 18px;
+
+  color: #fff;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 45%,
+      rgba(0,0,0,.58)
+    );
+
+  opacity: 0;
+
+  transition: opacity .35s ease;
+
+  box-sizing: border-box;
+}
+
+.project-showcase-card:hover
+.project-showcase-card-overlay {
+  opacity: 1;
+}
+
+.project-showcase-card-overlay span {
+  font-size: 8px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+.project-showcase-card-overlay h3 {
+  margin: 6px 0 0;
+
+  font-family: Georgia, serif;
+
+  font-size: 21px;
+  line-height: 1;
+
+  font-weight: 400;
+}
+
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.project-showcase-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  margin-top: 16px;
+
+  padding-right: clamp(22px, 7vw, 100px);
+}
+
+.project-showcase-controls button {
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #d0cbc3;
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: #272522;
+
+  cursor: pointer;
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    border-color .3s ease;
+}
+
+.project-showcase-controls button:hover {
+  background: #272522;
+  color: #fff;
+  border-color: #272522;
+}
+
+
+/* =========================================
+   LARGE TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .project-showcase {
+    grid-template-columns:
+      minmax(180px, 220px)
+      minmax(0, 1fr);
+
+    gap: 35px;
+
+    padding-left: 5vw;
+  }
+
+  .project-showcase-card {
+    flex-basis: 220px;
+    width: 220px;
+  }
+
+  .project-showcase-content h2 {
+    font-size: 34px;
+  }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+  .project-showcase {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    padding:
+      70px 0
+      70px 30px;
+  }
+
+  .project-showcase-content {
+    padding-right: 30px;
+
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .project-showcase-content h2 {
+    font-size: clamp(36px, 6vw, 46px);
+  }
+
+  .project-showcase-link {
+    margin-top: 20px;
+  }
+
+  .project-showcase-slider {
+    padding-right: 30px;
+  }
+
+  .project-showcase-card {
+    flex: 0 0 230px;
+    width: 230px;
+  }
+
+  .project-showcase-image {
+    aspect-ratio: 1.08 / 1;
+  }
+
+  .project-showcase-controls {
+    justify-content: flex-start;
+
+    padding-right: 30px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .project-showcase {
+    display: block;
+
+    width: 100%;
+
+    padding:
+      65px 0
+      65px 20px;
+  }
+
+
+  /* Left content */
+
+  .project-showcase-content {
+    width: 100%;
+
+    padding-right: 20px;
+
+    margin-bottom: 28px;
+  }
+
+  .project-showcase-eyebrow {
+    margin-bottom: 13px;
+
+    font-size: 8px;
+  }
+
+  .project-showcase-content h2 {
+    font-size: 38px;
+    line-height: .96;
+  }
+
+  .project-showcase-link {
+    margin-top: 19px;
+
+    font-size: 8px;
+  }
+
+
+  /* Slider */
+
+  .project-showcase-slider-wrapper {
+    width: 100%;
+  }
+
+  .project-showcase-slider {
+    width: 100%;
+
+    gap: 9px;
+
+    padding-right: 20px;
+  }
+
+  .project-showcase-card {
+    flex: 0 0 220px;
+
+    width: 220px;
+  }
+
+  .project-showcase-image {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+  }
+
+
+  /* Mobile overlay stays visible */
+
+  .project-showcase-card-overlay {
+    opacity: 1;
+
+    padding: 15px;
+
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(0,0,0,.48)
+      );
+  }
+
+  .project-showcase-card-overlay span {
+    font-size: 7px;
+  }
+
+  .project-showcase-card-overlay h3 {
+    font-size: 19px;
+  }
+
+
+  /* Controls */
+
+  .project-showcase-controls {
+    justify-content: flex-start;
+
+    margin-top: 14px;
+
+    padding-right: 20px;
+  }
+
+  .project-showcase-controls button {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+  .project-showcase {
+    padding-left: 16px;
+  }
+
+  .project-showcase-content {
+    padding-right: 16px;
+  }
+
+  .project-showcase-content h2 {
+    font-size: 34px;
+  }
+
+  .project-showcase-slider {
+    padding-right: 16px;
+  }
+
+  .project-showcase-card {
+    flex: 0 0 205px;
+    width: 205px;
+  }
+
+  .project-showcase-controls {
+    padding-right: 16px;
+  }
+}

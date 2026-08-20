@@ -1,0 +1,477 @@
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+  position: fixed;
+
+  top: 24px;
+  left: 4%;
+  right: 4%;
+
+  z-index: 1000;
+
+  height: 64px;
+
+  padding: 0 14px 0 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 1px solid rgba(255,255,255,.24);
+
+  border-radius: 22px;
+
+  background: rgba(255,255,255,.13);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.3),
+    0 15px 45px rgba(0,0,0,.12);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: #020202;
+
+  text-decoration: none;
+
+  font-size: 20px;
+
+  font-weight: 500;
+
+  letter-spacing: -.03em;
+
+  transition: opacity .3s ease;
+}
+
+.navbar-logo:hover {
+  opacity: .7;
+}
+
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.navbar-links {
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+}
+
+.navbar-links a {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  height: 64px;
+
+  color: rgba(6, 6, 6, 0.68);
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 450;
+
+  transition:
+    color .3s ease,
+    opacity .3s ease;
+}
+
+.navbar-links a:hover {
+  color: #0b0b0b;
+}
+
+
+/* =========================================================
+   ACTIVE NAV ITEM
+========================================================= */
+
+/* Small premium line */
+
+.navbar-links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 10px;
+
+  width: 0;
+  height: 1.5px;
+
+  transform: translateX(-50%);
+
+  background: #111;
+
+  border-radius: 10px;
+
+  transition:
+    width .3s ease;
+}
+
+
+/* Small dot */
+/* 
+.navbar-links a::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 7px;
+
+  width: 3px;
+  height: 3px;
+
+  transform: translateX(-50%) scale(0);
+
+  border-radius: 50%;
+
+  background: #111;
+
+  transition:
+    transform .3s ease;
+} */
+
+
+/* ACTIVE */
+
+.navbar-links a.active {
+  color: #080808;
+
+  font-weight: 600;
+}
+
+.navbar-links a.active::after {
+  width: 18px;
+}
+
+.navbar-links a.active::before {
+  transform: translateX(-50%) scale(1);
+}
+
+
+/* =========================================================
+   QUOTE BUTTON
+========================================================= */
+
+.navbar-quote {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 15px;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255,255,255,.35);
+
+  background: rgba(255,255,255,.85);
+
+  color: #222;
+
+  text-decoration: none;
+
+  font-size: 11px;
+
+  transition:
+    .3s ease;
+}
+
+.navbar-quote:hover {
+  transform: translateY(-2px);
+
+  background: #fff;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+
+/* Contact page active state */
+
+.navbar-quote.quote-active {
+  background: #222;
+
+  color: #fff;
+
+  border-color: rgba(255,255,255,.15);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.12);
+}
+
+.navbar-quote.quote-active svg {
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   MOBILE BUTTON
+========================================================= */
+
+.navbar-menu {
+  display: none;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  cursor: pointer;
+
+  padding: 7px;
+
+  border-radius: 50%;
+
+  transition:
+    background .3s ease,
+    transform .3s ease;
+}
+
+.navbar-menu:hover {
+  background: rgba(255,255,255,.35);
+}
+
+.navbar-menu:active {
+  transform: scale(.92);
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-links.open {
+    position: absolute;
+
+    top: 74px;
+    left: 0;
+
+    width: 100%;
+
+    transform: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 0;
+
+    padding: 12px 20px 18px;
+
+    border: 1px solid rgba(255,255,255,.22);
+
+    border-radius: 20px;
+
+    background:
+      rgba(255,255,255,.18);
+
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+
+    box-shadow:
+      0 18px 45px rgba(0,0,0,.12),
+
+      inset 0 1px 0
+      rgba(255,255,255,.35);
+
+    animation:
+      navbarMenuOpen .3s ease forwards;
+  }
+
+  @keyframes navbarMenuOpen {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  .navbar-links.open a {
+    width: 100%;
+
+    height: 45px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+
+    color: rgba(0,0,0,.72);
+  }
+
+
+  /* Remove desktop line position */
+
+  .navbar-links.open a::after {
+    left: auto;
+    right: 3px;
+
+    bottom: auto;
+
+    width: 0;
+    height: 1px;
+
+    transform: none;
+
+    transition:
+      width .3s ease;
+  }
+
+
+  .navbar-links.open a::before {
+    left: auto;
+    right: 0;
+
+    bottom: auto;
+
+    width: 4px;
+    height: 4px;
+
+    transform: scale(0);
+
+    transition:
+      transform .3s ease;
+  }
+
+
+  /* Mobile active */
+
+  .navbar-links.open a.active {
+    color: #111;
+
+    font-weight: 600;
+  }
+
+  .navbar-links.open a.active::after {
+    width: 22px;
+  }
+
+  .navbar-links.open a.active::before {
+    transform: scale(1);
+  }
+
+
+  .navbar-menu {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-quote {
+    margin-left: auto;
+
+    margin-right: 10px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .navbar {
+    top: 14px;
+
+    left: 15px;
+    right: 15px;
+
+    height: 58px;
+
+    padding:
+      0
+      10px
+      0
+      17px;
+
+    border-radius: 19px;
+  }
+
+
+  .navbar-logo span {
+    display: none;
+  }
+
+
+  .navbar-logo::before {
+    content: "KC";
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    letter-spacing: -.05em;
+  }
+
+
+  .navbar-quote {
+    display: none;
+  }
+
+
+  .navbar-menu {
+    width: 38px;
+    height: 38px;
+  }
+
+
+  .navbar-links.open {
+    top: 68px;
+
+    border-radius: 18px;
+
+    padding:
+      12px
+      18px
+      16px;
+  }
+
+
+  .navbar-links.open a {
+    height: 44px;
+
+    font-size: 11px;
+  }
+}

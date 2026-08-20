@@ -1,0 +1,806 @@
+.featured-kitchens {
+  position: relative;
+
+  padding: 125px 6vw 70px;
+
+  background:
+    radial-gradient(
+      circle at 85% 25%,
+      rgba(116, 126, 76, 0.06),
+      transparent 30%
+    ),
+    #eee9df;
+
+  color: #292b24;
+
+  overflow: hidden;
+}
+
+
+/* =================================
+   INNER
+================================= */
+
+.featured-inner {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+
+/* =================================
+   HEADER
+================================= */
+
+.featured-header {
+  display: grid;
+
+  grid-template-columns:
+    0.75fr
+    1.4fr
+    0.65fr;
+
+  align-items: end;
+
+  gap: 35px;
+
+  margin-bottom: 38px;
+}
+
+
+.featured-label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+
+  color: #898b80;
+}
+
+
+.featured-label div {
+  width: 28px;
+
+  height: 1px;
+
+  background:
+    rgba(70,75,55,0.2);
+}
+
+
+.featured-heading h2 {
+  margin: 0;
+
+  font-size:
+    clamp(45px, 5vw, 65px);
+
+  line-height: 0.9;
+
+  font-weight: 350;
+
+  letter-spacing: -3.5px;
+}
+
+
+.featured-heading h2 em {
+  font-family: Georgia, serif;
+
+  font-weight: 400;
+
+  color: #70784a;
+
+  letter-spacing: -2px;
+}
+
+
+.featured-heading p {
+  max-width: 270px;
+
+  margin: 18px 0 0;
+
+  font-size: 9px;
+
+  line-height: 1.75;
+
+  color: #818379;
+}
+
+
+.featured-view-all {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 7px;
+
+  color: #555b40;
+
+  font-size: 7px;
+
+  letter-spacing: 1px;
+
+  text-decoration: none;
+
+  transition:
+    gap 0.3s ease;
+}
+
+
+.featured-view-all:hover {
+  gap: 11px;
+}
+
+
+/* =================================
+   PROJECT
+================================= */
+
+.featured-project {
+  width: 100%;
+}
+
+
+/* =================================
+   MAIN IMAGE
+================================= */
+
+.featured-image {
+  position: relative;
+
+  width: 100%;
+
+  height: 590px;
+
+  overflow: hidden;
+
+  border-radius: 28px;
+
+  background: #c3b9a8;
+
+  box-shadow:
+    0 28px 65px
+      rgba(45,42,34,0.11);
+}
+
+
+.featured-project-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0;
+
+  transform: scale(1.04);
+
+  transition:
+    opacity 0.7s ease,
+    transform 1.1s ease;
+}
+
+
+.featured-project-image.active {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+.featured-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20,23,17,0.14),
+      transparent 38%,
+      rgba(18,20,15,0.58)
+    );
+
+  pointer-events: none;
+}
+
+
+/* =================================
+   PROJECT TOP
+================================= */
+
+.project-top {
+  position: absolute;
+
+  top: 22px;
+
+  left: 24px;
+
+  right: 24px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color:
+    rgba(255,255,255,0.65);
+
+  font-size: 6px;
+
+  letter-spacing: 1.8px;
+}
+
+
+/* =================================
+   GLASS CARD
+================================= */
+
+.project-glass {
+  position: absolute;
+
+  left: 25px;
+
+  bottom: 25px;
+
+  width: 390px;
+
+  padding: 24px;
+
+  border:
+    1px solid
+      rgba(255,255,255,0.3);
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,0.12);
+
+  backdrop-filter:
+    blur(24px);
+
+  -webkit-backdrop-filter:
+    blur(24px);
+
+  color: #fff;
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255,255,255,0.2);
+}
+
+
+.project-location {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+
+  color:
+    rgba(255,255,255,0.6);
+}
+
+
+.project-glass h3 {
+  margin: 0;
+
+  font-family: Georgia, serif;
+
+  font-size: 29px;
+
+  line-height: 1;
+
+  font-weight: 400;
+
+  letter-spacing: -1px;
+}
+
+
+/* =================================
+   META
+================================= */
+
+.project-meta {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 15px;
+
+  font-size: 6.5px;
+
+  letter-spacing: 0.8px;
+
+  color:
+    rgba(255,255,255,0.65);
+}
+
+
+.project-meta div {
+  width: 22px;
+
+  height: 1px;
+
+  background:
+    rgba(255,255,255,0.3);
+}
+
+
+/* =================================
+   LINK
+================================= */
+
+.project-link {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 20px;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  color: #fff;
+
+  font-size: 7px;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  opacity: 0.8;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+
+.project-link:hover {
+  opacity: 1;
+}
+
+
+/* =================================
+   CONTROLS
+================================= */
+
+.project-controls {
+  position: absolute;
+
+  right: 24px;
+
+  bottom: 24px;
+
+  display: flex;
+
+  gap: 6px;
+}
+
+
+.project-controls button {
+  width: 38px;
+
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid
+      rgba(255,255,255,0.25);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,0.11);
+
+  backdrop-filter:
+    blur(12px);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.project-controls button:hover {
+  background:
+    rgba(255,255,255,0.22);
+
+  transform: translateY(-2px);
+}
+
+
+/* =================================
+   THUMBNAILS
+================================= */
+
+.project-thumbnails {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 9px;
+
+  margin-top: 10px;
+}
+
+
+.project-thumbnail {
+  display: grid;
+
+  grid-template-columns: 70px 1fr;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+
+  padding: 7px;
+
+  border:
+    1px solid
+      transparent;
+
+  border-radius: 13px;
+
+  background: transparent;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+
+.project-thumbnail.active {
+  background:
+    rgba(255,255,255,0.45);
+
+  border-color:
+    rgba(255,255,255,0.7);
+}
+
+
+.thumbnail-image {
+  position: relative;
+
+  width: 70px;
+
+  height: 52px;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  background: #c3b9a8;
+}
+
+
+.thumbnail-image img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.4s ease;
+}
+
+
+.project-thumbnail:hover
+.thumbnail-image img {
+  transform: scale(1.06);
+}
+
+
+.thumbnail-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  border:
+    1px solid
+      rgba(255,255,255,0.5);
+
+  border-radius: 8px;
+}
+
+
+.thumbnail-info {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.thumbnail-info span {
+  font-size: 6px;
+
+  letter-spacing: 1px;
+
+  color: #9b9d92;
+}
+
+
+.thumbnail-info strong {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 7.5px;
+
+  font-weight: 450;
+
+  color: #55584c;
+}
+
+
+/* =================================
+   FOOTER
+================================= */
+
+.featured-footer {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  color: #999b91;
+
+  font-size: 5.5px;
+
+  letter-spacing: 1.8px;
+}
+
+
+.featured-footer div {
+  width: 40px;
+
+  height: 1px;
+
+  background:
+    rgba(80,85,65,0.18);
+}
+
+
+.featured-footer span:nth-of-type(2) {
+  margin-left: auto;
+}
+
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width: 950px) {
+
+  .featured-header {
+    grid-template-columns:
+      0.6fr 1.4fr;
+  }
+
+  .featured-view-all {
+    justify-content: flex-start;
+
+    grid-column: 2;
+  }
+
+  .featured-image {
+    height: 510px;
+  }
+
+  .project-thumbnails {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 700px) {
+
+  .featured-kitchens {
+    padding:
+      90px 18px 55px;
+  }
+
+
+  .featured-header {
+    display: block;
+
+    margin-bottom: 28px;
+  }
+
+
+  .featured-label {
+    margin-bottom: 18px;
+  }
+
+
+  .featured-heading h2 {
+    font-size: 45px;
+
+    letter-spacing: -3px;
+  }
+
+
+  .featured-heading p {
+    margin-top: 16px;
+
+    font-size: 8.5px;
+  }
+
+
+  .featured-view-all {
+    justify-content: flex-start;
+
+    margin-top: 18px;
+  }
+
+
+  .featured-image {
+    height: 450px;
+
+    border-radius: 21px;
+  }
+
+
+  .project-glass {
+    left: 14px;
+
+    bottom: 14px;
+
+    width:
+      calc(100% - 28px);
+
+    padding: 18px;
+
+    border-radius: 17px;
+  }
+
+
+  .project-glass h3 {
+    font-size: 24px;
+  }
+
+
+  .project-meta {
+    flex-wrap: wrap;
+
+    line-height: 1.5;
+  }
+
+
+  .project-controls {
+    top: 15px;
+
+    right: 15px;
+
+    bottom: auto;
+  }
+
+
+  .project-controls button {
+    width: 33px;
+
+    height: 33px;
+  }
+
+
+  .project-thumbnails {
+    display: flex;
+
+    overflow-x: auto;
+
+    gap: 7px;
+
+    padding-bottom: 5px;
+
+    scrollbar-width: none;
+  }
+
+
+  .project-thumbnails::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .project-thumbnail {
+    min-width: 185px;
+
+    grid-template-columns: 58px 1fr;
+
+    padding: 6px;
+  }
+
+
+  .thumbnail-image {
+    width: 58px;
+
+    height: 45px;
+  }
+
+
+  .featured-footer {
+    margin-top: 14px;
+  }
+
+}
+
+
+/* =================================
+   SMALL MOBILE
+================================= */
+
+@media (max-width: 420px) {
+
+  .featured-kitchens {
+    padding:
+      75px 14px 45px;
+  }
+
+
+  .featured-heading h2 {
+    font-size: 40px;
+  }
+
+
+  .featured-image {
+    height: 410px;
+  }
+
+
+  .project-glass h3 {
+    font-size: 22px;
+  }
+
+
+  .project-meta {
+    font-size: 6px;
+  }
+
+}

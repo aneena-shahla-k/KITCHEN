@@ -1,0 +1,679 @@
+.materials-section {
+  position: relative;
+
+  padding: 125px 6vw 75px;
+
+  background:
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(122, 128, 83, 0.07),
+      transparent 30%
+    ),
+    #f0ece3;
+
+  color: #292b24;
+
+  overflow: hidden;
+}
+
+
+/* =================================
+   INNER
+================================= */
+
+.materials-inner {
+  max-width: 1250px;
+
+  margin: 0 auto;
+}
+
+
+/* =================================
+   HEADER
+================================= */
+
+.materials-header {
+  display: grid;
+
+  grid-template-columns:
+    0.9fr
+    1.35fr
+    0.7fr;
+
+  align-items: end;
+
+  gap: 35px;
+
+  margin-bottom: 38px;
+}
+
+
+.materials-label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #898b80;
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+}
+
+
+.materials-label div {
+  width: 28px;
+
+  height: 1px;
+
+  background:
+    rgba(70,75,55,0.2);
+}
+
+
+.materials-header h2 {
+  margin: 0;
+
+  font-size:
+    clamp(45px, 5vw, 65px);
+
+  line-height: 0.9;
+
+  font-weight: 350;
+
+  letter-spacing: -3.5px;
+}
+
+
+.materials-header h2 em {
+  font-family: Georgia, serif;
+
+  font-weight: 400;
+
+  color: #70784a;
+
+  letter-spacing: -2px;
+}
+
+
+.materials-header p {
+  max-width: 240px;
+
+  margin: 0;
+
+  font-size: 9px;
+
+  line-height: 1.8;
+
+  color: #808278;
+}
+
+
+/* =================================
+   SHOWCASE
+================================= */
+
+.materials-showcase {
+  display: grid;
+
+  grid-template-columns:
+    1.35fr
+    0.65fr;
+
+  min-height: 510px;
+
+  gap: 14px;
+}
+
+
+/* =================================
+   IMAGE
+================================= */
+
+.materials-image-wrap {
+  position: relative;
+
+  min-height: 510px;
+
+  overflow: hidden;
+
+  border-radius: 27px;
+
+  background: #c1b7a5;
+
+  box-shadow:
+    0 25px 55px
+      rgba(48,44,35,0.1);
+}
+
+
+.material-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0;
+
+  transform: scale(1.035);
+
+  transition:
+    opacity 0.7s ease,
+    transform 1.1s ease;
+}
+
+
+.material-image.active {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+.materials-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20,23,17,0.08),
+      transparent 45%,
+      rgba(20,22,16,0.5)
+    );
+
+  pointer-events: none;
+}
+
+
+/* =================================
+   IMAGE LABEL
+================================= */
+
+.image-label {
+  position: absolute;
+
+  left: 22px;
+
+  bottom: 22px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  color: #fff;
+}
+
+
+.image-label span {
+  font-size: 6px;
+
+  letter-spacing: 1.8px;
+
+  color:
+    rgba(255,255,255,0.6);
+}
+
+
+.image-label strong {
+  font-family: Georgia, serif;
+
+  font-size: 19px;
+
+  font-weight: 400;
+}
+
+
+/* =================================
+   CONTROLS
+================================= */
+
+.material-controls {
+  position: absolute;
+
+  right: 20px;
+
+  bottom: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 5px;
+
+  border:
+    1px solid
+      rgba(255,255,255,0.25);
+
+  border-radius: 30px;
+
+  background:
+    rgba(255,255,255,0.1);
+
+  backdrop-filter:
+    blur(15px);
+
+  -webkit-backdrop-filter:
+    blur(15px);
+
+  color:
+    rgba(255,255,255,0.75);
+
+  font-size: 6px;
+
+  letter-spacing: 1px;
+}
+
+
+.material-controls button {
+  width: 28px;
+
+  height: 28px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,0.12);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease;
+}
+
+
+.material-controls button:hover {
+  background:
+    rgba(255,255,255,0.25);
+}
+
+
+/* =================================
+   INFO GLASS
+================================= */
+
+.material-info {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 28px 25px;
+
+  border:
+    1px solid
+      rgba(255,255,255,0.75);
+
+  border-radius: 27px;
+
+  background:
+    rgba(255,255,255,0.48);
+
+  backdrop-filter:
+    blur(25px);
+
+  -webkit-backdrop-filter:
+    blur(25px);
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255,255,255,0.8);
+}
+
+
+/* =================================
+   NUMBER
+================================= */
+
+.material-number {
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  color: #999b90;
+}
+
+
+/* =================================
+   COPY
+================================= */
+
+.material-copy {
+  margin-top: auto;
+
+  margin-bottom: 30px;
+}
+
+
+.material-subtitle {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 6px;
+
+  letter-spacing: 1.8px;
+
+  color: #72794d;
+}
+
+
+.material-copy h3 {
+  margin: 0 0 12px;
+
+  font-size:
+    clamp(25px, 2.4vw, 34px);
+
+  line-height: 1;
+
+  font-weight: 350;
+
+  letter-spacing: -1.5px;
+}
+
+
+.material-copy p {
+  max-width: 260px;
+
+  margin: 0;
+
+  font-size: 8.5px;
+
+  line-height: 1.75;
+
+  color: #85877c;
+}
+
+
+/* =================================
+   MATERIAL LIST
+================================= */
+
+.material-list {
+  display: flex;
+
+  flex-direction: column;
+
+  border-top:
+    1px solid
+      rgba(70,75,55,0.1);
+}
+
+
+.material-option {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    25px 1fr 15px;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 11px 0;
+
+  border: none;
+
+  border-bottom:
+    1px solid
+      rgba(70,75,55,0.08);
+
+  background: transparent;
+
+  color: #999b91;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    color 0.3s ease,
+    padding 0.3s ease;
+}
+
+
+.material-option:hover,
+.material-option.active {
+  color: #35382e;
+
+  padding-left: 5px;
+}
+
+
+.material-option span {
+  font-size: 6px;
+
+  letter-spacing: 1px;
+}
+
+
+.material-option strong {
+  font-size: 8px;
+
+  font-weight: 450;
+}
+
+
+.material-option svg {
+  opacity: 0;
+
+  transition:
+    opacity 0.3s ease;
+}
+
+
+.material-option.active svg {
+  opacity: 1;
+
+  color: #70784a;
+}
+
+
+/* =================================
+   FOOTER
+================================= */
+
+.materials-footer {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  color: #999b91;
+
+  font-size: 5.5px;
+
+  letter-spacing: 1.8px;
+}
+
+
+.materials-footer div {
+  width: 40px;
+
+  height: 1px;
+
+  background:
+    rgba(80,85,65,0.18);
+}
+
+
+.materials-footer span:last-child {
+  margin-left: auto;
+}
+
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width: 900px) {
+
+  .materials-header {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .materials-header p {
+    display: none;
+  }
+
+  .materials-showcase {
+    grid-template-columns:
+      1.15fr 0.85fr;
+  }
+
+  .materials-image-wrap {
+    min-height: 450px;
+  }
+
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 700px) {
+
+  .materials-section {
+    padding:
+      90px 18px 55px;
+  }
+
+
+  .materials-header {
+    display: block;
+
+    margin-bottom: 28px;
+  }
+
+
+  .materials-label {
+    margin-bottom: 18px;
+  }
+
+
+  .materials-header h2 {
+    font-size: 45px;
+
+    letter-spacing: -3px;
+  }
+
+
+  .materials-header p {
+    display: block;
+
+    margin-top: 17px;
+
+    font-size: 8.5px;
+  }
+
+
+  .materials-showcase {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+
+  .materials-image-wrap {
+    width: 100%;
+
+    min-height: 370px;
+
+    height: 370px;
+
+    border-radius: 21px;
+  }
+
+
+  .material-info {
+    min-height: 430px;
+
+    padding: 22px 20px;
+
+    border-radius: 21px;
+  }
+
+
+  .material-copy {
+    margin-top: 45px;
+
+    margin-bottom: 25px;
+  }
+
+
+  .material-copy h3 {
+    font-size: 29px;
+  }
+
+
+  .material-copy p {
+    font-size: 8.5px;
+  }
+
+
+  .materials-footer {
+    margin-top: 14px;
+  }
+
+}
+
+
+/* =================================
+   SMALL MOBILE
+================================= */
+
+@media (max-width: 420px) {
+
+  .materials-section {
+    padding:
+      75px 14px 45px;
+  }
+
+
+  .materials-header h2 {
+    font-size: 40px;
+  }
+
+
+  .materials-image-wrap {
+    min-height: 330px;
+
+    height: 330px;
+  }
+
+
+  .material-info {
+    min-height: 400px;
+  }
+
+}
