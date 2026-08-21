@@ -378,7 +378,7 @@ function AIKitchenSuggestion() {
       );
 
       const response = await fetch(
-        "http://localhost:5001/api/ai-kitchen/analyze",
+        "https://kitchen-backend-s3v9.onrender.com/api/ai-kitchen/analyze",
         {
           method: "POST",
           body: formData,
