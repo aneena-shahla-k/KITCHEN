@@ -7,7 +7,8 @@ import MaterialsCraftsmanship from '../components/HomeMain/MaterialsCraftsmanshi
 // import FeaturedKitchens from '../components/HomeMain/FeaturedKitchens'
 import ProjectGallery from '../components/HomeMain/ProjectGallery'
 import ProcessCTA from '../components/HomeMain/ProcessCTA'
-import KitchenConfigurator from '../components/HomeMain/KitchenConfigurator'
+// import KitchenConfigurator from '../components/HomeMain/KitchenConfigurator'
+import AIKitchenSuggestion from '../components/HomeMain/AIKitchenSuggestion'
 
 export default function Home() {
   return (
@@ -17,7 +18,8 @@ export default function Home() {
         <DesignProcess/>
         <MaterialsCraftsmanship/>
         <KitchenConsultation/>
-        <KitchenConfigurator/>
+        <AIKitchenSuggestion/>
+        {/* <KitchenConfigurator/>   */}
         {/* <FeaturedKitchens/> */}
         <ProjectGallery/>
         <ProcessCTA/>
