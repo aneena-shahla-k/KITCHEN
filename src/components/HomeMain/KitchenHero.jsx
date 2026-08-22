@@ -2,17 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   useScroll,
   useTransform,
-  useMotionValueEvent,
 } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
 const TOTAL_FRAMES = 240;
-
-const getFramePath = (index) => {
-  const frame = String(index).padStart(3, "0");
-  return `/kitchen/ezgif-frame-${frame}.webp`;
-};
 
 const KitchenHero = () => {
   const heroRef = useRef(null);
