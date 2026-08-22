@@ -1,54 +1,26 @@
-/* =========================================
-   HERO CONTAINER
-========================================= */
-
 .kitchen-hero {
   position: relative;
   width: 100%;
-  height: 300vh;
+  height: 400vh;
   background: #e9e4dc;
 }
-
-
-/* =========================================
-   STICKY ANIMATION
-========================================= */
 
 .kitchen-animation {
   position: sticky;
   top: 0;
-
   width: 100%;
   height: 100vh;
-
   overflow: hidden;
-
   background: #e9e4dc;
 }
-
-
-/* =========================================
-   CANVAS
-========================================= */
 
 .kitchen-canvas {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   display: block;
-
-  /*
-   * IMPORTANT:
-   * The actual image fitting is handled
-   * inside drawFrame() in React.
-   */
-
-  image-rendering: auto;
 }
-
 
 /* =========================================
    OVERLAY

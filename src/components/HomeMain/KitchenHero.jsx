@@ -3,9 +3,7 @@ import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
 const TOTAL_FRAMES = 240;
-const INITIAL_FRAMES = 8;
-const PRELOAD_AHEAD = 24;
-const KEEP_BEHIND = 12;
+const INITIAL_FRAMES = 12;
 
 const getFramePath = (index) => {
   const frame = String(index + 1).padStart(3, "0");
@@ -16,16 +14,12 @@ const KitchenHero = () => {
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const imagesRef = useRef(new Map());
-  const loadingRef = useRef(new Set());
-  const loadedRef = useRef(new Set());
-
-  const currentFrameRef = useRef(0);
+  const imagesRef = useRef([]);
   const targetFrameRef = useRef(0);
+  const currentFrameRef = useRef(0);
 
   const animationFrameRef = useRef(null);
-  const preloadTimerRef = useRef(null);
-  const resizeTimerRef = useRef(null);
+  const loadedCountRef = useRef(0);
 
   const [ready, setReady] = useState(false);
 
@@ -33,273 +27,323 @@ const KitchenHero = () => {
     const hero = heroRef.current;
     const canvas = canvasRef.current;
 
-    if (!hero || !canvas) return undefined;
+    if (!hero || !canvas) return;
 
-    const images = imagesRef.current;
-    const loading = loadingRef.current;
-    const loaded = loadedRef.current;
+    const ctx = canvas.getContext("2d", {
+      alpha: false,
+      desynchronized: true,
+    });
 
-    /* =========================================
-       DRAW FRAME (COVER ALL SCREENS PROPERLY)
-    ========================================= */
-    const drawFrame = (frameIndex) => {
-      const image = images.get(frameIndex);
-      if (!image || !image.complete) return;
+    if (!ctx) return;
 
+    /* ================================
+       CANVAS SIZE
+    ================================ */
+
+    const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-      const displayWidth = rect.width || window.innerWidth;
-      const displayHeight = rect.height || window.innerHeight;
-
-      if (!displayWidth || !displayHeight) return;
-
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const pixelWidth = Math.max(1, Math.round(displayWidth * dpr));
-      const pixelHeight = Math.max(1, Math.round(displayHeight * dpr));
 
-      if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
-        canvas.width = pixelWidth;
-        canvas.height = pixelHeight;
-      }
-
-      const ctx = canvas.getContext("2d", {
-        alpha: false,
-        desynchronized: true,
-      });
-
-      if (!ctx) return;
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, displayWidth, displayHeight);
 
-      const imageRatio = image.naturalWidth / image.naturalHeight;
-      const canvasRatio = displayWidth / displayHeight;
+      drawFrame(Math.round(currentFrameRef.current));
+    };
+
+    /* ================================
+       DRAW FRAME
+    ================================ */
+
+    const drawFrame = (frameIndex) => {
+      const image = imagesRef.current[frameIndex];
+
+      if (!image || !image.complete) return false;
+
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+
+      if (!width || !height) return false;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const imageRatio =
+        image.naturalWidth / image.naturalHeight;
+
+      const screenRatio =
+        width / height;
 
       let drawWidth;
       let drawHeight;
-      let offsetX;
-      let offsetY;
+      let x;
+      let y;
 
-      // Full bleed cover (desktop and mobile)
-      if (imageRatio > canvasRatio) {
-        drawHeight = displayHeight;
-        drawWidth = drawHeight * imageRatio;
-        offsetX = (displayWidth - drawWidth) / 2;
-        offsetY = 0;
+      // Desktop + mobile full cover
+      if (imageRatio > screenRatio) {
+        drawHeight = height;
+        drawWidth = height * imageRatio;
+        x = (width - drawWidth) / 2;
+        y = 0;
       } else {
-        drawWidth = displayWidth;
-        drawHeight = drawWidth / imageRatio;
-        offsetX = 0;
-        offsetY = (displayHeight - drawHeight) / 2;
+        drawWidth = width;
+        drawHeight = width / imageRatio;
+        x = 0;
+        y = (height - drawHeight) / 2;
       }
 
-      ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.drawImage(
+        image,
+        x,
+        y,
+        drawWidth,
+        drawHeight
+      );
+
+      return true;
     };
 
-    /* =========================================
-       LOAD FRAME
-    ========================================= */
+    /* ================================
+       LOAD ONE FRAME
+    ================================ */
+
     const loadFrame = (index) => {
-      if (index < 0 || index >= TOTAL_FRAMES) return;
-      if (loaded.has(index) || loading.has(index)) return;
+      return new Promise((resolve) => {
+        if (imagesRef.current[index]) {
+          resolve();
+          return;
+        }
 
-      loading.add(index);
-      const image = new Image();
-      image.decoding = "async";
+        const image = new Image();
 
-      image.onload = async () => {
-        try {
-          if (image.decode) {
-            await image.decode();
+        image.decoding = "async";
+        image.fetchPriority =
+          index < INITIAL_FRAMES
+            ? "high"
+            : "auto";
+
+        image.onload = () => {
+          imagesRef.current[index] = image;
+          loadedCountRef.current += 1;
+
+          if (index === 0) {
+            setReady(true);
+
+            requestAnimationFrame(() => {
+              drawFrame(0);
+            });
           }
-        } catch (error) {
-          // Fallback
-        }
 
-        images.set(index, image);
-        loaded.add(index);
-        loading.delete(index);
+          resolve();
+        };
 
-        if (index === 0) {
-          setReady(true);
-          requestAnimationFrame(() => {
-            drawFrame(0);
-          });
-        }
-      };
+        image.onerror = () => {
+          resolve();
+        };
 
-      image.onerror = () => {
-        loading.delete(index);
-      };
-
-      image.src = getFramePath(index);
-    };
-
-    /* =========================================
-       PRELOAD RANGE
-    ========================================= */
-    const preloadRange = (start, end) => {
-      const safeStart = Math.max(0, Math.floor(start));
-      const safeEnd = Math.min(TOTAL_FRAMES - 1, Math.ceil(end));
-
-      for (let i = safeStart; i <= safeEnd; i++) {
-        loadFrame(i);
-      }
-    };
-
-    /* =========================================
-       CLEANUP FRAMES
-    ========================================= */
-    const cleanupFarFrames = (current) => {
-      const minFrame = Math.max(0, current - KEEP_BEHIND);
-      const maxFrame = Math.min(TOTAL_FRAMES - 1, current + PRELOAD_AHEAD);
-
-      images.forEach((image, index) => {
-        if (index !== 0 && index < minFrame) {
-          image.onload = null;
-          image.onerror = null;
-          images.delete(index);
-          loaded.delete(index);
-        }
-
-        if (index > maxFrame) {
-          image.onload = null;
-          image.onerror = null;
-          images.delete(index);
-          loaded.delete(index);
-        }
+        image.src = getFramePath(index);
       });
     };
 
-    /* =========================================
-       ANIMATION LOOP
-    ========================================= */
-    const updateAnimation = () => {
-      const current = currentFrameRef.current;
+    /* ================================
+       PRIORITY PRELOAD
+
+       Load first frames immediately.
+       Then load all remaining frames.
+    ================================ */
+
+    const preloadFrames = async () => {
+      // First visible frames
+      const initialPromises = [];
+
+      for (
+        let i = 0;
+        i < Math.min(INITIAL_FRAMES, TOTAL_FRAMES);
+        i++
+      ) {
+        initialPromises.push(loadFrame(i));
+      }
+
+      await Promise.all(initialPromises);
+
+      // Load rest progressively
+      for (
+        let i = INITIAL_FRAMES;
+        i < TOTAL_FRAMES;
+        i += 6
+      ) {
+        const batch = [];
+
+        for (
+          let j = i;
+          j < Math.min(i + 6, TOTAL_FRAMES);
+          j++
+        ) {
+          batch.push(loadFrame(j));
+        }
+
+        await Promise.all(batch);
+
+        // Give browser breathing room
+        await new Promise((resolve) => {
+          requestAnimationFrame(resolve);
+        });
+      }
+    };
+
+    /* ================================
+       FIND NEAREST AVAILABLE FRAME
+
+       If target isn't loaded yet,
+       show closest available frame.
+    ================================ */
+
+    const getAvailableFrame = (frame) => {
+      if (imagesRef.current[frame]) return frame;
+
+      for (let distance = 1; distance < TOTAL_FRAMES; distance++) {
+        const previous = frame - distance;
+        const next = frame + distance;
+
+        if (
+          previous >= 0 &&
+          imagesRef.current[previous]
+        ) {
+          return previous;
+        }
+
+        if (
+          next < TOTAL_FRAMES &&
+          imagesRef.current[next]
+        ) {
+          return next;
+        }
+      }
+
+      return 0;
+    };
+
+    /* ================================
+       SMOOTH RENDER LOOP
+    ================================ */
+
+    const render = () => {
       const target = targetFrameRef.current;
+      const current = currentFrameRef.current;
 
-      if (Math.abs(target - current) > 0.01) {
-        const difference = target - current;
-        currentFrameRef.current =
-          Math.abs(difference) < 0.5 ? target : current + difference * 0.18;
+      // Slight cinematic smoothing
+      const nextCurrent =
+        current + (target - current) * 0.28;
 
-        const frame = Math.max(
-          0,
-          Math.min(TOTAL_FRAMES - 1, Math.round(currentFrameRef.current))
-        );
+      currentFrameRef.current =
+        Math.abs(target - nextCurrent) < 0.01
+          ? target
+          : nextCurrent;
 
-        const image = images.get(frame);
+      const requestedFrame = Math.round(
+        currentFrameRef.current
+      );
 
-        if (image) {
-          drawFrame(frame);
-        } else {
-          preloadRange(frame, frame + PRELOAD_AHEAD);
-        }
+      const availableFrame =
+        getAvailableFrame(requestedFrame);
 
-        preloadRange(frame, frame + PRELOAD_AHEAD);
+      drawFrame(availableFrame);
 
-        if (frame > 0) {
-          preloadRange(frame - 4, frame);
-        }
-
-        cleanupFarFrames(frame);
-      }
-
-      animationFrameRef.current = requestAnimationFrame(updateAnimation);
+      animationFrameRef.current =
+        requestAnimationFrame(render);
     };
 
-    /* =========================================
-       SCROLL
-    ========================================= */
-    const handleScroll = () => {
-      const rect = hero.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const totalDistance = Math.max(1, hero.offsetHeight - viewportHeight);
-      const passed = Math.min(Math.max(-rect.top, 0), totalDistance);
-      const progress = passed / totalDistance;
+    /* ================================
+       SCROLL → FRAME
+    ================================ */
 
-      targetFrameRef.current = progress * (TOTAL_FRAMES - 1);
+    const updateScrollProgress = () => {
+      const rect =
+        hero.getBoundingClientRect();
 
-      if (!preloadTimerRef.current) {
-        preloadTimerRef.current = setTimeout(() => {
-          const target = Math.round(targetFrameRef.current);
-          preloadRange(
-            Math.max(0, target - 4),
-            Math.min(TOTAL_FRAMES - 1, target + PRELOAD_AHEAD)
-          );
-          preloadTimerRef.current = null;
-        }, 50);
-      }
+      const viewportHeight =
+        window.innerHeight;
+
+      const scrollDistance =
+        hero.offsetHeight -
+        viewportHeight;
+
+      const passed = Math.min(
+        Math.max(-rect.top, 0),
+        Math.max(scrollDistance, 1)
+      );
+
+      const progress =
+        passed /
+        Math.max(scrollDistance, 1);
+
+      targetFrameRef.current =
+        progress * (TOTAL_FRAMES - 1);
     };
 
-    /* =========================================
-       RESIZE
-    ========================================= */
-    const handleResize = () => {
-      clearTimeout(resizeTimerRef.current);
-      resizeTimerRef.current = setTimeout(() => {
-        const current = Math.round(currentFrameRef.current);
-        drawFrame(current);
-      }, 50);
-    };
+    /* ================================
+       EVENTS
+    ================================ */
 
-    /* =========================================
-       INTERSECTION OBSERVER
-    ========================================= */
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          if (!animationFrameRef.current) {
-            animationFrameRef.current = requestAnimationFrame(updateAnimation);
-          }
-        } else {
-          if (animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current);
-            animationFrameRef.current = null;
-          }
-        }
-      },
-      {
-        threshold: 0,
-        rootMargin: "300px 0px",
-      }
+    window.addEventListener(
+      "scroll",
+      updateScrollProgress,
+      { passive: true }
     );
 
-    preloadRange(0, INITIAL_FRAMES - 1);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
-    observer.observe(hero);
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
 
-    handleScroll();
-    animationFrameRef.current = requestAnimationFrame(updateAnimation);
+    resizeCanvas();
+    updateScrollProgress();
+
+    animationFrameRef.current =
+      requestAnimationFrame(render);
+
+    preloadFrames();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      observer.disconnect();
+      window.removeEventListener(
+        "scroll",
+        updateScrollProgress
+      );
+
+      window.removeEventListener(
+        "resize",
+        resizeCanvas
+      );
 
       if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+        cancelAnimationFrame(
+          animationFrameRef.current
+        );
       }
 
-      clearTimeout(preloadTimerRef.current);
-      clearTimeout(resizeTimerRef.current);
-
-      images.forEach((image) => {
-        image.onload = null;
-        image.onerror = null;
+      imagesRef.current.forEach((image) => {
+        if (image) {
+          image.onload = null;
+          image.onerror = null;
+        }
       });
 
-      images.clear();
-      loaded.clear();
-      loading.clear();
+      imagesRef.current = [];
     };
   }, []);
 
   return (
-    <section ref={heroRef} className="kitchen-hero" id="home">
+    <section
+      ref={heroRef}
+      className="kitchen-hero"
+      id="home"
+    >
       <div className="kitchen-animation">
-        <canvas ref={canvasRef} className="kitchen-canvas" />
+
+        <canvas
+          ref={canvasRef}
+          className="kitchen-canvas"
+        />
 
         {!ready && (
           <div className="kitchen-loading">
@@ -310,7 +354,9 @@ const KitchenHero = () => {
         <div className="kitchen-overlay" />
 
         <div className="kitchen-hero-content">
-          <span className="kitchen-eyebrow">DESIGN · CREATE · INSPIRE</span>
+          <span className="kitchen-eyebrow">
+            DESIGN · CREATE · INSPIRE
+          </span>
 
           <h1>
             Designing
@@ -318,18 +364,31 @@ const KitchenHero = () => {
             Your Space.
           </h1>
 
-          <p>Custom kitchens crafted around your lifestyle.</p>
+          <p>
+            Custom kitchens crafted around
+            your lifestyle.
+          </p>
 
           <div className="kitchen-actions">
-            <a href="#styles" className="kitchen-primary">
+            <a
+              href="#styles"
+              className="kitchen-primary"
+            >
               Explore Kitchens
               <ArrowRight size={16} />
             </a>
 
-            <button className="kitchen-showreel" type="button">
+            <button
+              className="kitchen-showreel"
+              type="button"
+            >
               <span className="kitchen-play">
-                <Play size={12} fill="currentColor" />
+                <Play
+                  size={12}
+                  fill="currentColor"
+                />
               </span>
+
               Watch Experience
             </button>
           </div>
@@ -356,6 +415,7 @@ const KitchenHero = () => {
           <span>SCROLL</span>
           <div className="scroll-indicator" />
         </div>
+
       </div>
     </section>
   );
