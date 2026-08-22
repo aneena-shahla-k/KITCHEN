@@ -1,337 +1,280 @@
 import React, { useEffect, useRef, useState } from "react";
+import {
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
 const TOTAL_FRAMES = 240;
-const INITIAL_FRAMES = 50;
 
 const getFramePath = (index) => {
-  const frame = String(index + 1).padStart(3, "0");
+  const frame = String(index).padStart(3, "0");
   return `/kitchen/ezgif-frame-${frame}.webp`;
 };
 
 const KitchenHero = () => {
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
-
   const imagesRef = useRef([]);
-  const targetFrameRef = useRef(0);
-  const currentFrameRef = useRef(0);
-
   const animationFrameRef = useRef(null);
+  const lastFrameRef = useRef(-1);
+
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    const hero = heroRef.current;
-    const canvas = canvasRef.current;
+  /* ================================
+     FRAMER MOTION SCROLL
+  ================================ */
 
-    if (!hero || !canvas) return;
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end end"],
+  });
 
-    const ctx = canvas.getContext("2d", {
-      alpha: false,
-      desynchronized: true,
-    });
+  const frameIndex = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [1, TOTAL_FRAMES]
+  );
 
-    if (!ctx) return;
+  /* ================================
+     DRAW FRAME
+  ================================ */
 
-    /* ================================
-       CANVAS SIZE
-    ================================ */
+  const drawFrame = (frameNumber) => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
 
-    const resizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    animationFrameRef.current = requestAnimationFrame(() => {
+      const canvas = canvasRef.current;
 
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
+      if (!canvas) return;
 
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const imageIndex = Math.max(
+        0,
+        Math.min(
+          TOTAL_FRAMES - 1,
+          frameNumber - 1
+        )
+      );
 
-      drawFrame(Math.round(currentFrameRef.current));
-    };
+      const image =
+        imagesRef.current[imageIndex];
 
-    /* ================================
-       DRAW FRAME
-    ================================ */
+      if (
+        !image ||
+        !image.complete ||
+        image.naturalWidth === 0
+      ) {
+        return;
+      }
 
-    const drawFrame = (frameIndex) => {
-      const image = imagesRef.current[frameIndex];
+      const context = canvas.getContext(
+        "2d",
+        {
+          alpha: false,
+          desynchronized: true,
+        }
+      );
 
-      if (!image || !image.complete) return false;
+      if (!context) return;
 
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
+      const rect =
+        canvas.getBoundingClientRect();
 
-      if (!width || !height) return false;
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
 
-      ctx.clearRect(0, 0, width, height);
+      const pixelWidth =
+        Math.round(rect.width * dpr);
+
+      const pixelHeight =
+        Math.round(rect.height * dpr);
+
+      if (
+        canvas.width !== pixelWidth ||
+        canvas.height !== pixelHeight
+      ) {
+        canvas.width = pixelWidth;
+        canvas.height = pixelHeight;
+      }
+
+      context.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+
+      const canvasWidth = rect.width;
+      const canvasHeight = rect.height;
+
+      if (
+        !canvasWidth ||
+        !canvasHeight
+      ) {
+        return;
+      }
 
       const imageRatio =
-        image.naturalWidth / image.naturalHeight;
+        image.naturalWidth /
+        image.naturalHeight;
 
-      const screenRatio =
-        width / height;
+      const canvasRatio =
+        canvasWidth /
+        canvasHeight;
 
       let drawWidth;
       let drawHeight;
-      let x;
-      let y;
+      let offsetX;
+      let offsetY;
 
-      // Desktop + mobile full cover
-      if (imageRatio > screenRatio) {
-        drawHeight = height;
-        drawWidth = height * imageRatio;
-        x = (width - drawWidth) / 2;
-        y = 0;
+      /* FULL COVER */
+
+      if (imageRatio > canvasRatio) {
+        drawHeight = canvasHeight;
+        drawWidth =
+          drawHeight * imageRatio;
+
+        offsetX =
+          (canvasWidth - drawWidth) / 2;
+
+        offsetY = 0;
       } else {
-        drawWidth = width;
-        drawHeight = width / imageRatio;
-        x = 0;
-        y = (height - drawHeight) / 2;
+        drawWidth = canvasWidth;
+        drawHeight =
+          drawWidth / imageRatio;
+
+        offsetX = 0;
+
+        offsetY =
+          (canvasHeight - drawHeight) / 2;
       }
 
-      ctx.drawImage(
+      context.clearRect(
+        0,
+        0,
+        canvasWidth,
+        canvasHeight
+      );
+
+      context.drawImage(
         image,
-        x,
-        y,
+        offsetX,
+        offsetY,
         drawWidth,
         drawHeight
       );
-
-      return true;
-    };
-
-    /* ================================
-       LOAD ONE FRAME
-    ================================ */
-const loadFrame = (index) => {
-  return new Promise((resolve) => {
-    if (imagesRef.current[index]) {
-      resolve();
-      return;
-    }
-
-    const image = new Image();
-
-    image.decoding = "async";
-
-    image.onload = async () => {
-      try {
-        if (image.decode) {
-          await image.decode();
-        }
-      } catch (error) {
-        // Browser fallback
-      }
-
-      imagesRef.current[index] = image;
-
-      resolve();
-    };
-
-    image.onerror = resolve;
-    image.src = getFramePath(index);
-  });
-};
-
-    /* ================================
-       PRIORITY PRELOAD
-
-       Load first frames immediately.
-       Then load all remaining frames.
-    ================================ */
-
-    const preloadFrames = async () => {
-  // FIRST: Load first frames required for initial scrolling
-  const initialPromises = [];
-
-  for (let i = 0; i < INITIAL_FRAMES; i++) {
-    initialPromises.push(loadFrame(i));
-  }
-
-  await Promise.all(initialPromises);
-
-  // Show hero only after first sequence is ready
-  requestAnimationFrame(() => {
-    drawFrame(0);
-    setReady(true);
-  });
-
-  // Load remaining frames gradually
-  const loadRemaining = () => {
-    let index = INITIAL_FRAMES;
-
-    const loadNextBatch = () => {
-      const batch = [];
-
-      for (
-        let i = index;
-        i < Math.min(index + 4, TOTAL_FRAMES);
-        i++
-      ) {
-        batch.push(loadFrame(i));
-      }
-
-      index += 4;
-
-      Promise.all(batch).then(() => {
-        if (index < TOTAL_FRAMES) {
-          if ("requestIdleCallback" in window) {
-            requestIdleCallback(loadNextBatch, {
-              timeout: 500,
-            });
-          } else {
-            setTimeout(loadNextBatch, 80);
-          }
-        }
-      });
-    };
-
-    loadNextBatch();
+    });
   };
 
-  loadRemaining();
-};
-    /* ================================
-       FIND NEAREST AVAILABLE FRAME
+  /* ================================
+     PRELOAD ALL FRAMES
+  ================================ */
 
-       If target isn't loaded yet,
-       show closest available frame.
-    ================================ */
+  useEffect(() => {
+    const loadedImages = [];
 
-    const getAvailableFrame = (frame) => {
-      if (imagesRef.current[frame]) return frame;
+    for (
+      let i = 1;
+      i <= TOTAL_FRAMES;
+      i++
+    ) {
+      const image = new Image();
 
-      for (let distance = 1; distance < TOTAL_FRAMES; distance++) {
-        const previous = frame - distance;
-        const next = frame + distance;
+      image.decoding = "async";
 
-        if (
-          previous >= 0 &&
-          imagesRef.current[previous]
-        ) {
-          return previous;
-        }
+      const frame =
+        String(i).padStart(3, "0");
 
-        if (
-          next < TOTAL_FRAMES &&
-          imagesRef.current[next]
-        ) {
-          return next;
-        }
+      image.src =
+        `/kitchen/ezgif-frame-${frame}.webp`;
+
+      if (i === 1) {
+        image.onload = () => {
+          requestAnimationFrame(() => {
+            drawFrame(1);
+            setReady(true);
+          });
+        };
       }
 
-      return 0;
-    };
+      loadedImages.push(image);
+    }
 
-    /* ================================
-       SMOOTH RENDER LOOP
-    ================================ */
+    imagesRef.current =
+      loadedImages;
 
-    const render = () => {
-      const target = targetFrameRef.current;
-      const current = currentFrameRef.current;
+    const unsubscribe =
+      frameIndex.on(
+        "change",
+        (latest) => {
+          const frame =
+            Math.round(latest);
 
-      // Slight cinematic smoothing
-      const nextCurrent =
-        current + (target - current) * 0.28;
+          if (
+            frame !==
+            lastFrameRef.current
+          ) {
+            lastFrameRef.current =
+              frame;
 
-      currentFrameRef.current =
-        Math.abs(target - nextCurrent) < 0.01
-          ? target
-          : nextCurrent;
-
-      const requestedFrame = Math.round(
-        currentFrameRef.current
+            drawFrame(frame);
+          }
+        }
       );
 
-      const availableFrame =
-        getAvailableFrame(requestedFrame);
-
-      drawFrame(availableFrame);
-
-      animationFrameRef.current =
-        requestAnimationFrame(render);
-    };
-
-    /* ================================
-       SCROLL → FRAME
-    ================================ */
-
-    const updateScrollProgress = () => {
-      const rect =
-        hero.getBoundingClientRect();
-
-      const viewportHeight =
-        window.innerHeight;
-
-      const scrollDistance =
-        hero.offsetHeight -
-        viewportHeight;
-
-      const passed = Math.min(
-        Math.max(-rect.top, 0),
-        Math.max(scrollDistance, 1)
+    const handleResize = () => {
+      drawFrame(
+        Math.round(
+          frameIndex.get()
+        )
       );
-
-      const progress =
-        passed /
-        Math.max(scrollDistance, 1);
-
-      targetFrameRef.current =
-        progress * (TOTAL_FRAMES - 1);
     };
-
-    /* ================================
-       EVENTS
-    ================================ */
-
-    window.addEventListener(
-      "scroll",
-      updateScrollProgress,
-      { passive: true }
-    );
 
     window.addEventListener(
       "resize",
-      resizeCanvas
+      handleResize
     );
 
-    resizeCanvas();
-    updateScrollProgress();
-
-    animationFrameRef.current =
-      requestAnimationFrame(render);
-
-    preloadFrames();
-
     return () => {
-      window.removeEventListener(
-        "scroll",
-        updateScrollProgress
-      );
+      unsubscribe();
 
       window.removeEventListener(
         "resize",
-        resizeCanvas
+        handleResize
       );
 
-      if (animationFrameRef.current) {
+      if (
+        animationFrameRef.current
+      ) {
         cancelAnimationFrame(
           animationFrameRef.current
         );
       }
 
-      imagesRef.current.forEach((image) => {
-        if (image) {
-          image.onload = null;
-          image.onerror = null;
+      imagesRef.current.forEach(
+        (image) => {
+          if (image) {
+            image.onload = null;
+            image.onerror = null;
+          }
         }
-      });
+      );
 
       imagesRef.current = [];
     };
-  }, []);
+  }, [frameIndex]);
+
+  /* ================================
+     RENDER
+  ================================ */
 
   return (
     <section
@@ -371,11 +314,13 @@ const loadFrame = (index) => {
           </p>
 
           <div className="kitchen-actions">
+
             <a
               href="#styles"
               className="kitchen-primary"
             >
               Explore Kitchens
+
               <ArrowRight size={16} />
             </a>
 
@@ -392,28 +337,38 @@ const loadFrame = (index) => {
 
               Watch Experience
             </button>
+
           </div>
         </div>
 
         <div className="kitchen-stats">
+
           <div>
             <strong>10+</strong>
-            <span>Years Experience</span>
+            <span>
+              Years Experience
+            </span>
           </div>
 
           <div>
             <strong>850+</strong>
-            <span>Projects Completed</span>
+            <span>
+              Projects Completed
+            </span>
           </div>
 
           <div>
             <strong>98%</strong>
-            <span>Client Satisfaction</span>
+            <span>
+              Client Satisfaction
+            </span>
           </div>
+
         </div>
 
         <div className="kitchen-scroll">
           <span>SCROLL</span>
+
           <div className="scroll-indicator" />
         </div>
 
