@@ -3,7 +3,7 @@ import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
 const TOTAL_FRAMES = 240;
-const INITIAL_FRAMES = 12;
+const INITIAL_FRAMES = 50;
 
 const getFramePath = (index) => {
   const frame = String(index + 1).padStart(3, "0");
@@ -19,8 +19,6 @@ const KitchenHero = () => {
   const currentFrameRef = useRef(0);
 
   const animationFrameRef = useRef(null);
-  const loadedCountRef = useRef(0);
-
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -106,44 +104,35 @@ const KitchenHero = () => {
     /* ================================
        LOAD ONE FRAME
     ================================ */
+const loadFrame = (index) => {
+  return new Promise((resolve) => {
+    if (imagesRef.current[index]) {
+      resolve();
+      return;
+    }
 
-    const loadFrame = (index) => {
-      return new Promise((resolve) => {
-        if (imagesRef.current[index]) {
-          resolve();
-          return;
+    const image = new Image();
+
+    image.decoding = "async";
+
+    image.onload = async () => {
+      try {
+        if (image.decode) {
+          await image.decode();
         }
+      } catch (error) {
+        // Browser fallback
+      }
 
-        const image = new Image();
+      imagesRef.current[index] = image;
 
-        image.decoding = "async";
-        image.fetchPriority =
-          index < INITIAL_FRAMES
-            ? "high"
-            : "auto";
-
-        image.onload = () => {
-          imagesRef.current[index] = image;
-          loadedCountRef.current += 1;
-
-          if (index === 0) {
-            setReady(true);
-
-            requestAnimationFrame(() => {
-              drawFrame(0);
-            });
-          }
-
-          resolve();
-        };
-
-        image.onerror = () => {
-          resolve();
-        };
-
-        image.src = getFramePath(index);
-      });
+      resolve();
     };
+
+    image.onerror = resolve;
+    image.src = getFramePath(index);
+  });
+};
 
     /* ================================
        PRIORITY PRELOAD
@@ -153,44 +142,56 @@ const KitchenHero = () => {
     ================================ */
 
     const preloadFrames = async () => {
-      // First visible frames
-      const initialPromises = [];
+  // FIRST: Load first frames required for initial scrolling
+  const initialPromises = [];
+
+  for (let i = 0; i < INITIAL_FRAMES; i++) {
+    initialPromises.push(loadFrame(i));
+  }
+
+  await Promise.all(initialPromises);
+
+  // Show hero only after first sequence is ready
+  requestAnimationFrame(() => {
+    drawFrame(0);
+    setReady(true);
+  });
+
+  // Load remaining frames gradually
+  const loadRemaining = () => {
+    let index = INITIAL_FRAMES;
+
+    const loadNextBatch = () => {
+      const batch = [];
 
       for (
-        let i = 0;
-        i < Math.min(INITIAL_FRAMES, TOTAL_FRAMES);
+        let i = index;
+        i < Math.min(index + 4, TOTAL_FRAMES);
         i++
       ) {
-        initialPromises.push(loadFrame(i));
+        batch.push(loadFrame(i));
       }
 
-      await Promise.all(initialPromises);
+      index += 4;
 
-      // Load rest progressively
-      for (
-        let i = INITIAL_FRAMES;
-        i < TOTAL_FRAMES;
-        i += 6
-      ) {
-        const batch = [];
-
-        for (
-          let j = i;
-          j < Math.min(i + 6, TOTAL_FRAMES);
-          j++
-        ) {
-          batch.push(loadFrame(j));
+      Promise.all(batch).then(() => {
+        if (index < TOTAL_FRAMES) {
+          if ("requestIdleCallback" in window) {
+            requestIdleCallback(loadNextBatch, {
+              timeout: 500,
+            });
+          } else {
+            setTimeout(loadNextBatch, 80);
+          }
         }
-
-        await Promise.all(batch);
-
-        // Give browser breathing room
-        await new Promise((resolve) => {
-          requestAnimationFrame(resolve);
-        });
-      }
+      });
     };
 
+    loadNextBatch();
+  };
+
+  loadRemaining();
+};
     /* ================================
        FIND NEAREST AVAILABLE FRAME
 
