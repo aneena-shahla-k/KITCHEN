@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
-const TOTAL_FRAMES = 184;
+const TOTAL_FRAMES = 240;
 const INITIAL_FRAMES = 8;
 const PRELOAD_AHEAD = 24;
 const KEEP_BEHIND = 12;
 
 const getFramePath = (index) => {
   const frame = String(index + 1).padStart(3, "0");
-  return `/kitchenn/ezgif-frame-${frame}.webp`;
+  return `/kitchen/ezgif-frame-${frame}.webp`;
 };
 
 const KitchenHero = () => {
