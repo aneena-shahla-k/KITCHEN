@@ -188,7 +188,7 @@ const KitchenHero = () => {
         String(i).padStart(3, "0");
 
       image.src =
-        `/kitchen/ezgif-frame-${frame}.webp`;
+        `/kitchennn/ezgif-frame-${frame}.webp`;
 
       if (i === 1) {
         image.onload = () => {
