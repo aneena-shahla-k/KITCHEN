@@ -1,0 +1,745 @@
+/* =====================================================
+   HOW WE WORK
+===================================================== */
+
+.how-we-work {
+  position: relative;
+
+  width: 100%;
+
+  padding: 125px 5vw 110px;
+
+  background: #e5d9ca;
+
+  color: #332d27;
+
+  overflow: hidden;
+}
+
+.how-we-work *,
+.how-we-work *::before,
+.how-we-work *::after {
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.how-work-header {
+  width: min(1300px, 100%);
+
+  margin: 0 auto 55px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-end;
+
+  gap: 60px;
+}
+
+
+/* LABEL */
+
+.how-work-label {
+  display: block;
+
+  margin-bottom: 15px;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  color: rgba(51,45,39,0.58);
+}
+
+
+/* HEADING */
+
+.how-work-header h2 {
+  margin: 0;
+
+  font-size: clamp(44px, 5vw, 68px);
+
+  line-height: 0.96;
+
+  font-weight: 500;
+
+  letter-spacing: -2.5px;
+}
+
+.how-work-header h2 span {
+  color: rgba(51,45,39,0.45);
+}
+
+
+/* HEADER TEXT */
+
+.how-work-header > p {
+  width: 300px;
+
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.75;
+
+  color: rgba(51,45,39,0.65);
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.how-work-content {
+  width: min(1300px, 100%);
+
+  min-height: 560px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(340px, 0.65fr);
+
+  background: #b8a58f;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.how-work-image {
+  position: relative;
+
+  min-height: 560px;
+
+  overflow: hidden;
+
+  background: #a28e78;
+}
+
+.how-work-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  animation:
+    howWorkImageIn
+    0.65s
+    ease;
+}
+
+@keyframes howWorkImageIn {
+
+  from {
+    opacity: 0.5;
+    transform: scale(1.025);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* IMAGE NUMBER */
+
+.how-work-image-number {
+  position: absolute;
+
+  top: 25px;
+  left: 27px;
+
+  color: rgba(255,255,255,0.8);
+
+  font-size: 11px;
+
+  letter-spacing: 1.5px;
+}
+
+
+/* IMAGE BOTTOM */
+
+.how-work-image-bottom {
+  position: absolute;
+
+  left: 25px;
+  right: 25px;
+  bottom: 24px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  color: #fff;
+}
+
+.how-work-image-bottom::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -100px -25px -24px;
+
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(32,25,20,0.58),
+      transparent
+    );
+}
+
+.how-work-image-bottom span {
+  font-size: 7px;
+
+  letter-spacing: 1.5px;
+
+  opacity: 0.7;
+}
+
+.how-work-image-bottom strong {
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+
+/* =====================================================
+   DETAILS PANEL
+===================================================== */
+
+.how-work-details {
+  padding: 55px 45px 40px;
+
+  background: #c7b5a1;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* STEP COUNT */
+
+.how-work-step-count {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 7px;
+
+  margin-bottom: 35px;
+}
+
+.how-work-step-count span {
+  font-size: 7px;
+
+  letter-spacing: 1.5px;
+
+  color: rgba(51,45,39,0.55);
+}
+
+.how-work-step-count strong {
+  font-size: 22px;
+
+  font-weight: 500;
+}
+
+.how-work-step-count small {
+  font-size: 8px;
+
+  color: rgba(51,45,39,0.45);
+}
+
+
+/* TITLE */
+
+.how-work-details h3 {
+  margin: 0 0 16px;
+
+  max-width: 360px;
+
+  font-size: 31px;
+
+  line-height: 1.05;
+
+  font-weight: 500;
+
+  letter-spacing: -1px;
+}
+
+
+/* DESCRIPTION */
+
+.how-work-description {
+  margin: 0;
+
+  max-width: 350px;
+
+  font-size: 11px;
+
+  line-height: 1.75;
+
+  color: rgba(51,45,39,0.68);
+}
+
+
+/* =====================================================
+   POINTS
+===================================================== */
+
+.how-work-points {
+  margin-top: 32px;
+
+  border-top:
+    1px solid
+    rgba(51,45,39,0.14);
+}
+
+.how-work-point {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 13px 0;
+
+  border-bottom:
+    1px solid
+    rgba(51,45,39,0.14);
+}
+
+.how-work-point span {
+  width: 22px;
+  height: 22px;
+
+  flex: 0 0 22px;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid
+    rgba(51,45,39,0.2);
+
+  border-radius: 50%;
+
+  font-size: 7px;
+
+  color: rgba(51,45,39,0.65);
+}
+
+.how-work-point p {
+  margin: 0;
+
+  font-size: 9px;
+
+  color: rgba(51,45,39,0.75);
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.how-work-navigation {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-top: auto;
+
+  padding-top: 30px;
+}
+
+
+/* ARROWS */
+
+.how-work-arrows {
+  display: flex;
+
+  gap: 7px;
+}
+
+.how-work-arrows button {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(51,45,39,0.2);
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: #332d27;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.how-work-arrows button:hover {
+  background: rgba(255,255,255,0.25);
+
+  transform: translateY(-2px);
+}
+
+
+/* PROGRESS */
+
+.how-work-progress {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.how-work-progress button {
+  width: 28px;
+
+  height: 12px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.how-work-progress button span {
+  display: block;
+
+  width: 100%;
+
+  height: 2px;
+
+  background:
+    rgba(51,45,39,0.2);
+
+  transition:
+    background 0.3s ease;
+}
+
+.how-work-progress button.active span {
+  background:
+    rgba(51,45,39,0.75);
+}
+
+
+/* =====================================================
+   FOOTER CTA
+===================================================== */
+
+.how-work-footer {
+  width: min(1300px, 100%);
+
+  margin: 28px auto 0;
+
+  padding-top: 24px;
+
+  border-top:
+    1px solid
+    rgba(51,45,39,0.15);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.how-work-footer > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.how-work-footer span {
+  font-size: 7px;
+
+  letter-spacing: 1.5px;
+
+  color: rgba(51,45,39,0.5);
+}
+
+.how-work-footer strong {
+  font-size: 17px;
+
+  font-weight: 500;
+}
+
+.how-work-footer a {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #332d27;
+
+  text-decoration: none;
+
+  font-size: 9px;
+
+  font-weight: 600;
+}
+
+.how-work-footer a svg {
+  transition:
+    transform 0.25s ease;
+}
+
+.how-work-footer a:hover svg {
+  transform: translateX(4px);
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  .how-we-work {
+    padding:
+      105px 4vw 90px;
+  }
+
+  .how-work-header {
+    gap: 35px;
+  }
+
+  .how-work-header h2 {
+    font-size: 54px;
+  }
+
+  .how-work-content {
+    grid-template-columns:
+      1.2fr
+      0.8fr;
+
+    min-height: 520px;
+  }
+
+  .how-work-image {
+    min-height: 520px;
+  }
+
+  .how-work-details {
+    padding:
+      42px 32px 32px;
+  }
+
+  .how-work-details h3 {
+    font-size: 27px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+  .how-we-work {
+    padding:
+      80px 18px 75px;
+  }
+
+  .how-work-header {
+    display: block;
+
+    margin-bottom: 32px;
+  }
+
+  .how-work-header h2 {
+    font-size: 42px;
+
+    letter-spacing: -1.8px;
+  }
+
+  .how-work-header > p {
+    width: auto;
+
+    max-width: 350px;
+
+    margin-top: 20px;
+
+    font-size: 11px;
+  }
+
+
+  /* STACK */
+
+  .how-work-content {
+    display: block;
+
+    min-height: 0;
+
+    border-radius: 13px;
+  }
+
+
+  /* IMAGE */
+
+  .how-work-image {
+    height: 390px;
+
+    min-height: 390px;
+  }
+
+  .how-work-image-bottom {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .how-work-image-bottom strong {
+    font-size: 12px;
+  }
+
+
+  /* DETAILS */
+
+  .how-work-details {
+    min-height: 430px;
+
+    padding:
+      30px 22px 24px;
+  }
+
+  .how-work-step-count {
+    margin-bottom: 22px;
+  }
+
+  .how-work-details h3 {
+    font-size: 26px;
+
+    margin-bottom: 12px;
+  }
+
+  .how-work-description {
+    font-size: 10px;
+  }
+
+  .how-work-points {
+    margin-top: 24px;
+  }
+
+  .how-work-point {
+    padding: 11px 0;
+  }
+
+
+  /* NAV */
+
+  .how-work-navigation {
+    padding-top: 22px;
+  }
+
+
+  /* FOOTER */
+
+  .how-work-footer {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 430px) {
+
+  .how-we-work {
+    padding:
+      65px 14px 65px;
+  }
+
+  .how-work-header h2 {
+    font-size: 36px;
+  }
+
+  .how-work-image {
+    height: 350px;
+
+    min-height: 350px;
+  }
+
+  .how-work-details {
+    min-height: 430px;
+
+    padding:
+      26px 18px 20px;
+  }
+
+  .how-work-details h3 {
+    font-size: 23px;
+  }
+
+  .how-work-description {
+    font-size: 9px;
+
+    line-height: 1.65;
+  }
+
+  .how-work-point p {
+    font-size: 8px;
+  }
+
+  .how-work-progress button {
+    width: 22px;
+  }
+}

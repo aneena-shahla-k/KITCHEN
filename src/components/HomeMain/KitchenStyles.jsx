@@ -20,42 +20,42 @@ const styles = [
     number: "01",
     image: modern,
     description:
-      "Clean lines, refined surfaces and contemporary living.",
+      "Clean lines, practical storage and a fresh contemporary look.",
   },
   {
     name: "Minimal",
     number: "02",
     image: minimal,
     description:
-      "Quiet forms designed around simplicity and balance.",
+      "Simple forms and uncluttered spaces made for everyday living.",
   },
   {
     name: "Luxury",
     number: "03",
     image: luxury,
     description:
-      "Rich materials and sophisticated details for timeless interiors.",
+      "Premium finishes and thoughtful details for an elegant kitchen.",
   },
   {
     name: "Classic",
     number: "04",
     image: classic,
     description:
-      "Elegant proportions with a warm and enduring character.",
+      "A timeless kitchen style with warmth, comfort and character.",
   },
   {
     name: "Warm Wood",
     number: "05",
     image: wood,
     description:
-      "Natural textures bringing warmth into everyday spaces.",
+      "Natural wood tones that bring warmth and personality to your home.",
   },
   {
     name: "L-Shaped",
     number: "06",
     image: shaped,
     description:
-      "Smart spatial planning with effortless functionality.",
+      "A practical layout that makes smart use of available space.",
   },
 ];
 
@@ -77,45 +77,56 @@ const KitchenStyles = () => {
   return (
     <section className="kitchen-styles" id="styles">
 
+      {/* HEADER */}
+
       <div className="styles-top">
 
         <div className="styles-title">
           <span className="section-label">
-            OUR COLLECTION
+            KITCHEN STYLES
           </span>
 
           <h2>
-            Spaces with
+            Find a style
             <br />
-            <em>character.</em>
+            <span>you'll love.</span>
           </h2>
         </div>
 
         <div className="styles-intro">
+
           <p>
-            Explore a curated collection of kitchen
-            interiors, each designed around a different
-            way of living.
+            Explore different kitchen styles and find
+            the look that feels right for your home.
           </p>
 
           <a
             href="/kitchens"
             className="view-all"
           >
-            Explore all styles
+            View all kitchens
+
             <span>
               <ArrowRight size={15} />
             </span>
           </a>
+
         </div>
 
       </div>
 
+      {/* SHOWCASE */}
+
       <div className="styles-showcase">
 
         <div className="style-number">
+
           <span>STYLE</span>
-          <strong>{current.number}</strong>
+
+          <strong>
+            {current.number}
+          </strong>
+
         </div>
 
         <div className="style-preview">
@@ -128,29 +139,39 @@ const KitchenStyles = () => {
 
           <div className="preview-gradient" />
 
-          <div className="preview-watermark">
+          {/* IMAGE NUMBER */}
+
+          <div className="preview-number">
             {current.number}
           </div>
 
-          <div className="style-info-glass">
+          {/* INFORMATION */}
+
+          <div className="style-info">
 
             <span className="style-info-label">
-              CURRENT STYLE
+              {current.number} / {styles.length}
             </span>
 
-            <h3>{current.name}</h3>
+            <h3>
+              {current.name}
+            </h3>
 
-            <p>{current.description}</p>
+            <p>
+              {current.description}
+            </p>
 
             <button
               type="button"
               className="discover-style"
             >
-              Discover
+              Explore style
               <MoveUpRight size={15} />
             </button>
 
           </div>
+
+          {/* CONTROLS */}
 
           <div className="preview-controls">
 
@@ -174,12 +195,16 @@ const KitchenStyles = () => {
 
         </div>
 
+        {/* STYLE LIST */}
+
         <div className="style-rail">
 
           <div className="rail-line">
             <span
               style={{
-                width: `${((active + 1) / styles.length) * 100}%`,
+                width: `${
+                  ((active + 1) / styles.length) * 100
+                }%`,
               }}
             />
           </div>
@@ -197,12 +222,14 @@ const KitchenStyles = () => {
               >
 
                 <div className="style-card-image">
+
                   <img
                     src={style.image}
                     alt={style.name}
                   />
 
                   <div className="style-card-overlay" />
+
                 </div>
 
                 <div className="style-card-content">

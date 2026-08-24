@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import {
-  ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import {ArrowUpRight} from "lucide-react";
 import "./OurWork.css";
 
 import project1 from "../../images/projects/IMG_8268.jpg";
 import project2 from "../../images/projects/IMG_8260.jpg";
 import project3 from "../../images/projects/IMG_8262.jpg";
 import project4 from "../../images/projects/IMG_8269.jpg";
-import after from "../../images/projects/before.png";
-import before from "../../images/projects/after.png";
 import img1 from "../../images/projects/IMG_8271.jpg";
 
 const projects = [
@@ -64,10 +58,7 @@ const projects = [
 
 const OurWork = () => {
   const [activeProject, setActiveProject] = useState(0);
-  const [beforePosition, setBeforePosition] = useState(50);
-
   const featuredProject = projects[activeProject];
-
   const nextProject = () => {
     setActiveProject((prev) =>
       prev === projects.length - 1 ? 0 : prev + 1
@@ -148,66 +139,6 @@ const OurWork = () => {
         </div>
       </section>
 
-      {/* BEFORE AFTER */}
-      <section className="ourWork-beforeAfter">
-        <div className="ourWork-beforeAfter-header">
-          <h2>See The Results</h2>
-          <p>
-            Drag across the image to see how thoughtful design
-            can completely transform a space.
-          </p>
-        </div>
-        <div className="ourWork-beforeAfter-slider">
-          <img
-            src={before}
-            alt="Finished kitchen"
-            className="ourWork-after-image"
-          />
-
-          <div
-            className="ourWork-before-image"
-            style={{
-              width: `${beforePosition}%`,
-            }}
-          >
-            <img
-              src={after}
-              alt="Kitchen before transformation"
-            />
-          </div>
-
-          <div
-            className="ourWork-slider-line"
-            style={{
-              left: `${beforePosition}%`,
-            }}
-          >
-            <div className="ourWork-slider-handle">
-              <ChevronLeft size={14} />
-              <ChevronRight size={14} />
-            </div>
-          </div>
-
-          <span className="ourWork-before-label">
-            BEFORE
-          </span>
-
-          <span className="ourWork-after-label">
-            AFTER
-          </span>
-
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={beforePosition}
-            onChange={(e) =>
-              setBeforePosition(Number(e.target.value))
-            }
-            aria-label="Before and after comparison"
-          />
-        </div>
-      </section>
 
       {/* PROJECT STORY */}
       <section className="ourWork-story">

@@ -1,0 +1,280 @@
+/* =========================================
+   KITCHEN IDEAS - BASE
+========================================= */
+
+.kitchen-ideas {
+  width: 100%;
+  padding: clamp(60px, 8vw, 120px) 0;
+  background: #f1eee6;
+  color: #1b211d;
+  box-sizing: border-box;
+}
+
+.kitchen-ideas *,
+.kitchen-ideas *::before,
+.kitchen-ideas *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.kitchen-ideas__header {
+  width: min(1200px, calc(100% - clamp(32px, 6vw, 80px)));
+  margin: 0 auto clamp(36px, 5vw, 60px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.kitchen-ideas__eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #8f8062;
+  text-transform: uppercase;
+}
+
+.kitchen-ideas__header h2 {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.kitchen-ideas__header h2 span {
+  color: #7e857f;
+}
+
+.kitchen-ideas__header > p {
+  max-width: 360px;
+  margin: 0;
+  font-size: clamp(12px, 1.1vw, 13px);
+  line-height: 1.65;
+  color: #737a74;
+}
+
+/* =========================================
+   GRID (CLEAN 2x2 BENTO)
+========================================= */
+
+.kitchen-ideas__grid {
+  width: min(1200px, calc(100% - clamp(32px, 6vw, 80px)));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 2vw, 20px);
+}
+
+/* =========================================
+   ITEM / CARD
+========================================= */
+
+.kitchen-ideas__item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 320px;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #d8d5cc;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.kitchen-ideas__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.kitchen-ideas__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.kitchen-ideas__item:hover .kitchen-ideas__image img {
+  transform: scale(1.04);
+}
+
+.kitchen-ideas__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.kitchen-ideas__item:hover .kitchen-ideas__image-overlay {
+  opacity: 0.9;
+}
+
+/* =========================================
+   BADGES & ARROW
+========================================= */
+
+.kitchen-ideas__number {
+  position: absolute;
+  top: clamp(14px, 2vw, 20px);
+  left: clamp(14px, 2vw, 20px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 2;
+}
+
+.kitchen-ideas__arrow {
+  position: absolute;
+  top: clamp(14px, 2vw, 20px);
+  right: clamp(14px, 2vw, 20px);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: rgba(15, 20, 17, 0.3);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  z-index: 2;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: all 0.3s ease;
+}
+
+.kitchen-ideas__item:hover .kitchen-ideas__arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.kitchen-ideas__content {
+  position: absolute;
+  left: clamp(16px, 3vw, 26px);
+  right: clamp(16px, 3vw, 26px);
+  bottom: clamp(16px, 3vw, 26px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kitchen-ideas__content > span {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #e0d5b7;
+  text-transform: uppercase;
+}
+
+.kitchen-ideas__content h3 {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.kitchen-ideas__content p {
+  max-width: 440px;
+  margin: 4px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.kitchen-ideas__footer {
+  width: min(1200px, calc(100% - clamp(32px, 6vw, 80px)));
+  margin: clamp(28px, 4vw, 40px) auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.kitchen-ideas__footer > span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #8d938d;
+}
+
+.kitchen-ideas__footer button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #242a26;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.kitchen-ideas__footer button:hover {
+  color: #8b7853;
+}
+
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+========================================= */
+
+/* Mobile Screens */
+@media (max-width: 768px) {
+  .kitchen-ideas__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kitchen-ideas__item {
+    aspect-ratio: 16 / 11;
+    min-height: 280px;
+  }
+
+  .kitchen-ideas__arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .kitchen-ideas__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .kitchen-ideas__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

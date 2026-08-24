@@ -1,0 +1,497 @@
+/* =========================================================
+   KITCHEN COST PLANNER - WRAPPER
+========================================================= */
+
+.kitchen-cost-planner {
+  position: relative;
+  width: 100%;
+  padding: clamp(48px, 6vw, 100px) clamp(16px, 4vw, 50px);
+  background: #f7f5f0;
+  color: #292a27;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.kitchen-cost-planner *,
+.kitchen-cost-planner *::before,
+.kitchen-cost-planner *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.cost-planner-header {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.cost-planner-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #777a73;
+  text-transform: uppercase;
+}
+
+.cost-planner-header h2 {
+  margin: 0;
+  font-size: clamp(32px, 4.5vw, 60px);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  color: #292a27;
+}
+
+.cost-planner-header h2 span {
+  color: #7b8078;
+}
+
+.cost-planner-header > p {
+  width: 100%;
+  max-width: 320px;
+  margin: 0;
+  font-size: clamp(12px, 1.1vw, 13px);
+  line-height: 1.6;
+  color: #777a73;
+}
+
+/* =========================================================
+   MAIN CONTAINER (GRID)
+========================================================= */
+
+.cost-planner-box {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(40, 45, 38, 0.06);
+  overflow: hidden;
+}
+
+/* =========================================================
+   OPTIONS (LEFT SIDE)
+========================================================= */
+
+.cost-planner-options {
+  padding: clamp(20px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 28px);
+}
+
+.planner-group {
+  padding-bottom: clamp(16px, 2.5vw, 24px);
+  border-bottom: 1px solid #e3e4de;
+}
+
+.planner-group:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.planner-group-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.planner-group-heading > span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(41, 42, 39, 0.45);
+  margin-top: 1px;
+}
+
+.planner-group-heading div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.planner-group-heading strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #292a27;
+}
+
+.planner-group-heading small {
+  font-size: 11px;
+  color: #777a73;
+}
+
+/* =========================================================
+   SHARED BUTTON STYLES & INTERACTION
+========================================================= */
+
+.planner-option,
+.size-option,
+.finish-option,
+.hardware-option {
+  background: #fafaf8;
+  border: 1px solid #e3e4de;
+  color: #292a27;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.planner-option:hover,
+.size-option:hover,
+.finish-option:hover,
+.hardware-option:hover {
+  border-color: #aeb6aa;
+}
+
+.planner-option.active,
+.size-option.active,
+.finish-option.active,
+.hardware-option.active {
+  background: #e7ece6;
+  border-color: #aeb8aa;
+}
+
+/* Layout Options */
+.layout-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.planner-option {
+  position: relative;
+  min-height: 80px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.planner-option:hover {
+  transform: translateY(-2px);
+}
+
+.option-symbol {
+  font-size: 18px;
+  font-weight: 500;
+  color: #7b8078;
+}
+
+.option-name {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.option-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #687568;
+  color: #fff;
+}
+
+/* Size Options */
+.size-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.size-option {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.size-option strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.size-option span {
+  font-size: 10px;
+  color: #777a73;
+}
+
+/* Finish Options */
+.finish-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.finish-option {
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.finish-option svg {
+  color: #687568;
+}
+
+.selected-explanation {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #f1f4ef;
+  border-radius: 6px;
+}
+
+.selected-explanation svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #687568;
+}
+
+.selected-explanation p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #687568;
+}
+
+/* Hardware Options */
+.hardware-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.hardware-option {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.hardware-option svg {
+  color: #687568;
+}
+
+.hardware-option div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hardware-option strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hardware-option span {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #777a73;
+}
+
+/* =========================================================
+   RESULT SIDE (RIGHT PANEL)
+========================================================= */
+
+.cost-planner-result {
+  padding: clamp(24px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  background: #687568;
+  color: #ffffff;
+}
+
+.result-top > span,
+.result-summary > span,
+.result-included > span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.result-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.result-price strong {
+  font-size: clamp(26px, 2.5vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.result-price span {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.result-top p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Summary Rows */
+.result-summary {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-row span {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.summary-row strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Included List */
+.result-included {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.included-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.included-list span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.included-list svg {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* CTA Button */
+.cost-planner-cta {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #343832;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.cost-planner-cta:hover {
+  background: #f5f6f2;
+  transform: translateY(-2px);
+}
+
+.cost-planner-note {
+  margin: 0;
+  font-size: 9px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+========================================================= */
+
+/* Tablet (Stack into single column when cramped) */
+@media (max-width: 960px) {
+  .cost-planner-box {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-options {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Small Tablet & Mobile */
+@media (max-width: 650px) {
+  .cost-planner-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .layout-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hardware-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra Small Phones */
+@media (max-width: 420px) {
+  .size-options {
+    grid-template-columns: 1fr;
+  }
+
+  .finish-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .included-list {
+    grid-template-columns: 1fr;
+  }
+}

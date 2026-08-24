@@ -1,0 +1,437 @@
+.find-kitchen {
+  position: relative;
+  width: 100%;
+  padding: 130px 0 140px;
+
+  background: #292a2a;
+  color: #f3eee4;
+
+  overflow: hidden;
+}
+
+.find-kitchen__container {
+  width: min(1240px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.find-kitchen__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 60px;
+  margin-bottom: 65px;
+}
+
+.find-kitchen__heading-wrap {
+  flex: 1;
+}
+
+.find-kitchen__eyebrow {
+  display: block;
+
+  margin-bottom: 22px;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+
+  color: #b6ad9d;
+}
+
+.find-kitchen__heading-wrap h2 {
+  margin: 0;
+
+  font-size: clamp(54px, 7vw, 92px);
+  line-height: 0.9;
+
+  font-weight: 400;
+  letter-spacing: -0.065em;
+}
+
+.find-kitchen__heading-wrap h2 span {
+  color: #c8b690;
+}
+
+.find-kitchen__intro {
+  max-width: 390px;
+
+  margin: 0 0 5px;
+
+  font-size: 14px;
+  line-height: 1.75;
+
+  color: #b7b5ad;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.find-kitchen__grid {
+  display: grid;
+
+  grid-template-columns: 1.45fr 0.85fr;
+
+  grid-template-rows: 310px 310px;
+
+  gap: 14px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.find-kitchen__card {
+  position: relative;
+
+  min-width: 0;
+  min-height: 0;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  border-radius: 4px;
+
+  background: #171e1a;
+}
+
+.find-kitchen__card--large {
+  grid-row: span 2;
+}
+
+.find-kitchen__card--small {
+  grid-column: 2;
+}
+
+.find-kitchen__card--wide {
+  display: none;
+}
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.find-kitchen__image-wrap {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+.find-kitchen__image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transform: scale(1.01);
+
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.find-kitchen__card:hover .find-kitchen__image {
+  transform: scale(1.07);
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.find-kitchen__overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.04) 35%,
+      rgba(0, 0, 0, 0.72) 100%
+    );
+
+  transition:
+    background 0.5s ease;
+}
+
+.find-kitchen__card:hover .find-kitchen__overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.08) 25%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
+}
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.find-kitchen__number {
+  position: absolute;
+
+  top: 22px;
+  left: 22px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.16em;
+
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* =========================================
+   ARROW
+========================================= */
+
+.find-kitchen__arrow {
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  font-size: 17px;
+
+  backdrop-filter: blur(8px);
+
+  transition:
+    transform 0.45s ease,
+    background 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.find-kitchen__card:hover .find-kitchen__arrow {
+  transform: rotate(45deg);
+
+  background: #d0bd91;
+
+  border-color: #d0bd91;
+
+  color: #202a24;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.find-kitchen__content {
+  position: absolute;
+
+  left: 25px;
+  right: 25px;
+  bottom: 23px;
+}
+
+.find-kitchen__label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+
+  color: #d1c7b5;
+}
+
+.find-kitchen__content h3 {
+  max-width: 480px;
+
+  margin: 0;
+
+  font-size: clamp(24px, 3vw, 38px);
+
+  line-height: 1.02;
+
+  font-weight: 400;
+
+  letter-spacing: -0.035em;
+
+  color: #ffffff;
+}
+
+.find-kitchen__explore {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  width: fit-content;
+
+  margin-top: 17px;
+
+  font-size: 10px;
+  letter-spacing: 0.05em;
+
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.find-kitchen__line {
+  width: 30px;
+  height: 1px;
+
+  background: #d0bd91;
+
+  transition:
+    width 0.45s ease;
+}
+
+.find-kitchen__card:hover .find-kitchen__line {
+  width: 55px;
+}
+
+/* =========================================
+   SECONDARY CARD TYPOGRAPHY
+========================================= */
+
+.find-kitchen__card--small .find-kitchen__content h3 {
+  font-size: clamp(21px, 2.2vw, 29px);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .find-kitchen {
+    padding: 100px 0 110px;
+  }
+
+  .find-kitchen__header {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 25px;
+
+    margin-bottom: 45px;
+  }
+
+  .find-kitchen__intro {
+    max-width: 520px;
+  }
+
+  .find-kitchen__grid {
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-rows:
+      280px
+      280px;
+  }
+
+  .find-kitchen__card--large {
+    grid-row: span 2;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+  .find-kitchen {
+    padding: 80px 0 90px;
+  }
+
+  .find-kitchen__container {
+    width: calc(100% - 28px);
+  }
+
+  .find-kitchen__header {
+    margin-bottom: 35px;
+  }
+
+  .find-kitchen__heading-wrap h2 {
+    font-size: clamp(48px, 14vw, 68px);
+  }
+
+  .find-kitchen__intro {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .find-kitchen__grid {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .find-kitchen__card,
+  .find-kitchen__card--large,
+  .find-kitchen__card--small {
+    width: 100%;
+    height: 330px;
+  }
+
+  .find-kitchen__card--large {
+    height: 390px;
+  }
+
+  .find-kitchen__card--wide {
+    display: block;
+  }
+
+  .find-kitchen__content {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .find-kitchen__content h3 {
+    font-size: 27px;
+  }
+
+  .find-kitchen__card--small .find-kitchen__content h3 {
+    font-size: 25px;
+  }
+
+  .find-kitchen__number {
+    top: 18px;
+    left: 18px;
+  }
+
+  .find-kitchen__arrow {
+    top: 16px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* =========================================
+   REDUCE MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .find-kitchen__image,
+  .find-kitchen__arrow,
+  .find-kitchen__line {
+    transition: none;
+  }
+}

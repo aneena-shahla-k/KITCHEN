@@ -1,71 +1,93 @@
+/* =====================================================
+   KITCHEN STYLES
+===================================================== */
+
 .kitchen-styles {
   position: relative;
-  padding: 170px 6vw 140px;
-  background: #f4f1eb;
+
+  padding: 110px 5vw 100px;
+
+  background: #e8e3d9;
+
+  color: #252823;
+
   overflow: hidden;
-  color: #1d1c19;
 }
 
-/* ================================
+
+/* =====================================================
    TOP
-================================ */
+===================================================== */
 
 .styles-top {
-  max-width: 1400px;
-  margin: 0 auto 65px;
+  max-width: 1250px;
+
+  margin: 0 auto 45px;
 
   display: flex;
+
   align-items: flex-end;
+
   justify-content: space-between;
 
-  gap: 60px;
+  gap: 50px;
 }
 
 .section-label {
   display: block;
-  margin-bottom: 20px;
 
-  font-size: 9px;
-  font-weight: 500;
+  margin-bottom: 13px;
 
-  letter-spacing: 3px;
+  font-size: 11px;
 
-  color: #8b877f;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+
+  color: #77715f;
 }
 
 .styles-title h2 {
   margin: 0;
 
-  font-size: clamp(52px, 6vw, 82px);
+  font-family:
+    "Inter",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 
-  line-height: 0.9;
+  font-size: clamp(42px, 5vw, 64px);
 
-  font-weight: 400;
+  line-height: 1;
 
-  letter-spacing: -5px;
+  font-weight: 500;
+
+  letter-spacing: -0.035em;
 }
 
-.styles-title h2 em {
-  font-family: Georgia, serif;
-
-  font-weight: 400;
-
-  letter-spacing: -4px;
+.styles-title h2 span {
+  color: #6d756e;
 }
+
+
+/* =====================================================
+   INTRO
+===================================================== */
 
 .styles-intro {
-  width: 300px;
-  padding-bottom: 5px;
+  width: 320px;
+
+  padding-bottom: 2px;
 }
 
 .styles-intro p {
-  margin: 0 0 27px;
+  margin: 0 0 18px;
 
-  font-size: 12px;
+  font-size: 14px;
 
-  line-height: 1.8;
+  line-height: 1.65;
 
-  color: #77736c;
+  color: #666a63;
 }
 
 .view-all {
@@ -73,61 +95,61 @@
 
   align-items: center;
 
-  gap: 12px;
+  gap: 9px;
 
-  color: #24231f;
+  color: #252823;
 
   text-decoration: none;
 
-  font-size: 10px;
+  font-size: 12px;
 
   font-weight: 500;
-
-  letter-spacing: 0.3px;
 }
 
 .view-all span {
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 27px;
 
   display: grid;
 
   place-items: center;
 
-  border: 1px solid rgba(30, 29, 26, 0.18);
+  border: 1px solid #aaa59a;
 
   border-radius: 50%;
 
   transition:
-    transform 0.3s ease,
-    background 0.3s ease;
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
 .view-all:hover span {
-  transform: translate(3px, -3px);
+  transform: translateX(3px);
 
-  background: #fff;
+  background: #f5f2eb;
 }
 
-/* ================================
+
+/* =====================================================
    SHOWCASE
-================================ */
+===================================================== */
 
 .styles-showcase {
   position: relative;
 
-  max-width: 1400px;
+  max-width: 1250px;
 
   margin: 0 auto;
 
-  padding-left: 42px;
+  padding-left: 36px;
 
-  padding-bottom: 55px;
+  padding-bottom: 35px;
 }
 
-/* ================================
+
+/* =====================================================
    SIDE NUMBER
-================================ */
+===================================================== */
 
 .style-number {
   position: absolute;
@@ -142,50 +164,51 @@
 
   align-items: center;
 
-  gap: 10px;
+  gap: 7px;
 
   z-index: 5;
 }
 
 .style-number span {
-  font-size: 7px;
+  font-size: 8px;
 
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
 
   writing-mode: vertical-rl;
 
-  color: #9b978f;
+  color: #89867e;
 }
 
 .style-number strong {
-  font-size: 13px;
+  font-size: 12px;
 
-  font-weight: 500;
+  font-weight: 600;
 
   writing-mode: vertical-rl;
 
-  color: #25231f;
+  color: #4e514b;
 }
 
-/* ================================
+
+/* =====================================================
    MAIN IMAGE
-================================ */
+===================================================== */
 
 .style-preview {
   position: relative;
 
-  height: min(58vh, 590px);
+  height: min(56vw, 610px);
 
-  min-height: 480px;
+  min-height: 470px;
 
-  border-radius: 30px;
+  border-radius: 12px;
 
   overflow: hidden;
 
-  background: #d9d3c9;
+  background: #cfc9bd;
 
   box-shadow:
-    0 25px 65px rgba(40, 35, 28, 0.12);
+    0 14px 35px rgba(40, 37, 31, 0.12);
 }
 
 .style-preview img {
@@ -194,29 +217,26 @@
   inset: 0;
 
   width: 100%;
-
   height: 100%;
 
   object-fit: cover;
 
   animation:
-    styleImageIn 0.8s
-    cubic-bezier(0.22, 1, 0.36, 1);
+    styleImageIn 0.65s ease;
 
   transition:
-    transform 1s
-    cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.8s ease;
 }
 
 .style-preview:hover img {
-  transform: scale(1.025);
+  transform: scale(1.018);
 }
 
 @keyframes styleImageIn {
   from {
     opacity: 0;
 
-    transform: scale(1.04);
+    transform: scale(1.025);
   }
 
   to {
@@ -226,9 +246,10 @@
   }
 }
 
-/* ================================
+
+/* =====================================================
    IMAGE GRADIENT
-================================ */
+===================================================== */
 
 .preview-gradient {
   position: absolute;
@@ -238,81 +259,55 @@
   background:
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.04) 0%,
-      transparent 42%,
-      rgba(0, 0, 0, 0.58) 100%
+      rgba(0, 0, 0, 0.02) 30%,
+      rgba(0, 0, 0, 0.55) 100%
     );
 
   pointer-events: none;
 }
 
-/* ================================
-   LARGE WATERMARK
-================================ */
 
-.preview-watermark {
+/* =====================================================
+   IMAGE NUMBER
+===================================================== */
+
+.preview-number {
   position: absolute;
 
-  top: -15px;
+  top: 22px;
 
   right: 25px;
 
-  font-size: clamp(
-    120px,
-    15vw,
-    210px
-  );
+  font-size: 90px;
 
   line-height: 1;
 
-  font-weight: 300;
+  font-weight: 600;
 
-  letter-spacing: -12px;
-
-  color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.12);
 
   pointer-events: none;
-
-  user-select: none;
 }
 
-/* ================================
-   GLASS INFORMATION CARD
-================================ */
 
-.style-info-glass {
+/* =====================================================
+   INFORMATION CARD
+===================================================== */
+
+.style-info {
   position: absolute;
 
-  left: 28px;
+  left: 25px;
 
-  bottom: 28px;
+  bottom: 25px;
 
-  width: 290px;
+  width: 310px;
 
-  padding: 21px 23px;
+  padding: 23px;
 
-  border-radius: 21px;
+  border-radius: 8px;
 
-  background:
-    rgba(255, 255, 255, 0.14);
-
-  border:
-    1px solid rgba(
-      255,
-      255,
-      255,
-      0.28
-    );
-
-  backdrop-filter: blur(22px);
-
-  -webkit-backdrop-filter: blur(22px);
-
-  box-shadow:
-    inset 0 1px 0
-      rgba(255, 255, 255, 0.25),
-    0 18px 45px
-      rgba(0, 0, 0, 0.12);
+  background: rgba(27, 31, 27, 0.84);
 
   color: #fff;
 
@@ -324,37 +319,35 @@
 
   margin-bottom: 9px;
 
-  font-size: 7px;
+  font-size: 10px;
 
-  letter-spacing: 2.2px;
+  font-weight: 500;
 
-  color:
-    rgba(255, 255, 255, 0.68);
+  letter-spacing: 0.08em;
+
+  color: #c9b98f;
 }
 
-.style-info-glass h3 {
+.style-info h3 {
   margin: 0 0 9px;
 
-  font-size: 30px;
+  font-size: 28px;
 
-  line-height: 1;
+  line-height: 1.1;
 
-  font-weight: 400;
+  font-weight: 500;
 
-  letter-spacing: -1.4px;
+  letter-spacing: -0.025em;
 }
 
-.style-info-glass p {
-  max-width: 250px;
-
+.style-info p {
   margin: 0 0 18px;
 
-  font-size: 10px;
+  font-size: 12px;
 
   line-height: 1.6;
 
-  color:
-    rgba(255, 255, 255, 0.75);
+  color: #d0d3cd;
 }
 
 .discover-style {
@@ -362,120 +355,133 @@
 
   align-items: center;
 
-  gap: 8px;
+  gap: 7px;
 
-  padding: 8px 12px;
+  padding: 9px 13px;
 
-  border:
-    1px solid
-      rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.28);
 
-  border-radius: 20px;
+  border-radius: 4px;
 
-  background:
-    rgba(255, 255, 255, 0.12);
+  background: transparent;
 
   color: #fff;
 
-  font-size: 9px;
+  font-size: 11px;
 
   cursor: pointer;
 
   transition:
-    background 0.3s ease,
-    transform 0.3s ease;
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .discover-style:hover {
-  background:
-    rgba(255, 255, 255, 0.24);
+  background: #fff;
 
-  transform:
-    translateY(-2px);
+  color: #252823;
 }
 
-/* ================================
-   PREVIEW CONTROLS
-================================ */
+
+/* =====================================================
+   CONTROLS
+===================================================== */
 
 .preview-controls {
   position: absolute;
 
-  right: 28px;
+  right: 25px;
 
-  bottom: 28px;
+  bottom: 25px;
 
   display: flex;
 
-  gap: 8px;
+  gap: 7px;
 
   z-index: 4;
 }
 
 .preview-controls button {
-  width: 43px;
-
-  height: 43px;
+  width: 40px;
+  height: 40px;
 
   display: grid;
 
   place-items: center;
 
-  border:
-    1px solid
-      rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 
   border-radius: 50%;
 
-  background:
-    rgba(255, 255, 255, 0.13);
+  background: rgba(20, 23, 20, 0.4);
 
   color: #fff;
 
-  backdrop-filter: blur(15px);
-
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(7px);
 
   cursor: pointer;
 
   transition:
-    transform 0.3s ease,
-    background 0.3s ease;
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .preview-controls button:hover {
-  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.9);
 
-  background:
-    rgba(255, 255, 255, 0.25);
+  color: #222;
+
+  transform: scale(1.04);
 }
 
-/* ================================
-   THUMBNAIL RAIL
-================================ */
+
+/* =====================================================
+   STYLE RAIL
+===================================================== */
 
 .style-rail {
   position: absolute;
 
   left: 8%;
 
-  right: 5%;
+  right: 4%;
 
-  bottom: -52px;
+  bottom: -40px;
 
   z-index: 8;
 }
 
-/* ================================
-   THUMBNAILS
-================================ */
+.rail-line {
+  width: 100%;
+
+  height: 2px;
+
+  margin-bottom: 10px;
+
+  background: rgba(45, 46, 42, 0.15);
+}
+
+.rail-line span {
+  display: block;
+
+  height: 100%;
+
+  background: #77705d;
+
+  transition: width 0.35s ease;
+}
+
+
+/* =====================================================
+   STYLE CARDS
+===================================================== */
 
 .style-cards {
   display: flex;
 
   align-items: flex-end;
 
-  gap: 12px;
+  gap: 9px;
 
   overflow-x: auto;
 
@@ -486,49 +492,51 @@
   display: none;
 }
 
-/* ================================
-   THUMBNAIL CARD
-================================ */
+
+/* =====================================================
+   CARD
+===================================================== */
 
 .style-card {
   position: relative;
 
-  flex: 0 0 135px;
+  flex: 0 0 125px;
 
-  height: 78px;
+  height: 70px;
 
   padding: 0;
 
-  border: none;
+  border: 1px solid transparent;
 
-  border-radius: 14px;
+  border-radius: 6px;
 
   overflow: hidden;
 
-  background: #ddd7ce;
+  background: #d3cec4;
 
   cursor: pointer;
 
   transition:
-    flex-basis 0.45s
-      cubic-bezier(0.22, 1, 0.36, 1),
-    height 0.45s
-      cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+    width 0.3s ease,
+    height 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .style-card.active {
-  flex-basis: 175px;
+  flex-basis: 155px;
 
-  height: 94px;
+  height: 82px;
 
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 
-  box-shadow:
-    0 14px 30px
-      rgba(0, 0, 0, 0.18);
+  border-color: #77705d;
 }
+
+
+/* =====================================================
+   CARD IMAGE
+===================================================== */
 
 .style-card-image {
   position: absolute;
@@ -540,17 +548,15 @@
 
 .style-card img {
   width: 100%;
-
   height: 100%;
 
   object-fit: cover;
 
-  transition:
-    transform 0.7s ease;
+  transition: transform 0.5s ease;
 }
 
 .style-card:hover img {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .style-card-overlay {
@@ -561,19 +567,24 @@
   background:
     linear-gradient(
       180deg,
-      transparent 25%,
-      rgba(0, 0, 0, 0.65) 100%
+      transparent 30%,
+      rgba(0, 0, 0, 0.68) 100%
     );
 }
+
+
+/* =====================================================
+   CARD CONTENT
+===================================================== */
 
 .style-card-content {
   position: absolute;
 
-  left: 13px;
+  left: 10px;
 
-  right: 13px;
+  right: 10px;
 
-  bottom: 11px;
+  bottom: 9px;
 
   display: flex;
 
@@ -587,100 +598,72 @@
 }
 
 .style-card-content span {
-  font-size: 7px;
+  font-size: 8px;
 
-  letter-spacing: 1px;
-
-  opacity: 0.65;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .style-card-content strong {
   font-size: 10px;
 
-  font-weight: 400;
+  font-weight: 500;
 
   white-space: nowrap;
 }
 
-/* ================================
+
+/* =====================================================
    TABLET
-================================ */
+===================================================== */
 
 @media (max-width: 1000px) {
-
   .kitchen-styles {
-    padding:
-      145px 5vw 125px;
-  }
-
-  .styles-top {
-    margin-bottom: 50px;
+    padding: 100px 5vw 90px;
   }
 
   .styles-title h2 {
-    font-size: 62px;
-  }
-
-  .styles-intro {
-    width: 270px;
+    font-size: 56px;
   }
 
   .style-preview {
-    height: 540px;
+    height: 520px;
 
-    min-height: 450px;
-  }
-
-  .style-rail {
-    left: 7%;
-
-    right: 4%;
-
-    bottom: -48px;
+    min-height: 430px;
   }
 }
 
-/* ================================
+
+/* =====================================================
    MOBILE
-================================ */
+===================================================== */
 
 @media (max-width: 700px) {
-
   .kitchen-styles {
-    padding:
-      110px 20px 105px;
+    padding: 80px 18px 85px;
   }
 
   .styles-top {
     display: block;
 
-    margin-bottom: 35px;
-  }
-
-  .section-label {
-    margin-bottom: 16px;
+    margin-bottom: 30px;
   }
 
   .styles-title h2 {
-    font-size: 52px;
+    font-size: 45px;
 
-    letter-spacing: -3px;
-  }
-
-  .styles-title h2 em {
-    letter-spacing: -3px;
+    letter-spacing: -0.03em;
   }
 
   .styles-intro {
     width: auto;
 
-    margin-top: 25px;
+    margin-top: 22px;
   }
 
   .styles-intro p {
-    max-width: 330px;
+    max-width: 350px;
 
-    margin-bottom: 18px;
+    font-size: 13px;
   }
 
   .styles-showcase {
@@ -694,58 +677,53 @@
   }
 
   .style-preview {
-    height: 520px;
+    height: 500px;
 
     min-height: 0;
 
-    border-radius: 25px;
+    border-radius: 9px;
   }
 
-  .style-info-glass {
-    left: 18px;
+  .preview-number {
+    top: 12px;
 
-    bottom: 18px;
+    right: 15px;
 
-    width:
-      calc(100% - 36px);
-
-    padding: 19px 20px;
-
-    border-radius: 19px;
+    font-size: 75px;
   }
 
-  .style-info-glass h3 {
-    font-size: 27px;
+  .style-info {
+    left: 15px;
+
+    bottom: 15px;
+
+    width: calc(100% - 30px);
+
+    padding: 18px;
+
+    border-radius: 6px;
   }
 
-  .style-info-glass p {
-    max-width: 280px;
+  .style-info h3 {
+    font-size: 25px;
+  }
 
-    margin-bottom: 15px;
+  .style-info p {
+    font-size: 11px;
   }
 
   .preview-controls {
-    top: 18px;
+    top: 15px;
 
-    right: 18px;
+    right: 15px;
 
     bottom: auto;
   }
 
   .preview-controls button {
-    width: 38px;
+    width: 37px;
 
-    height: 38px;
-  }
-
-  .preview-watermark {
-    top: 5px;
-
-    right: 15px;
-
-    font-size: 120px;
-
-    letter-spacing: -8px;
+    height: 37px;
   }
 
   .style-rail {
@@ -757,93 +735,63 @@
 
     bottom: auto;
 
-    margin-top: 25px;
-  }
-
-  .style-cards {
-    gap: 8px;
-
-    padding:
-      5px 0 5px;
+    margin-top: 20px;
   }
 
   .style-card {
     flex: 0 0 105px;
 
-    height: 68px;
+    height: 65px;
 
-    border-radius: 12px;
+    border-radius: 5px;
   }
 
   .style-card.active {
-    flex-basis: 145px;
+    flex-basis: 135px;
 
-    height: 84px;
-
-    transform: translateY(-3px);
-  }
-
-  .style-card-content {
-    left: 9px;
-
-    right: 9px;
-
-    bottom: 8px;
-  }
-
-  .style-card-content strong {
-    font-size: 8px;
-  }
-
-  .style-card-content span {
-    font-size: 6px;
+    height: 76px;
   }
 }
 
-/* ================================
+
+/* =====================================================
    SMALL MOBILE
-================================ */
+===================================================== */
 
 @media (max-width: 450px) {
-
   .kitchen-styles {
-    padding:
-      95px 15px 95px;
+    padding: 70px 14px 75px;
   }
 
   .styles-title h2 {
-    font-size: 46px;
-
-    letter-spacing: -2.5px;
+    font-size: 40px;
   }
 
   .style-preview {
-    height: 500px;
+    height: 470px;
   }
 
-  .style-info-glass {
-    padding: 17px;
+  .style-info {
+    padding: 16px;
   }
 
-  .style-info-glass h3 {
-    font-size: 24px;
+  .style-info h3 {
+    font-size: 23px;
   }
 
-  .style-info-glass p {
-    font-size: 9px;
-
-    margin-bottom: 13px;
+  .style-info p {
+    font-size: 10px;
   }
 
   .style-card {
-    flex-basis: 95px;
+    flex-basis: 92px;
 
-    height: 64px;
+    height: 60px;
   }
 
   .style-card.active {
-    flex-basis: 130px;
+    flex-basis: 120px;
 
-    height: 78px;
+    height: 70px;
   }
 }
