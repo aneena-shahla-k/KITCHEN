@@ -1,0 +1,585 @@
+/* =========================================================
+   MATERIAL STORY
+========================================================= */
+
+.material-story {
+  position: relative;
+
+  width: 100%;
+
+  height: 420vh;
+
+  background: #eef1eb;
+
+  color: #292b27;
+}
+
+
+/* =========================================================
+   STICKY
+========================================================= */
+
+.material-story-sticky {
+  position: sticky;
+
+  top: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  min-height: 650px;
+
+  padding:
+    70px 6vw 55px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.material-story-intro {
+  width: min(760px, 100%);
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.material-story-eyebrow {
+  display: block;
+
+  margin-bottom: 14px;
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  color: #7d8579;
+}
+
+.material-story-intro h2 {
+  margin: 0;
+
+  font-size: clamp(
+    40px,
+    5vw,
+    66px
+  );
+
+  line-height: 0.95;
+
+  font-weight: 500;
+
+  letter-spacing: -3px;
+}
+
+.material-story-intro h2 em {
+  font-family: Georgia, serif;
+
+  font-weight: 400;
+
+  color: #737c70;
+}
+
+.material-story-intro p {
+  max-width: 420px;
+
+  margin: 18px auto 0;
+
+  font-size: 10px;
+
+  line-height: 1.7;
+
+  color: #7d827a;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.material-story-main {
+  width: min(1100px, 100%);
+
+  margin: 20px auto 0;
+
+  display: grid;
+
+  grid-template-columns:
+    0.8fr
+    1.2fr;
+
+  gap: 70px;
+
+  align-items: center;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.material-story-content {
+  position: relative;
+
+  max-width: 390px;
+
+  padding-left: 25px;
+}
+
+.material-story-number {
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  font-size: 8px;
+
+  letter-spacing: 1px;
+
+  color: #92988e;
+}
+
+.material-story-label {
+  display: block;
+
+  margin-bottom: 16px;
+
+  font-size: 7px;
+
+  letter-spacing: 2px;
+
+  color: #8a9086;
+}
+
+.material-story-content h3 {
+  margin: 0 0 18px;
+
+  font-size: clamp(
+    28px,
+    3vw,
+    42px
+  );
+
+  line-height: 1.02;
+
+  font-weight: 500;
+
+  letter-spacing: -1.5px;
+
+  animation:
+    materialStoryTextIn
+    0.5s
+    ease;
+}
+
+.material-story-content p {
+  max-width: 330px;
+
+  margin: 0;
+
+  font-size: 10px;
+
+  line-height: 1.8;
+
+  color: #777d75;
+
+  animation:
+    materialStoryTextIn
+    0.55s
+    ease;
+}
+
+@keyframes materialStoryTextIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* =========================================================
+   CURRENT MATERIAL
+========================================================= */
+
+.material-story-material {
+  margin-top: 28px;
+
+  padding-top: 16px;
+
+  border-top:
+    1px solid
+    rgba(90, 100, 89, 0.16);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.material-story-material span {
+  font-size: 6px;
+
+  letter-spacing: 1.5px;
+
+  color: #969c93;
+}
+
+.material-story-material strong {
+  font-size: 12px;
+
+  font-weight: 500;
+
+  color: #596258;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.material-story-visual {
+  width: 100%;
+}
+
+.material-story-image-wrap {
+  position: relative;
+
+  width: 100%;
+
+  height: min(
+    48vh,
+    460px
+  );
+
+  min-height: 340px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background: #dce0d8;
+}
+
+.material-story-image-wrap img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  animation:
+    materialImageIn
+    0.7s
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+@keyframes materialImageIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(1.04);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+
+}
+
+.material-story-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.02),
+      transparent 60%,
+      rgba(0, 0, 0, 0.35)
+    );
+
+  pointer-events: none;
+}
+
+.material-story-image-name {
+  position: absolute;
+
+  left: 20px;
+  bottom: 18px;
+
+  color: #fff;
+
+  font-size: 9px;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.material-story-progress {
+  width: min(1100px, 100%);
+
+  margin: 0 auto;
+}
+
+.material-story-progress-line {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  border-top:
+    1px solid
+    rgba(90, 100, 89, 0.18);
+}
+
+.material-story-progress-item {
+  position: relative;
+
+  padding-top: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #a1a69e;
+
+  transition:
+    color 0.3s ease;
+}
+
+.material-story-progress-item.active {
+  color: #596258;
+}
+
+.material-story-progress-item span {
+  font-size: 7px;
+}
+
+.material-story-progress-dot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  opacity: 0.45;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.material-story-progress-item.active
+  .material-story-progress-dot {
+  opacity: 1;
+
+  transform:
+    scale(1.4);
+}
+
+.material-story-progress-item small {
+  font-size: 7px;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .material-story-sticky {
+    padding:
+      55px 5vw 45px;
+  }
+
+  .material-story-main {
+    gap: 40px;
+  }
+
+  .material-story-image-wrap {
+    height: 390px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .material-story {
+    height: auto;
+
+    background: #eef1eb;
+  }
+
+  .material-story-sticky {
+    position: relative;
+
+    height: auto;
+
+    min-height: 0;
+
+    padding:
+      80px 20px;
+
+    overflow: visible;
+  }
+
+  .material-story-intro {
+    text-align: left;
+  }
+
+  .material-story-intro h2 {
+    font-size: 43px;
+
+    letter-spacing: -2px;
+  }
+
+  .material-story-intro p {
+    margin-left: 0;
+
+    font-size: 9px;
+  }
+
+  .material-story-main {
+    margin-top: 45px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 30px;
+
+    align-items: stretch;
+  }
+
+  .material-story-content {
+    max-width: none;
+
+    padding-left: 23px;
+  }
+
+  .material-story-content h3 {
+    font-size: 30px;
+
+    letter-spacing: -1px;
+  }
+
+  .material-story-content p {
+    max-width: 100%;
+
+    font-size: 9px;
+  }
+
+  .material-story-image-wrap {
+    height: 350px;
+
+    min-height: 0;
+
+    border-radius: 8px;
+  }
+
+  .material-story-progress {
+    margin-top: 35px;
+  }
+
+  .material-story-progress-line {
+    grid-template-columns:
+      repeat(4, 1fr);
+  }
+
+  .material-story-progress-item {
+    gap: 5px;
+  }
+
+  .material-story-progress-item small {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .material-story-sticky {
+    padding:
+      65px 15px;
+  }
+
+  .material-story-intro h2 {
+    font-size: 37px;
+
+    letter-spacing: -1.5px;
+  }
+
+  .material-story-main {
+    margin-top: 38px;
+  }
+
+  .material-story-content h3 {
+    font-size: 27px;
+  }
+
+  .material-story-image-wrap {
+    height: 300px;
+  }
+
+  .material-story-progress-item span {
+    font-size: 6px;
+  }
+
+}

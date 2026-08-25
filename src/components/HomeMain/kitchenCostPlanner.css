@@ -135,36 +135,9 @@
 }
 
 /* =========================================================
-   SHARED BUTTON STYLES & INTERACTION
+   LAYOUT BUTTONS (01)
 ========================================================= */
 
-.planner-option,
-.size-option,
-.finish-option,
-.hardware-option {
-  background: #fafaf8;
-  border: 1px solid #e3e4de;
-  color: #292a27;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.planner-option:hover,
-.size-option:hover,
-.finish-option:hover,
-.hardware-option:hover {
-  border-color: #aeb6aa;
-}
-
-.planner-option.active,
-.size-option.active,
-.finish-option.active,
-.hardware-option.active {
-  background: #e7ece6;
-  border-color: #aeb8aa;
-}
-
-/* Layout Options */
 .layout-options {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -179,12 +152,23 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  background: #fafaf8;
+  border: 1px solid #e3e4de;
   border-radius: 8px;
+  color: #292a27;
+  cursor: pointer;
   text-align: left;
+  transition: all 0.2s ease;
 }
 
 .planner-option:hover {
+  border-color: #aeb6aa;
   transform: translateY(-2px);
+}
+
+.planner-option.active {
+  background: #e7ece6;
+  border-color: #aeb8aa;
 }
 
 .option-symbol {
@@ -208,58 +192,103 @@
   place-items: center;
   border-radius: 50%;
   background: #687568;
-  color: #fff;
+  color: #ffffff;
 }
 
-/* Size Options */
-.size-options {
+/* =========================================================
+   TWO-COLUMN ROW (02 SIZE & 03 FINISH)
+========================================================= */
+
+.planner-row-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.size-option {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   align-items: flex-start;
-  gap: 4px;
-  border-radius: 8px;
-  text-align: left;
+  padding-bottom: clamp(16px, 2.5vw, 24px);
+  border-bottom: 1px solid #e3e4de;
 }
 
-.size-option strong {
-  font-size: 12px;
+.planner-row-grid .planner-group {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* Sqft Input Field */
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.sqft-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 60px 0 14px;
+  font-size: 14px;
   font-weight: 600;
+  color: #292a27;
+  background: #fafaf8;
+  border: 1px solid #e3e4de;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
 }
 
-.size-option span {
-  font-size: 10px;
-  color: #777a73;
+.sqft-input:focus {
+  border-color: #687568;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(104, 117, 104, 0.15);
 }
 
-/* Finish Options */
-.finish-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 10px;
-}
-
-.finish-option {
-  padding: 10px 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  border-radius: 6px;
-  font-size: 11px;
+.input-unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
   font-weight: 500;
+  color: #777a73;
+  pointer-events: none;
 }
 
-.finish-option svg {
-  color: #687568;
+/* Dropdown Field */
+.dropdown-wrapper {
+  position: relative;
+  width: 100%;
 }
 
+.custom-select {
+  width: 100%;
+  height: 46px;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0 40px 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #292a27;
+  background-color: #fafaf8;
+  border: 1px solid #e3e4de;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.custom-select:focus {
+  border-color: #687568;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(104, 117, 104, 0.15);
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777a73;
+  pointer-events: none;
+}
+
+/* Finish Description Box */
 .selected-explanation {
   display: flex;
   align-items: flex-start;
@@ -283,7 +312,10 @@
   color: #687568;
 }
 
-/* Hardware Options */
+/* =========================================================
+   HARDWARE BUTTONS (04)
+========================================================= */
+
 .hardware-options {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -296,12 +328,27 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  background: #fafaf8;
+  border: 1px solid #e3e4de;
   border-radius: 8px;
+  color: #292a27;
+  cursor: pointer;
   text-align: left;
+  transition: all 0.2s ease;
+}
+
+.hardware-option:hover {
+  border-color: #aeb6aa;
+}
+
+.hardware-option.active {
+  background: #e7ece6;
+  border-color: #aeb8aa;
 }
 
 .hardware-option svg {
   color: #687568;
+  flex-shrink: 0;
 }
 
 .hardware-option div {
@@ -454,18 +501,12 @@
    RESPONSIVE BREAKPOINTS
 ========================================================= */
 
-/* Tablet (Stack into single column when cramped) */
 @media (max-width: 960px) {
   .cost-planner-box {
     grid-template-columns: 1fr;
   }
-
-  .layout-options {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 
-/* Small Tablet & Mobile */
 @media (max-width: 650px) {
   .cost-planner-header {
     flex-direction: column;
@@ -476,19 +517,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .planner-row-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .hardware-options {
     grid-template-columns: 1fr;
-  }
-}
-
-/* Extra Small Phones */
-@media (max-width: 420px) {
-  .size-options {
-    grid-template-columns: 1fr;
-  }
-
-  .finish-options {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .included-list {

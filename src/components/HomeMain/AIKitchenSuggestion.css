@@ -1177,6 +1177,8 @@
   color: #777a73;
 }
 
+/* Update just the Mobile Screens Media Query block at the bottom of your CSS */
+
 /* =========================================================
    RESPONSIVE BREAKPOINTS
 ========================================================= */
@@ -1199,6 +1201,10 @@
 
 /* Mobile Screens */
 @media (max-width: 680px) {
+  .ai-kitchen-section {
+    padding: 60px 16px;
+  }
+
   .ai-kitchen-steps {
     padding: 14px 16px;
   }
@@ -1211,11 +1217,63 @@
     margin: 0 10px;
   }
 
-  .ai-material-grid,
-  .ai-quality-grid {
-    grid-template-columns: 1fr;
+  .ai-kitchen-content,
+  .ai-kitchen-result {
+    padding: 24px 16px;
   }
 
+  .ai-content-heading h3 {
+    font-size: 32px;
+  }
+
+  /* Force 2 Columns on Mobile for Material Grid */
+  .ai-material-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ai-material-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ai-material-info {
+    padding: 12px;
+  }
+
+  .ai-material-info h4 {
+    font-size: 14px;
+  }
+
+  .ai-material-info p {
+    font-size: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Force 2 Columns on Mobile for Quality Grid */
+  .ai-quality-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ai-quality-card {
+    padding: 12px;
+  }
+
+  .ai-quality-card strong {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .ai-quality-details {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 9px;
+  }
+
+  /* Make Vision Header Stack Cleanly */
   .ai-vision-header {
     flex-direction: column;
     align-items: flex-start;
@@ -1230,6 +1288,7 @@
     font-size: 22px;
   }
 
+  /* Recommendations & Actions */
   .ai-recommendation-grid {
     grid-template-columns: 1fr;
   }

@@ -1,14 +1,29 @@
 import React, { useState } from "react";
-import { ArrowUpRight, Check, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  Check,
+  Sparkles,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
 import "./MaterialsPage.css";
 
 import wood from "../../images/material/wood1.jpg";
 import stone from "../../images/material/stone2.jpg";
 import glass from "../../images/material/glass2.jpg";
 import hardware from "../../images/material/finehard.jpg";
+
 import img1 from "../../images/material/naturalgrain.jpg";
 import img2 from "../../images/material/stonechar.jpg";
 import img3 from "../../images/material/finehard.jpg";
+
+import img11 from "../../images/projects/1.jpg";
+import img22 from "../../images/projects/2.jpg";
+import img33 from "../../images/projects/3.jpg";
+import img44 from "../../images/projects/4.jpg";
+import img66 from "../../images/projects/5.jpg";
+import img55 from "../../images/projects/6.jpg";
 
 const materialGroups = [
   {
@@ -49,49 +64,136 @@ const materialGroups = [
   },
 ];
 
+/* =========================================================
+   MATERIAL MOODS
+========================================================= */
+
 const palettes = [
   {
     name: "EARTH",
     subtitle: "Organic & Inviting",
-    description: "Warm, organic tones with natural grain and soft earth character.",
+    description:
+      "Warm, organic tones with natural grain and soft earth character.",
     colors: ["#9b7658", "#d4c0a5", "#81705e", "#b39a7d"],
     tags: ["Natural Wood", "Matte Texture", "Warm Light"],
   },
   {
     name: "PURE",
     subtitle: "Quiet & Architectural",
-    description: "Soft neutrals layered with clean ivory and subtle ceramic undertones.",
+    description:
+      "Soft neutrals layered with clean ivory and subtle ceramic undertones.",
     colors: ["#e8dac1", "#cfc8bb", "#a99f91", "#f3efe8"],
     tags: ["Minimalist", "PU Finish", "Airy Flow"],
   },
   {
     name: "MOODY",
     subtitle: "Deep & Refined",
-    description: "Rich slate and charcoal tones for a bolder, high-contrast presence.",
+    description:
+      "Rich slate and charcoal tones for a bolder, high-contrast presence.",
     colors: ["#302d29", "#5a5148", "#80766b", "#191817"],
     tags: ["Smoked Oak", "Fluted Glass", "Bold Accent"],
   },
 ];
 
+/* =========================================================
+   ONE SPACE - DIFFERENT MATERIALS
+========================================================= */
+
+const materialShowcase = [
+  {
+    number: "01",
+    name: "NATURAL VENEER",
+    subtitle: "Warm • Natural • Timeless",
+    description:
+      "Rich natural grain brings warmth and depth to the same kitchen.",
+    image: img11,
+  },
+  {
+    number: "02",
+    name: "MATTE FINISH",
+    subtitle: "Soft • Modern • Refined",
+    description:
+      "A calm matte surface creates a quieter and more architectural mood.",
+    image: img22,
+  },
+  {
+    number: "03",
+    name: "STONE",
+    subtitle: "Elegant • Durable • Refined",
+    description:
+      "Stone introduces a sophisticated and grounded character.",
+    image: img33,
+  },
+  {
+    number: "04",
+    name: "PU FINISH",
+    subtitle: "Smooth • Rich • Contemporary",
+    description:
+      "A seamless finish gives the kitchen a clean premium appearance.",
+    image: img44,
+  },
+  {
+    number: "05",
+    name: "GLASS",
+    subtitle: "Light • Crisp • Contemporary",
+    description:
+      "Reflective surfaces add light and visual depth.",
+    image: img55,
+  },
+  {
+    number: "06",
+    name: "FINE HARDWARE",
+    subtitle: "Precise • Functional • Effortless",
+    description:
+      "Small details complete the experience of a well-crafted kitchen.",
+    image: img66,
+  },
+];
+
+/* =========================================================
+   COMPONENT
+========================================================= */
+
 const MaterialsPage = () => {
   const [activeMaterial, setActiveMaterial] = useState(0);
   const [activePalette, setActivePalette] = useState(0);
+  const [activeShowcase, setActiveShowcase] = useState(0);
 
   const material = materialGroups[activeMaterial];
   const palette = palettes[activePalette];
+  const showcase = materialShowcase[activeShowcase];
+
+  const nextShowcase = () => {
+    setActiveShowcase((current) =>
+      current === materialShowcase.length - 1 ? 0 : current + 1
+    );
+  };
+
+  const previousShowcase = () => {
+    setActiveShowcase((current) =>
+      current === 0 ? materialShowcase.length - 1 : current - 1
+    );
+  };
 
   return (
     <main className="materialStudio">
-      {/* HERO */}
+
+      {/* =====================================================
+          HERO
+      ===================================================== */}
+
       <section className="materialStudio-hero">
         <div className="materialStudio-hero-image">
-          <img src={img1} alt="Material Studio Hero" />
+          <img src={img1} alt="Premium kitchen material" />
         </div>
 
         <div className="materialStudio-hero-overlay" />
 
         <div className="materialStudio-hero-content">
-          <span className="materialStudio-eyebrow">THE MATERIAL STUDIO</span>
+          <span className="materialStudio-eyebrow">
+            THE MATERIAL STUDIO
+          </span>
+
           <h1>
             Made of
             <br />
@@ -99,22 +201,35 @@ const MaterialsPage = () => {
           </h1>
 
           <p>
-            Explore the textures, finishes and materials that give every kitchen
-            its own character.
+            Explore the textures, finishes and materials that give every
+            kitchen its own character.
           </p>
 
-          <a href="#material-explorer" className="materialStudio-scroll">
+          <a
+            href="#material-explorer"
+            className="materialStudio-scroll"
+          >
             Explore materials
             <ArrowUpRight size={15} />
           </a>
         </div>
       </section>
 
-      {/* MATERIAL EXPLORER */}
-      <section className="materialStudio-explorer" id="material-explorer">
+
+      {/* =====================================================
+          MATERIAL EXPLORER
+      ===================================================== */}
+
+      <section
+        className="materialStudio-explorer"
+        id="material-explorer"
+      >
         <div className="materialStudio-section-heading">
           <div>
-            <span className="materialStudio-small-label">SURFACE EXPLORER</span>
+            <span className="materialStudio-small-label">
+              SURFACE EXPLORER
+            </span>
+
             <h2>
               Touch the
               <br />
@@ -123,31 +238,46 @@ const MaterialsPage = () => {
           </div>
 
           <p>
-            Every material changes the atmosphere of a kitchen. Choose one to
-            explore its character.
+            Every material changes the atmosphere of a kitchen. Choose one
+            to explore its character.
           </p>
         </div>
 
         <div className="materialStudio-explorer-grid">
-          {/* MATERIAL DISPLAY */}
+
+          {/* IMAGE */}
+
           <div className="materialStudio-material-card">
-            <img key={material.id} src={material.image} alt={material.label} />
+            <img
+              key={material.id}
+              src={material.image}
+              alt={material.label}
+            />
+
             <div className="materialStudio-material-gradient" />
 
             <div className="materialStudio-material-top">
               <span>SELECTED MATERIAL</span>
-              <span>0{activeMaterial + 1} / 04</span>
+              <span>
+                0{activeMaterial + 1} / 04
+              </span>
             </div>
 
             <div className="materialStudio-material-bottom">
               <span>{material.label}</span>
+
               <h3>{material.title}</h3>
             </div>
           </div>
 
-          {/* MATERIAL NAVIGATION */}
+
+          {/* NAVIGATION */}
+
           <div className="materialStudio-material-navigation">
-            <span className="materialStudio-small-label">SELECT A FINISH</span>
+
+            <span className="materialStudio-small-label">
+              SELECT A FINISH
+            </span>
 
             <div className="materialStudio-nav-list">
               {materialGroups.map((item, index) => (
@@ -155,12 +285,18 @@ const MaterialsPage = () => {
                   key={item.id}
                   type="button"
                   className={`materialStudio-nav-item ${
-                    activeMaterial === index ? "active" : ""
+                    activeMaterial === index
+                      ? "materialStudio-nav-item-active"
+                      : ""
                   }`}
                   onClick={() => setActiveMaterial(index)}
                 >
-                  <span className="nav-index">0{index + 1}</span>
+                  <span className="materialStudio-nav-index">
+                    0{index + 1}
+                  </span>
+
                   <strong>{item.label}</strong>
+
                   <ArrowUpRight size={16} />
                 </button>
               ))}
@@ -168,6 +304,7 @@ const MaterialsPage = () => {
 
             <div className="materialStudio-description">
               <p>{material.description}</p>
+
               <div className="materialStudio-details">
                 {material.details.map((detail) => (
                   <div key={detail}>
@@ -177,35 +314,209 @@ const MaterialsPage = () => {
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* PALETTE SECTION */}
+
+      {/* =====================================================
+          NEW INTERACTIVE MATERIAL SHOWCASE
+      ===================================================== */}
+
+      <section className="materialReveal-section">
+
+        <div className="materialReveal-container">
+
+          {/* HEADER */}
+
+          <div className="materialReveal-header">
+
+            <div>
+              <span className="materialReveal-label">
+                MATERIAL STUDY
+              </span>
+
+              <h2>
+                One space.
+                <br />
+                <span>Different personalities.</span>
+              </h2>
+            </div>
+
+            <p>
+              The same kitchen can feel completely different simply by
+              changing the finish.
+            </p>
+          </div>
+
+
+          {/* MAIN SHOWCASE */}
+
+          <div className="materialReveal-main">
+
+            <div className="materialReveal-image">
+
+              <img
+                key={showcase.image}
+                src={showcase.image}
+                alt={showcase.name}
+              />
+
+              <div className="materialReveal-image-overlay" />
+
+              <div className="materialReveal-image-top">
+                <span>ONE KITCHEN</span>
+
+                <span>
+                  {showcase.number} / 06
+                </span>
+              </div>
+
+              <div className="materialReveal-image-bottom">
+
+                <span className="materialReveal-image-label">
+                  CURRENT FINISH
+                </span>
+
+                <h3>{showcase.name}</h3>
+
+                <p>{showcase.subtitle}</p>
+
+              </div>
+
+            </div>
+
+
+            {/* SIDE CONTENT */}
+
+            <div className="materialReveal-side">
+
+              <div className="materialReveal-side-top">
+
+                <span className="materialReveal-side-label">
+                  CHANGE THE FEEL
+                </span>
+
+                <p>
+                  {showcase.description}
+                </p>
+
+              </div>
+
+
+              {/* MATERIAL NUMBERS */}
+
+              <div className="materialReveal-selector">
+
+                {materialShowcase.map((item, index) => (
+                  <button
+                    key={item.number}
+                    type="button"
+                    className={`materialReveal-item ${
+                      activeShowcase === index
+                        ? "materialReveal-item-active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      setActiveShowcase(index)
+                    }
+                  >
+                    <span className="materialReveal-number">
+                      {item.number}
+                    </span>
+
+                    <span className="materialReveal-name">
+                      {item.name}
+                    </span>
+
+                    <ArrowUpRight size={15} />
+                  </button>
+                ))}
+
+              </div>
+
+
+              {/* ARROWS */}
+
+              <div className="materialReveal-controls">
+
+                <button
+                  type="button"
+                  onClick={previousShowcase}
+                  aria-label="Previous material"
+                >
+                  <ChevronLeft size={17} />
+                </button>
+
+                <div className="materialReveal-progress">
+                  <span
+                    style={{
+                      width: `${
+                        ((activeShowcase + 1) /
+                          materialShowcase.length) *
+                        100
+                      }%`,
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={nextShowcase}
+                  aria-label="Next material"
+                >
+                  <ChevronRight size={17} />
+                </button>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* =====================================================
+          PALETTE SECTION
+      ===================================================== */}
+
       <section className="materialStudio-palettes">
+
         <div className="materialStudio-palette-container">
+
           <div className="materialStudio-palette-heading">
+
             <div>
               <span className="materialStudio-small-label">
                 <Sparkles size={13} />
                 CURATED HARMONIES
               </span>
+
               <h2>
                 A palette for
                 <br />
                 <span>your kitchen mood.</span>
               </h2>
             </div>
+
             <p>
               Color and texture set the tone for everyday living. Explore
               curated finishes designed to feel balanced together.
             </p>
+
           </div>
 
+
           <div className="materialStudio-palette-content">
-            {/* SWATCH CARDS */}
+
+            {/* SWATCHES */}
+
             <div className="materialStudio-palette-visual">
+
               <div className="materialStudio-swatch-grid">
+
                 {palette.colors.map((color, index) => (
                   <div
                     key={`${palette.name}-${index}`}
@@ -215,168 +526,263 @@ const MaterialsPage = () => {
                       "--delay": `${index * 0.08}s`,
                     }}
                   >
-                    <span className="materialStudio-swatch-code">{color}</span>
+                    <span className="materialStudio-swatch-code">
+                      {color}
+                    </span>
                   </div>
                 ))}
+
               </div>
 
               <div className="materialStudio-palette-badge">
                 <span>ACTIVE PALETTE</span>
                 <strong>{palette.name}</strong>
               </div>
+
             </div>
 
-            {/* SELECTION LIST */}
+
+            {/* PALETTE LIST */}
+
             <div className="materialStudio-palette-copy">
-              <span className="materialStudio-small-label">SELECT A MOOD</span>
+
+              <span className="materialStudio-small-label">
+                SELECT A MOOD
+              </span>
 
               <div className="materialStudio-palette-list">
+
                 {palettes.map((item, index) => (
                   <button
                     key={item.name}
                     type="button"
                     className={`materialStudio-palette-option ${
-                      activePalette === index ? "active" : ""
+                      activePalette === index
+                        ? "materialStudio-palette-option-active"
+                        : ""
                     }`}
-                    onClick={() => setActivePalette(index)}
+                    onClick={() =>
+                      setActivePalette(index)
+                    }
                   >
-                    <span className="option-index">0{index + 1}</span>
-                    <div className="option-text">
+
+                    <span className="materialStudio-option-index">
+                      0{index + 1}
+                    </span>
+
+                    <div className="materialStudio-option-text">
                       <strong>{item.name}</strong>
                       <small>{item.subtitle}</small>
                     </div>
-                    <div className="option-mini-preview">
-                      {item.colors.map((c, i) => (
-                        <span key={i} style={{ backgroundColor: c }} />
+
+                    <div className="materialStudio-option-preview">
+                      {item.colors.map((color, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            backgroundColor: color,
+                          }}
+                        />
                       ))}
                     </div>
+
                     <ArrowUpRight size={16} />
+
                   </button>
                 ))}
+
               </div>
 
               <div className="materialStudio-palette-meta">
+
                 <p>{palette.description}</p>
+
                 <div className="materialStudio-palette-tags">
                   {palette.tags.map((tag) => (
-                    <span key={tag}>#{tag}</span>
+                    <span key={tag}>
+                      #{tag}
+                    </span>
                   ))}
                 </div>
+
               </div>
+
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* MATERIAL STORY */}
+
+      {/* =====================================================
+          MATERIAL STORY
+      ===================================================== */}
+
       <section className="materialStudio-story">
+
         <div className="materialStudio-story-image">
-          <img src={stone} alt="Stone kitchen material" />
+          <img
+            src={stone}
+            alt="Stone kitchen material"
+          />
         </div>
 
         <div className="materialStudio-story-content">
-          <span className="materialStudio-small-label">MATERIAL STORY</span>
+
+          <span className="materialStudio-small-label">
+            MATERIAL STORY
+          </span>
+
           <h2>
             From raw
             <br />
             <span>to refined.</span>
           </h2>
+
           <p>
-            Great kitchens aren't created from a single material. They come from
-            the balance between texture, colour, light and craftsmanship.
+            Great kitchens aren't created from a single material. They come
+            from the balance between texture, colour, light and craftsmanship.
           </p>
 
           <div className="materialStudio-story-steps">
+
             <div>
               <span>01</span>
               <strong>SELECT</strong>
               <p>Choose materials with purpose.</p>
             </div>
+
             <div>
               <span>02</span>
               <strong>CRAFT</strong>
               <p>Shape every surface precisely.</p>
             </div>
+
             <div>
               <span>03</span>
               <strong>LIVE</strong>
               <p>Enjoy them every day.</p>
             </div>
+
           </div>
+
         </div>
       </section>
 
-      {/* DETAILS SECTION */}
+
+      {/* =====================================================
+          DETAILS
+      ===================================================== */}
+
       <section className="materialStudio-details-section">
+
         <div className="materialStudio-details-header">
+
           <div>
-            <span className="materialStudio-small-label">CLOSE UP</span>
+            <span className="materialStudio-small-label">
+              CLOSE UP
+            </span>
+
             <h2>
               Beautiful
               <br />
               <span>up close.</span>
             </h2>
           </div>
+
         </div>
 
+
         <div className="materialStudio-detail-grid">
+
           <div className="materialStudio-detail-card">
             <img src={img1} alt="Wood texture" />
+
             <div className="materialStudio-detail-overlay">
               <span>01</span>
+
               <div>
                 <h3>Natural grain</h3>
-                <p>Texture that gives the kitchen warmth.</p>
+                <p>
+                  Texture that gives the kitchen warmth.
+                </p>
               </div>
             </div>
           </div>
+
 
           <div className="materialStudio-detail-card">
             <img src={img2} alt="Stone surface" />
+
             <div className="materialStudio-detail-overlay">
               <span>02</span>
+
               <div>
                 <h3>Stone character</h3>
-                <p>Subtle variation makes every surface unique.</p>
+                <p>
+                  Subtle variation makes every surface unique.
+                </p>
               </div>
             </div>
           </div>
+
 
           <div className="materialStudio-detail-card">
             <img src={img3} alt="Kitchen hardware" />
+
             <div className="materialStudio-detail-overlay">
               <span>03</span>
+
               <div>
                 <h3>Fine hardware</h3>
-                <p>Small details designed for everyday movement.</p>
+                <p>
+                  Small details designed for everyday movement.
+                </p>
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* FINAL CTA */}
+
+      {/* =====================================================
+          FINAL CTA
+      ===================================================== */}
+
       <section className="materialStudio-cta">
+
         <div className="materialStudio-cta-image">
-          <img src={wood} alt="Kitchen material" />
+          <img
+            src={wood}
+            alt="Kitchen material"
+          />
         </div>
+
         <div className="materialStudio-cta-overlay" />
+
         <div className="materialStudio-cta-content">
+
           <h2>
             Plan your finishes
             <br />
             <span>with our design team.</span>
           </h2>
+
           <p>
-            Tell us what you imagine. We'll help you find the right combination
-            for your home.
+            Tell us what you imagine. We'll help you find the right
+            combination for your home.
           </p>
+
           <a href="/contact">
             Talk to a designer
             <ArrowUpRight size={16} />
           </a>
+
         </div>
+
       </section>
+
     </main>
   );
 };

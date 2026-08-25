@@ -1,0 +1,642 @@
+/* =========================================================
+   PROJECTS REVEAL - BASE & THEME
+========================================================= */
+
+.pr-section {
+  position: relative;
+  width: 100%;
+  padding: clamp(60px, 8vw, 110px) clamp(16px, 4vw, 50px);
+  background: #f7f5f0;
+  color: #292a27;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.pr-section *,
+.pr-section *::before,
+.pr-section *::after {
+  box-sizing: border-box;
+}
+
+.pr-wrapper {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pr-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(32px, 5vw, 54px);
+}
+
+.pr-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #687568;
+}
+
+.pr-header h2 {
+  margin: 0;
+  font-size: clamp(32px, 4.5vw, 54px);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  color: #292a27;
+}
+
+.pr-header h2 span {
+  color: #7b8078;
+}
+
+.pr-header-description {
+  margin: 0;
+  font-size: clamp(12px, 1.1vw, 13px);
+  line-height: 1.65;
+  color: #777a73;
+  text-align: right;
+  max-width: 320px;
+}
+
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+
+.pr-layout {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+
+/* =========================================
+   SIDE INFORMATION
+========================================= */
+
+.pr-side-info {
+  width: 70px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.pr-project-count {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #687568;
+}
+
+.pr-side-line {
+  width: 1px;
+  height: 80px;
+  margin-left: 4px;
+  background: #e3e4de;
+}
+
+.pr-side-text {
+  font-size: 9px;
+  line-height: 1.6;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #999e96;
+}
+
+
+/* =========================================
+   STAGE
+========================================= */
+
+.pr-stage {
+  position: relative;
+  width: min(100%, 880px);
+  height: clamp(380px, 45vw, 540px);
+  margin: 0 auto;
+  perspective: 1800px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 45px rgba(40, 45, 38, 0.08);
+  border: 1px solid #e3e4de;
+  background: #292a27;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.pr-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pr-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.pr-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    transparent 45%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+
+/* =========================================
+   CABINET FRAME
+========================================= */
+
+.pr-frame {
+  position: absolute;
+  inset: 16px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.pr-frame-top,
+.pr-frame-bottom,
+.pr-frame-left,
+.pr-frame-right {
+  position: absolute;
+  background: #343832;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.pr-frame-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.pr-frame-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.pr-frame-left {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 14px;
+}
+
+.pr-frame-right {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+}
+
+
+/* =========================================
+   DOOR
+========================================= */
+
+.pr-door {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: calc(100% - 28px);
+  height: 100%;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.pr-door-surface {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #53483f 0%,
+    #413832 50%,
+    #322b26 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 0 80px rgba(0, 0, 0, 0.25),
+    0 20px 50px rgba(0, 0, 0, 0.3);
+  backface-visibility: hidden;
+}
+
+/* subtle door detail */
+.pr-door-surface::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: 10%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* door number */
+.pr-door-number {
+  position: absolute;
+  top: 8%;
+  left: 8%;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* door handle */
+.pr-door-handle {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  width: 4px;
+  height: 70px;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  background: #d1c6a8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* door text */
+.pr-door-text {
+  position: absolute;
+  left: 8%;
+  bottom: 8%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pr-door-text span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #d1c6a8;
+  text-transform: uppercase;
+}
+
+.pr-door-text strong {
+  max-width: 180px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+
+/* =========================================
+   OPEN BUTTON
+========================================= */
+
+.pr-open {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  background: rgba(41, 42, 39, 0.85);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.pr-open:hover {
+  background: #687568;
+  border-color: #687568;
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+.pr-open-circle {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+/* =========================================
+   PROJECT DETAILS
+========================================= */
+
+.pr-details {
+  position: absolute;
+  z-index: 20;
+  left: clamp(20px, 4vw, 36px);
+  bottom: clamp(20px, 4vw, 36px);
+  max-width: 420px;
+  color: #ffffff;
+}
+
+.pr-details-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #d1c6a8;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.pr-details h3 {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.pr-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pr-meta span {
+  position: relative;
+}
+
+.pr-meta span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.pr-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #292a27;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+}
+
+.pr-explore:hover {
+  background: #687568;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+========================================= */
+
+.pr-bottom {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 24px;
+  margin-left: 105px;
+}
+
+/* navigation buttons */
+.pr-nav-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #777a73;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pr-nav-button:hover:not(:disabled) {
+  color: #292a27;
+}
+
+.pr-nav-button:hover:not(:disabled) svg {
+  transform: translateX(2px);
+}
+
+.pr-nav-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* progress bar */
+.pr-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 420px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #777a73;
+}
+
+.pr-line {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: #e3e4de;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.pr-line div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #687568;
+  border-radius: 2px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .pr-section {
+    padding: 90px 5vw;
+  }
+
+  .pr-header {
+    margin-bottom: 40px;
+  }
+
+  .pr-layout {
+    gap: 20px;
+  }
+
+  .pr-side-info {
+    width: 50px;
+  }
+
+  .pr-stage {
+    height: 470px;
+  }
+
+  .pr-bottom {
+    margin-left: 70px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+  .pr-section {
+    padding: 75px 18px 90px;
+  }
+
+  .pr-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+
+  .pr-header h2 {
+    font-size: 40px;
+  }
+
+  .pr-header-description {
+    margin-top: 10px;
+    text-align: left;
+    max-width: none;
+    font-size: 12px;
+  }
+
+  .pr-layout {
+    display: block;
+  }
+
+  .pr-side-info {
+    display: none;
+  }
+
+  .pr-stage {
+    width: 100%;
+    height: 380px;
+    border-radius: 16px;
+  }
+
+  .pr-frame {
+    inset: 10px;
+  }
+
+  .pr-frame-top,
+  .pr-frame-bottom,
+  .pr-frame-left,
+  .pr-frame-right {
+    height: 10px;
+    width: 10px;
+  }
+
+  .pr-door {
+    left: 10px;
+    width: calc(100% - 20px);
+  }
+
+  .pr-door-handle {
+    height: 50px;
+  }
+
+  .pr-door-text strong {
+    max-width: 140px;
+    font-size: 18px;
+  }
+
+  .pr-details {
+    left: 16px;
+    bottom: 16px;
+    max-width: 90%;
+  }
+
+  .pr-details h3 {
+    font-size: 26px;
+  }
+
+  .pr-meta {
+    gap: 6px 12px;
+  }
+
+  .pr-bottom {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  .pr-progress-wrapper {
+    max-width: none;
+    order: 2;
+  }
+
+  .pr-nav-button:first-child {
+    order: 1;
+  }
+
+  .pr-nav-button:last-child {
+    order: 3;
+  }
+
+  .pr-nav-button span {
+    display: none;
+  }
+}
