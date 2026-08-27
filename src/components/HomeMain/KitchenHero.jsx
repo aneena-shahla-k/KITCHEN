@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useScroll, useTransform, useSpring } from "framer-motion";
+// Removed useSpring, using direct useTransform mapping for 0ms scroll delay
+import { useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
@@ -14,7 +15,7 @@ const KitchenHero = () => {
   const animFrameId = useRef(null);
   const lastDrawnFrameRef = useRef(-1);
 
-  // High performance cache refs
+  // High performance cache refs (Zero layout reflows on scroll)
   const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
   const pendingFrameIndexRef = useRef(null);
   const lastDrawTimeRef = useRef(0);
@@ -40,18 +41,11 @@ const KitchenHero = () => {
     offset: ["start start", "end end"],
   });
 
-  // 2. High-speed, responsive spring physics (no lag catch-up feeling)
-  const smoothScrollYProgress = useSpring(scrollYProgress, {
-    stiffness: 140,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  // 3. Map smoothed scroll to frame indices
-  const frameIndex = useTransform(smoothScrollYProgress, [0, 1], [1, TOTAL_FRAMES]);
+  // 2. Direct transform mapping for 0ms scroll-matching latency (no sluggish catch-up)
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [1, TOTAL_FRAMES]);
 
   /* ================================
-     CANVAS SIZE SETUP (No layout thrashing on scroll)
+     CANVAS SIZE SETUP (On Resize/Mount Only)
   ================================ */
   const updateCanvasDimensions = useCallback(() => {
     const canvas = canvasRef.current;
@@ -80,7 +74,7 @@ const KitchenHero = () => {
   }, []);
 
   /* ================================
-     COALESCED DRAW CALLBACK (Eliminates GC closures & stuttering)
+     COALESCED DRAW CALLBACK
   ================================ */
   const drawCallback = useCallback(() => {
     const targetIndex = pendingFrameIndexRef.current;
@@ -143,14 +137,14 @@ const KitchenHero = () => {
       offsetY = (canvasHeight - drawHeight) / 2;
     }
 
-    // No clearRect needed as drawImage completely redraws full cover screen pixels
+    // Direct pixel drawing with no clearRect (image is scaled to fully cover the canvas)
     ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
     
     lastDrawnFrameRef.current = targetIndex;
   }, [updateCanvasDimensions]);
 
   /* ================================
-     RENDER INITIATION (With Mobile Lazy Loading & 30fps throttle)
+     RENDER INITIATION (With Mobile Lazy Load & 30fps throttle)
   ================================ */
   const renderFrame = useCallback((index) => {
     const targetIndex = Math.min(Math.max(Math.round(index), 1), TOTAL_FRAMES);
@@ -160,7 +154,7 @@ const KitchenHero = () => {
 
     const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
 
-    // MOBILE LAZY LOADING: Loads images on-demand only as finger scrolls
+    // MOBILE LAZY LOADING: Loads images on-demand only as user scrolls
     if (isMobile) {
       const imgIndex = targetIndex - 1;
       if (!imagesRef.current[imgIndex]) {
@@ -179,7 +173,7 @@ const KitchenHero = () => {
       }
     }
 
-    // 30fps throttle on Mobile to let low-RAM devices decode in peace
+    // 30fps throttle on Mobile to prevent system pauses
     if (isMobile) {
       const now = performance.now();
       if (now - lastDrawTimeRef.current < 33) { 
@@ -349,7 +343,7 @@ const KitchenHero = () => {
 
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Framer motion scroll change trigger
+    // Directly track frame index changes for instant scroll response
     const unsubscribe = frameIndex.on("change", (latest) => {
       const frame = Math.round(latest);
 
@@ -377,7 +371,6 @@ const KitchenHero = () => {
   return (
     <section ref={heroRef} className="kitchen-hero" id="home">
       <div className="kitchen-animation">
-        {/* Added transform and willChange to canvas styles for forced GPU layers */}
         <canvas 
           ref={canvasRef} 
           className="kitchen-canvas" 
