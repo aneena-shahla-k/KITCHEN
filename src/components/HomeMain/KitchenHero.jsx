@@ -3,7 +3,7 @@ import { useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 160;
 const TRANSITION_FRAME = 20;
 
 // How many frames to prefetch ahead of the current scroll position on mobile.
