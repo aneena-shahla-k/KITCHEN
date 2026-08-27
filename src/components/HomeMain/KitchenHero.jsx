@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-// Removed useSpring, using direct useTransform mapping for 0ms scroll delay
 import { useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
 const TOTAL_FRAMES = 240;
 const TRANSITION_FRAME = 20;
+
+// How many frames to prefetch ahead of the current scroll position on mobile.
+// This is the main fix for "freezes mid-scroll": the old code only ever
+// fetched the exact frame needed at that instant, so on a real network
+// (unlike localhost) fast scrolling always outran the fetch.
+const MOBILE_PREFETCH_WINDOW = 8;
 
 const KitchenHero = () => {
   const heroRef = useRef(null);
@@ -14,39 +19,40 @@ const KitchenHero = () => {
   const imagesRef = useRef([]);
   const animFrameId = useRef(null);
   const lastDrawnFrameRef = useRef(-1);
-  const currentFrameRef = useRef(1); // <-- Added declaration to resolve ESLint error
+  const currentFrameRef = useRef(1);
+  const scrollDirRef = useRef(1); // +1 = scrolling down, -1 = scrolling up
 
-  // High performance cache refs (Zero layout reflows on scroll)
   const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
   const pendingFrameIndexRef = useRef(null);
   const lastDrawTimeRef = useRef(0);
 
-  // Audio Refs
   const audioRef = useRef(null);
   const soundTriggeredRef = useRef(false);
   const isUnlockedRef = useRef(false);
+
+  // Holds the latest renderFrame so prefetch callbacks (defined earlier in
+  // the closure chain) can call it without creating a circular useCallback
+  // dependency.
+  const renderFrameRef = useRef(() => {});
 
   const [loadProgress, setLoadProgress] = useState(0);
   const [ready, setReady] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
-  // Client-side mobile detection
   useEffect(() => {
     const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
     setIsMobileDevice(isMobile);
   }, []);
 
-  // 1. Get raw scroll progress
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end end"],
   });
 
-  // 2. Direct transform mapping for 0ms scroll-matching latency (no sluggish catch-up)
   const frameIndex = useTransform(scrollYProgress, [0, 1], [1, TOTAL_FRAMES]);
 
   /* ================================
-     CANVAS SIZE SETUP (On Resize/Mount Only)
+     CANVAS SIZE SETUP
   ================================ */
   const updateCanvasDimensions = useCallback(() => {
     const canvas = canvasRef.current;
@@ -67,11 +73,43 @@ const KitchenHero = () => {
       canvas.height = pixelHeight;
     }
 
-    canvasSizeRef.current = {
-      width: pixelWidth,
-      height: pixelHeight,
-      dpr,
+    canvasSizeRef.current = { width: pixelWidth, height: pixelHeight, dpr };
+  }, []);
+
+  /* ================================
+     A SINGLE IMAGE LOADER (used by both the exact-frame fetch and prefetch)
+  ================================ */
+  const loadFrameImage = useCallback((idx, { isRetry = false } = {}) => {
+    if (idx < 1 || idx > TOTAL_FRAMES) return;
+    const imgIndex = idx - 1;
+
+    // Already loaded or currently in-flight (and not a deliberate retry) - skip.
+    if (imagesRef.current[imgIndex] && !isRetry) return;
+
+    const img = new Image();
+    img.decoding = "async";
+    const frame = String(idx).padStart(3, "0");
+    img.src = `/kitchen/ezgif-frame-${frame}.webp`;
+
+    img.onload = () => {
+      // If the user is still near this frame, trigger a redraw.
+      if (Math.abs(currentFrameRef.current - idx) <= 10) {
+        renderFrameRef.current(currentFrameRef.current);
+      }
     };
+
+    // FIX: the old code silently gave up on a failed/slow load and just kept
+    // falling back to whatever frame *was* loaded (often frame 1 forever,
+    // which is exactly what a permanent "freeze" looks like). Retry once
+    // after a short delay before giving up for good.
+    img.onerror = () => {
+      imagesRef.current[imgIndex] = null;
+      if (!isRetry) {
+        setTimeout(() => loadFrameImage(idx, { isRetry: true }), 700);
+      }
+    };
+
+    imagesRef.current[imgIndex] = img;
   }, []);
 
   /* ================================
@@ -80,7 +118,7 @@ const KitchenHero = () => {
   const drawCallback = useCallback(() => {
     const targetIndex = pendingFrameIndexRef.current;
     if (targetIndex === null) return;
-    pendingFrameIndexRef.current = null; // Clear pending
+    pendingFrameIndexRef.current = null;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -88,21 +126,20 @@ const KitchenHero = () => {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    // Find target image or fallback to nearest loaded frame
     let image = imagesRef.current[targetIndex - 1];
     if (!image || !image.complete) {
       let step = 1;
       while (targetIndex - step >= 1 || targetIndex + step <= TOTAL_FRAMES) {
         if (targetIndex - step >= 1) {
           const img = imagesRef.current[targetIndex - 1 - step];
-          if (img && img.complete) {
+          if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
             image = img;
             break;
           }
         }
         if (targetIndex + step <= TOTAL_FRAMES) {
           const img = imagesRef.current[targetIndex - 1 + step];
-          if (img && img.complete) {
+          if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
             image = img;
             break;
           }
@@ -111,14 +148,19 @@ const KitchenHero = () => {
       }
     }
 
-    if (!image || !image.complete || image.naturalWidth === 0) return;
+    // FIX: also guard naturalHeight, not just naturalWidth - a 0-height
+    // image produces an Infinity/NaN draw size and ctx.drawImage() throws,
+    // which (since this runs inside rAF) silently kills that frame's draw
+    // and can strand the canvas on the last good frame.
+    if (!image || !image.complete || image.naturalWidth === 0 || image.naturalHeight === 0) {
+      return;
+    }
 
     let { width: canvasWidth, height: canvasHeight } = canvasSizeRef.current;
     if (canvasWidth === 0 || canvasHeight === 0) {
       updateCanvasDimensions();
       ({ width: canvasWidth, height: canvasHeight } = canvasSizeRef.current);
     }
-
     if (canvasWidth === 0 || canvasHeight === 0) return;
 
     const imageRatio = image.naturalWidth / image.naturalHeight;
@@ -138,47 +180,44 @@ const KitchenHero = () => {
       offsetY = (canvasHeight - drawHeight) / 2;
     }
 
-    // Direct pixel drawing with no clearRect (image is scaled to fully cover the canvas)
-    ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
-    
-    lastDrawnFrameRef.current = targetIndex;
+    try {
+      ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+      lastDrawnFrameRef.current = targetIndex;
+    } catch (err) {
+      // Never let a single bad frame permanently wedge the canvas.
+      console.warn(`Failed to draw frame ${targetIndex}:`, err);
+    }
   }, [updateCanvasDimensions]);
 
   /* ================================
-     RENDER INITIATION (With Mobile Lazy Load & 30fps throttle)
+     RENDER INITIATION (mobile prefetch window + 30fps throttle)
   ================================ */
   const renderFrame = useCallback((index) => {
     const targetIndex = Math.min(Math.max(Math.round(index), 1), TOTAL_FRAMES);
 
-    // Skip drawing if frame hasn't changed
     if (targetIndex === lastDrawnFrameRef.current) return;
 
     const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
 
-    // MOBILE LAZY LOADING: Loads images on-demand only as user scrolls
     if (isMobile) {
-      const imgIndex = targetIndex - 1;
-      if (!imagesRef.current[imgIndex]) {
-        const img = new Image();
-        img.decoding = "async";
-        const frame = String(targetIndex).padStart(3, "0");
-        img.src = `/kitchen/ezgif-frame-${frame}.webp`;
-        
-        img.onload = () => {
-          // If the scroll position is still close to this frame, draw it
-          if (Math.abs(currentFrameRef.current - targetIndex) <= 10) {
-            renderFrame(currentFrameRef.current);
-          }
-        };
-        imagesRef.current[imgIndex] = img;
-      }
-    }
+      // Track direction so we prefetch ahead of where the user is heading,
+      // not behind them.
+      scrollDirRef.current = targetIndex >= currentFrameRef.current ? 1 : -1;
 
-    // 30fps throttle on Mobile to prevent system pauses
-    if (isMobile) {
+      // Load the exact frame needed now...
+      loadFrameImage(targetIndex);
+
+      // ...and a window of frames ahead of scroll direction, so the fetch
+      // is already in flight by the time the user scrolls there instead of
+      // starting cold on arrival (this is what actually fixes the freeze).
+      for (let i = 1; i <= MOBILE_PREFETCH_WINDOW; i++) {
+        loadFrameImage(targetIndex + i * scrollDirRef.current);
+      }
+
       const now = performance.now();
-      if (now - lastDrawTimeRef.current < 33) { 
-        return; 
+      if (now - lastDrawTimeRef.current < 33) {
+        currentFrameRef.current = targetIndex; // still track position while throttled
+        return;
       }
       lastDrawTimeRef.current = now;
     }
@@ -192,7 +231,11 @@ const KitchenHero = () => {
         drawCallback();
       });
     }
-  }, [drawCallback]);
+  }, [drawCallback, loadFrameImage]);
+
+  useEffect(() => {
+    renderFrameRef.current = renderFrame;
+  }, [renderFrame]);
 
   /* ================================
      AUDIO SETUP
@@ -257,7 +300,6 @@ const KitchenHero = () => {
 
     const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
 
-    // Load first frame immediately to make site ready
     const loadFirstFrame = async () => {
       const img = new Image();
       img.decoding = "async";
@@ -266,19 +308,13 @@ const KitchenHero = () => {
         if (!isMounted) return;
         loadedImages[0] = img;
         setReady(true);
-        renderFrame(1);
-        
-        // Start background preloading ONLY on Desktop
-        if (!isMobile) {
-          preloadDesktopFrames();
-        }
+        renderFrameRef.current(1);
+        if (!isMobile) preloadDesktopFrames();
       };
       img.onerror = () => {
         if (!isMounted) return;
         setReady(true);
-        if (!isMobile) {
-          preloadDesktopFrames();
-        }
+        if (!isMobile) preloadDesktopFrames();
       };
       loadedImages[0] = img;
     };
@@ -309,7 +345,8 @@ const KitchenHero = () => {
 
         img.onload = () => {
           if (!isMounted) return resolve();
-          img.decode()
+          img
+            .decode()
             .then(() => {
               if (!isMounted) return;
               loadedImages[index] = img;
@@ -322,9 +359,7 @@ const KitchenHero = () => {
               loadedCount++;
               setLoadProgress(Math.round((loadedCount / (TOTAL_FRAMES - 1)) * 100));
             })
-            .finally(() => {
-              resolve();
-            });
+            .finally(() => resolve());
         };
 
         img.onerror = () => {
@@ -339,12 +374,11 @@ const KitchenHero = () => {
 
     const handleResize = () => {
       updateCanvasDimensions();
-      renderFrame(currentFrameRef.current);
+      renderFrameRef.current(currentFrameRef.current);
     };
 
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Directly track frame index changes for instant scroll response
     const unsubscribe = frameIndex.on("change", (latest) => {
       const frame = Math.round(latest);
 
@@ -355,7 +389,7 @@ const KitchenHero = () => {
         soundTriggeredRef.current = false;
       }
 
-      renderFrame(frame);
+      renderFrameRef.current(frame);
     });
 
     return () => {
@@ -365,16 +399,16 @@ const KitchenHero = () => {
       if (animFrameId.current) cancelAnimationFrame(animFrameId.current);
       imagesRef.current = [];
     };
-  }, [frameIndex, renderFrame, updateCanvasDimensions]);
+  }, [frameIndex, updateCanvasDimensions]);
 
   const percentageText = isMobileDevice ? (ready ? 100 : 0) : loadProgress;
 
   return (
     <section ref={heroRef} className="kitchen-hero" id="home">
       <div className="kitchen-animation">
-        <canvas 
-          ref={canvasRef} 
-          className="kitchen-canvas" 
+        <canvas
+          ref={canvasRef}
+          className="kitchen-canvas"
           style={{ transform: "translate3d(0,0,0)", willChange: "transform" }}
         />
 
