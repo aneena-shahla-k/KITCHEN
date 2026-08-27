@@ -1,7 +1,7 @@
 .kitchen-hero {
   position: relative;
   width: 100%;
-  height: 300vh;
+  height: 240vh;
   background: #e9e4dc;
 }
 
@@ -10,6 +10,7 @@
   top: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background: #e9e4dc;
 }
@@ -31,9 +32,7 @@
 .kitchen-overlay {
   position: absolute;
   inset: 0;
-
   pointer-events: none;
-
   background:
     linear-gradient(
       90deg,
@@ -50,7 +49,6 @@
     );
 }
 
-
 /* =========================================
    LOADING
 ========================================= */
@@ -58,17 +56,12 @@
 .kitchen-loading {
   position: absolute;
   inset: 0;
-
   z-index: 5;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #e9e4dc;
-
   pointer-events: none;
-
   transition:
     opacity 0.5s ease,
     visibility 0.5s ease;
@@ -77,46 +70,27 @@
 .loading-line {
   width: 70px;
   height: 1px;
-
   position: relative;
   overflow: hidden;
-
   background: rgba(50, 45, 40, 0.15);
 }
 
 .loading-line::after {
   content: "";
-
   position: absolute;
-
   top: 0;
   left: -100%;
-
   width: 100%;
   height: 100%;
-
   background: rgba(50, 45, 40, 0.7);
-
-  animation:
-    loadingMove 1.1s
-    ease-in-out
-    infinite;
+  animation: loadingMove 1.1s ease-in-out infinite;
 }
 
 @keyframes loadingMove {
-  0% {
-    left: -100%;
-  }
-
-  50% {
-    left: 0;
-  }
-
-  100% {
-    left: 100%;
-  }
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
 }
-
 
 /* =========================================
    HERO CONTENT
@@ -124,64 +98,40 @@
 
 .kitchen-hero-content {
   position: absolute;
-
   z-index: 3;
-
   left: 7.5%;
   top: 50%;
-
   transform: translateY(-50%);
-
   width: min(520px, 42vw);
-
   color: #fff;
-
   pointer-events: none;
 }
 
 .kitchen-eyebrow {
   display: block;
-
   margin-bottom: 22px;
-
   font-size: 10px;
   font-weight: 500;
-
   letter-spacing: 3px;
-
-  color:
-    rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .kitchen-hero-content h1 {
   margin: 0;
-
-  font-size:
-    clamp(50px, 6vw, 88px);
-
+  font-size: clamp(50px, 6vw, 88px);
   line-height: 0.94;
-
   font-weight: 400;
-
   letter-spacing: -4px;
-
   text-transform: none;
 }
 
 .kitchen-hero-content p {
   max-width: 360px;
-
-  margin:
-    27px 0 32px;
-
+  margin: 27px 0 32px;
   font-size: 14px;
-
   line-height: 1.7;
-
-  color:
-    rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
-
 
 /* =========================================
    BUTTONS
@@ -189,47 +139,26 @@
 
 .kitchen-actions {
   display: flex;
-
   align-items: center;
-
   gap: 22px;
-
   pointer-events: auto;
 }
 
 .kitchen-primary {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   gap: 11px;
-
   min-height: 46px;
-
   padding: 0 20px;
-
   border-radius: 30px;
-
-  background:
-    rgba(255, 255, 255, 0.94);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.8);
-
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   color: #24211e;
-
   text-decoration: none;
-
   font-size: 11px;
-
   font-weight: 500;
-
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.12);
-
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   transition:
     transform 0.3s ease,
     background 0.3s ease,
@@ -237,72 +166,44 @@
 }
 
 .kitchen-primary:hover {
-  transform:
-    translateY(-3px);
-
+  transform: translateY(-3px);
   background: #fff;
-
-  box-shadow:
-    0 15px 35px
-    rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .kitchen-showreel {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
-
   padding: 0;
-
   border: none;
-
   background: transparent;
-
   color: #fff;
-
   font-size: 11px;
-
   cursor: pointer;
 }
 
 .kitchen-play {
   width: 36px;
   height: 36px;
-
   display: grid;
-
   place-items: center;
-
   border-radius: 50%;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.45);
-
-  background:
-    rgba(255, 255, 255, 0.12);
-
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-
   transition:
     background 0.3s ease,
     transform 0.3s ease;
-  transform:
-    translateZ(0);
-    will-change: transform;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
-.kitchen-showreel:hover
-.kitchen-play {
-  background:
-    rgba(255, 255, 255, 0.25);
-
+.kitchen-showreel:hover .kitchen-play {
+  background: rgba(255, 255, 255, 0.25);
   transform: scale(1.08);
 }
-
 
 /* =========================================
    STATS
@@ -310,45 +211,26 @@
 
 .kitchen-stats {
   position: absolute;
-
   z-index: 4;
-
   right: 6%;
   top: 50%;
-
-  transform:
-    translateZ(0);
-    will-change: transform;
-
+  transform: translateZ(0);
+  will-change: transform;
   width: 170px;
-
   padding: 10px 20px;
-
   border-radius: 24px;
-
-  background:
-    rgba(255, 255, 255, 0.13);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.24);
-
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-
   box-shadow:
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.22),
-    0 20px 60px
-    rgba(0, 0, 0, 0.14);
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 20px 60px rgba(0, 0, 0, 0.14);
 }
 
 .kitchen-stats > div {
   padding: 17px 0;
-
-  border-bottom:
-    1px solid
-    rgba(255, 255, 255, 0.16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .kitchen-stats > div:last-child {
@@ -357,29 +239,19 @@
 
 .kitchen-stats strong {
   display: block;
-
   margin-bottom: 5px;
-
   font-size: 25px;
-
   line-height: 1;
-
   font-weight: 400;
-
   color: #fff;
 }
 
 .kitchen-stats span {
   display: block;
-
   font-size: 9px;
-
   line-height: 1.4;
-
-  color:
-    rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
-
 
 /* =========================================
    SCROLL INDICATOR
@@ -387,83 +259,48 @@
 
 .kitchen-scroll {
   position: absolute;
-
   z-index: 4;
-
   left: 50%;
   bottom: 25px;
-
-  transform:
-    translateX(-50%);
-
+  transform: translateX(-50%);
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   gap: 8px;
-
-  color:
-    rgba(255, 255, 255, 0.7);
-
+  color: rgba(255, 255, 255, 0.7);
   pointer-events: none;
 }
 
 .kitchen-scroll span {
   font-size: 8px;
-
   letter-spacing: 2px;
-
   writing-mode: vertical-rl;
-
-  transform:
-    rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .scroll-indicator {
   width: 1px;
   height: 38px;
-
   position: relative;
-
   overflow: hidden;
-
-  background:
-    rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .scroll-indicator::after {
   content: "";
-
   position: absolute;
-
   top: -100%;
   left: 0;
-
   width: 1px;
   height: 50%;
-
-  background:
-    rgba(255, 255, 255, 0.9);
-
-  animation:
-    scrollLine
-    1.7s
-    ease-in-out
-    infinite;
+  background: rgba(255, 255, 255, 0.9);
+  animation: scrollLine 1.7s ease-in-out infinite;
 }
 
 @keyframes scrollLine {
-  0% {
-    top: -50%;
-  }
-
-  100% {
-    top: 110%;
-  }
+  0% { top: -50%; }
+  100% { top: 110%; }
 }
-
 
 /* =========================================
    GLASS HIGHLIGHT
@@ -471,46 +308,31 @@
 
 .kitchen-animation::after {
   content: "";
-
   position: absolute;
-
   inset: 0;
-
   z-index: 2;
-
   pointer-events: none;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.08);
-
-  box-shadow:
-    inset 0 0 100px
-    rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.04);
 }
-
 
 /* =========================================
    TABLET
 ========================================= */
 
 @media (max-width: 1100px) {
-
   .kitchen-hero-content {
     left: 6%;
     width: 480px;
   }
 
   .kitchen-hero-content h1 {
-    font-size:
-      clamp(48px, 7vw, 72px);
+    font-size: clamp(48px, 7vw, 72px);
   }
 
   .kitchen-stats {
     right: 4%;
-
     width: 145px;
-
     padding: 8px 16px;
   }
 
@@ -524,20 +346,18 @@
 ================================ */
 
 @media (max-width: 800px) {
-
   .kitchen-hero {
-    height: 240vh;
+    height: 200vh;
   }
 
   .kitchen-animation {
-    height: 88svh;
-    min-height: 620px;
+    height: 100vh;
+    height: 100dvh;
+    min-height: auto;
   }
 
   .kitchen-canvas {
-    object-fit: contain;
-    object-position: center center;
-    background: #25221e;
+    background: transparent;
   }
 
   .kitchen-overlay {
@@ -625,50 +445,40 @@
 ========================================= */
 
 @media (max-width: 520px) {
-
   .kitchen-hero {
-    height: 240vh;
-  }
-  .kitchen-canvas {
-    object-fit: contain;
-    object-position: center center;
-    background: #25221e;
+    height: 200vh;
   }
 
+  .kitchen-canvas {
+    background: transparent;
+  }
 
   .kitchen-animation {
-    height: 100svh;
+    height: 100vh;
+    height: 100dvh;
   }
 
   .kitchen-hero-content {
     left: 20px;
     right: 20px;
-
     bottom: 105px;
   }
 
   .kitchen-eyebrow {
     margin-bottom: 13px;
-
     font-size: 8px;
-
     letter-spacing: 1.8px;
   }
 
   .kitchen-hero-content h1 {
     font-size: 45px;
-
     line-height: 0.95;
-
     letter-spacing: -2.5px;
   }
 
   .kitchen-hero-content p {
-    margin:
-      16px 0 21px;
-
+    margin: 16px 0 21px;
     font-size: 12px;
-
     line-height: 1.6;
   }
 
@@ -678,9 +488,7 @@
 
   .kitchen-primary {
     min-height: 42px;
-
     padding: 0 17px;
-
     font-size: 10px;
   }
 
@@ -696,9 +504,7 @@
   .kitchen-stats {
     left: 14px;
     right: 14px;
-
     bottom: 14px;
-
     border-radius: 16px;
   }
 
@@ -715,13 +521,11 @@
   }
 }
 
-
 /* =========================================
    REDUCED MOTION
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .loading-line::after,
   .scroll-indicator::after {
     animation: none;
