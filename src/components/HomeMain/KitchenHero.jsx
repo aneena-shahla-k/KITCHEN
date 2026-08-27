@@ -3,13 +3,9 @@ import { useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
-const TOTAL_FRAMES = 64;
+const TOTAL_FRAMES = 40;
 const TRANSITION_FRAME = 10;
 
-// How many frames to prefetch ahead of the current scroll position on mobile.
-// This is the main fix for "freezes mid-scroll": the old code only ever
-// fetched the exact frame needed at that instant, so on a real network
-// (unlike localhost) fast scrolling always outran the fetch.
 const MOBILE_PREFETCH_WINDOW = 8;
 
 const KitchenHero = () => {
