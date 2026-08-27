@@ -11,8 +11,13 @@ const KitchenHero = () => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const imagesRef = useRef([]);
-  const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
+  const animFrameId = useRef(null);
   const lastDrawnFrameRef = useRef(-1);
+
+  // High performance cache refs
+  const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
+  const pendingFrameIndexRef = useRef(null);
+  const lastDrawTimeRef = useRef(0);
 
   // Audio Refs
   const audioRef = useRef(null);
@@ -21,35 +26,46 @@ const KitchenHero = () => {
 
   const [loadProgress, setLoadProgress] = useState(0);
   const [ready, setReady] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
-  // Raw scroll progress
+  // Client-side mobile detection
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
+    setIsMobileDevice(isMobile);
+  }, []);
+
+  // 1. Get raw scroll progress
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end end"],
   });
 
-  // Smooth scroll progress using spring physics
+  // 2. High-speed, responsive spring physics (no lag catch-up feeling)
   const smoothScrollYProgress = useSpring(scrollYProgress, {
-    stiffness: 75,
-    damping: 25,
+    stiffness: 140,
+    damping: 30,
     restDelta: 0.001
   });
 
-  // Map progress to frame index
+  // 3. Map smoothed scroll to frame indices
   const frameIndex = useTransform(smoothScrollYProgress, [0, 1], [1, TOTAL_FRAMES]);
 
   /* ================================
-     CANVAS SIZE SETUP
+     CANVAS SIZE SETUP (No layout thrashing on scroll)
   ================================ */
   const updateCanvasDimensions = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
     const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
-    const pixelWidth = Math.round(rect.width * dpr);
-    const pixelHeight = Math.round(rect.height * dpr);
+
+    const displayWidth = Math.floor(rect.width) || window.innerWidth;
+    const displayHeight = Math.floor(rect.height) || window.innerHeight;
+
+    const pixelWidth = displayWidth * dpr;
+    const pixelHeight = displayHeight * dpr;
 
     if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
       canvas.width = pixelWidth;
@@ -57,45 +73,40 @@ const KitchenHero = () => {
     }
 
     canvasSizeRef.current = {
-      width: rect.width,
-      height: rect.height,
+      width: pixelWidth,
+      height: pixelHeight,
       dpr,
     };
-
-    if (contextRef.current) {
-      contextRef.current.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
   }, []);
 
   /* ================================
-     DRAW FUNCTION
+     COALESCED DRAW CALLBACK (Eliminates GC closures & stuttering)
   ================================ */
-  const renderFrame = useCallback((frameNumber) => {
+  const drawCallback = useCallback(() => {
+    const targetIndex = pendingFrameIndexRef.current;
+    if (targetIndex === null) return;
+    pendingFrameIndexRef.current = null; // Clear pending
+
     const canvas = canvasRef.current;
-    const ctx = contextRef.current;
-    if (!canvas || !ctx) return;
+    if (!canvas) return;
 
-    // Recalculate dimensions dynamically if they are 0 on first render
-    if (canvasSizeRef.current.width === 0 || canvasSizeRef.current.height === 0) {
-      updateCanvasDimensions();
-    }
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
 
-    const targetIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameNumber - 1));
-    let image = imagesRef.current[targetIndex];
-
-    // Find the nearest loaded frame fallback
+    // Find target image or fallback to nearest loaded frame
+    let image = imagesRef.current[targetIndex - 1];
     if (!image || !image.complete) {
       let step = 1;
-      while (targetIndex - step >= 0 || targetIndex + step < TOTAL_FRAMES) {
-        if (targetIndex - step >= 0) {
-          const img = imagesRef.current[targetIndex - step];
+      while (targetIndex - step >= 1 || targetIndex + step <= TOTAL_FRAMES) {
+        if (targetIndex - step >= 1) {
+          const img = imagesRef.current[targetIndex - 1 - step];
           if (img && img.complete) {
             image = img;
             break;
           }
         }
-        if (targetIndex + step < TOTAL_FRAMES) {
-          const img = imagesRef.current[targetIndex + step];
+        if (targetIndex + step <= TOTAL_FRAMES) {
+          const img = imagesRef.current[targetIndex - 1 + step];
           if (img && img.complete) {
             image = img;
             break;
@@ -107,8 +118,13 @@ const KitchenHero = () => {
 
     if (!image || !image.complete || image.naturalWidth === 0) return;
 
-    const { width: canvasWidth, height: canvasHeight } = canvasSizeRef.current;
-    if (!canvasWidth || !canvasHeight) return;
+    let { width: canvasWidth, height: canvasHeight } = canvasSizeRef.current;
+    if (canvasWidth === 0 || canvasHeight === 0) {
+      updateCanvasDimensions();
+      ({ width: canvasWidth, height: canvasHeight } = canvasSizeRef.current);
+    }
+
+    if (canvasWidth === 0 || canvasHeight === 0) return;
 
     const imageRatio = image.naturalWidth / image.naturalHeight;
     const canvasRatio = canvasWidth / canvasHeight;
@@ -127,10 +143,61 @@ const KitchenHero = () => {
       offsetY = (canvasHeight - drawHeight) / 2;
     }
 
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    // No clearRect needed as drawImage completely redraws full cover screen pixels
     ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
-    lastDrawnFrameRef.current = frameNumber;
+    
+    lastDrawnFrameRef.current = targetIndex;
   }, [updateCanvasDimensions]);
+
+  /* ================================
+     RENDER INITIATION (With Mobile Lazy Loading & 30fps throttle)
+  ================================ */
+  const renderFrame = useCallback((index) => {
+    const targetIndex = Math.min(Math.max(Math.round(index), 1), TOTAL_FRAMES);
+
+    // Skip drawing if frame hasn't changed
+    if (targetIndex === lastDrawnFrameRef.current) return;
+
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
+
+    // MOBILE LAZY LOADING: Loads images on-demand only as finger scrolls
+    if (isMobile) {
+      const imgIndex = targetIndex - 1;
+      if (!imagesRef.current[imgIndex]) {
+        const img = new Image();
+        img.decoding = "async";
+        const frame = String(targetIndex).padStart(3, "0");
+        img.src = `/kitchen/ezgif-frame-${frame}.webp`;
+        
+        img.onload = () => {
+          // If the scroll position is still close to this frame, draw it
+          if (Math.abs(currentFrameRef.current - targetIndex) <= 10) {
+            renderFrame(currentFrameRef.current);
+          }
+        };
+        imagesRef.current[imgIndex] = img;
+      }
+    }
+
+    // 30fps throttle on Mobile to let low-RAM devices decode in peace
+    if (isMobile) {
+      const now = performance.now();
+      if (now - lastDrawTimeRef.current < 33) { 
+        return; 
+      }
+      lastDrawTimeRef.current = now;
+    }
+
+    currentFrameRef.current = targetIndex;
+    pendingFrameIndexRef.current = targetIndex;
+
+    if (!animFrameId.current) {
+      animFrameId.current = requestAnimationFrame(() => {
+        animFrameId.current = null;
+        drawCallback();
+      });
+    }
+  }, [drawCallback]);
 
   /* ================================
      AUDIO SETUP
@@ -177,7 +244,7 @@ const KitchenHero = () => {
   };
 
   /* ================================
-     ASSET LOADING PIPELINE
+     HYBRID ASSET LOADING PIPELINE
   ================================ */
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -193,18 +260,52 @@ const KitchenHero = () => {
     const loadedImages = new Array(TOTAL_FRAMES);
     let loadedCount = 0;
 
-    const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || navigator.maxTouchPoints > 0);
-    const frameStep = isMobile ? 3 : 1; 
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
 
-    const indicesToLoad = [];
-    for (let i = 0; i < TOTAL_FRAMES; i += frameStep) {
-      indicesToLoad.push(i);
-    }
-    if (!indicesToLoad.includes(TOTAL_FRAMES - 1)) {
-      indicesToLoad.push(TOTAL_FRAMES - 1);
-    }
+    // Load first frame immediately to make site ready
+    const loadFirstFrame = async () => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = `/kitchen/ezgif-frame-001.webp`;
+      img.onload = () => {
+        if (!isMounted) return;
+        loadedImages[0] = img;
+        setReady(true);
+        renderFrame(1);
+        
+        // Start background preloading ONLY on Desktop
+        if (!isMobile) {
+          preloadDesktopFrames();
+        }
+      };
+      img.onerror = () => {
+        if (!isMounted) return;
+        setReady(true);
+        if (!isMobile) {
+          preloadDesktopFrames();
+        }
+      };
+      loadedImages[0] = img;
+    };
 
-    const loadImage = (index) => {
+    const preloadDesktopFrames = async () => {
+      const queue = Array.from({ length: TOTAL_FRAMES - 1 }, (_, i) => i + 1);
+      const concurrency = 6;
+
+      const worker = async () => {
+        while (queue.length > 0 && isMounted) {
+          const nextIndex = queue.shift();
+          if (nextIndex !== undefined) {
+            await loadSingleFrame(nextIndex);
+          }
+        }
+      };
+
+      const workers = Array.from({ length: concurrency }, () => worker());
+      await Promise.all(workers);
+    };
+
+    const loadSingleFrame = (index) => {
       return new Promise((resolve) => {
         const img = new Image();
         img.decoding = "async";
@@ -213,82 +314,42 @@ const KitchenHero = () => {
 
         img.onload = () => {
           if (!isMounted) return resolve();
-          
-          const handleLoaded = () => {
-            loadedImages[index] = img;
-            loadedCount++;
-            setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
-            if (index === 0) {
-              renderFrame(1);
-              setReady(true);
-            }
-            resolve();
-          };
-
-          // ONLY decode on Desktop to avoid memory crashes on low-GB mobile devices
-          if (!isMobile && typeof img.decode === 'function') {
-            img.decode()
-              .then(handleLoaded)
-              .catch(handleLoaded); // Fallback to normal loading if decode fails
-          } else {
-            handleLoaded();
-          }
+          img.decode()
+            .then(() => {
+              if (!isMounted) return;
+              loadedImages[index] = img;
+              loadedCount++;
+              setLoadProgress(Math.round((loadedCount / (TOTAL_FRAMES - 1)) * 100));
+            })
+            .catch(() => {
+              if (!isMounted) return;
+              loadedImages[index] = img;
+              loadedCount++;
+              setLoadProgress(Math.round((loadedCount / (TOTAL_FRAMES - 1)) * 100));
+            })
+            .finally(() => {
+              resolve();
+            });
         };
 
         img.onerror = () => {
           if (!isMounted) return resolve();
-          loadedCount++;
-          setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
-          // If first image fails, set ready to true anyway to prevent white screen hang
-          if (index === 0) {
-            setReady(true);
-          }
           resolve();
         };
       });
     };
 
-    const startLoadingRemaining = async () => {
-      const remainingQueue = indicesToLoad.filter(index => index !== 0);
-      const concurrencyLimit = isMobile ? 3 : 6; // Limit parallel requests on mobile
-
-      const worker = async () => {
-        while (remainingQueue.length > 0 && isMounted) {
-          const nextIndex = remainingQueue.shift();
-          if (nextIndex !== undefined) {
-            await loadImage(nextIndex);
-          }
-        }
-      };
-
-      const workers = Array.from({ length: concurrencyLimit }, () => worker());
-      await Promise.all(workers);
-    };
-
-    const initLoad = async () => {
-      // 1. Prioritize frame 001 first for instant interactivity
-      await loadImage(0);
-      
-      // 2. Delay preloading slightly so the page load completes smoothly
-      if (isMounted) {
-        setTimeout(() => {
-          if (isMounted) {
-            startLoadingRemaining();
-          }
-        }, 800);
-      }
-    };
-
     imagesRef.current = loadedImages;
-    initLoad();
+    loadFirstFrame();
 
     const handleResize = () => {
       updateCanvasDimensions();
-      renderFrame(lastDrawnFrameRef.current || 1);
+      renderFrame(currentFrameRef.current);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
+    // Framer motion scroll change trigger
     const unsubscribe = frameIndex.on("change", (latest) => {
       const frame = Math.round(latest);
 
@@ -299,29 +360,35 @@ const KitchenHero = () => {
         soundTriggeredRef.current = false;
       }
 
-      if (frame !== lastDrawnFrameRef.current) {
-        renderFrame(frame);
-      }
+      renderFrame(frame);
     });
 
     return () => {
       isMounted = false;
       unsubscribe();
       window.removeEventListener("resize", handleResize);
+      if (animFrameId.current) cancelAnimationFrame(animFrameId.current);
       imagesRef.current = [];
     };
   }, [frameIndex, renderFrame, updateCanvasDimensions]);
 
+  const percentageText = isMobileDevice ? (ready ? 100 : 0) : loadProgress;
+
   return (
     <section ref={heroRef} className="kitchen-hero" id="home">
       <div className="kitchen-animation">
-        <canvas ref={canvasRef} className="kitchen-canvas" />
+        {/* Added transform and willChange to canvas styles for forced GPU layers */}
+        <canvas 
+          ref={canvasRef} 
+          className="kitchen-canvas" 
+          style={{ transform: "translate3d(0,0,0)", willChange: "transform" }}
+        />
 
         {!ready && (
           <div className="kitchen-loading">
             <div className="loading-line" />
             <span style={{ fontSize: "10px", marginTop: "10px", opacity: 0.6 }}>
-              {loadProgress}%
+              {percentageText}%
             </span>
           </div>
         )}
