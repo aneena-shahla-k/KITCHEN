@@ -14,6 +14,7 @@ const KitchenHero = () => {
   const imagesRef = useRef([]);
   const animFrameId = useRef(null);
   const lastDrawnFrameRef = useRef(-1);
+  const currentFrameRef = useRef(1); // <-- Added declaration to resolve ESLint error
 
   // High performance cache refs (Zero layout reflows on scroll)
   const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
