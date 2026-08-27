@@ -89,7 +89,7 @@ const KitchenHero = () => {
     const img = new Image();
     img.decoding = "async";
     const frame = String(idx).padStart(3, "0");
-    img.src = `/kitchen-frames/ezgif-frame-${frame}.webp`;
+    img.src = `/kitchen-frame/ezgif-frame-${frame}.webp`;
 
     img.onload = () => {
       // If the user is still near this frame, trigger a redraw.
@@ -303,7 +303,7 @@ const KitchenHero = () => {
     const loadFirstFrame = async () => {
       const img = new Image();
       img.decoding = "async";
-      img.src = `/kitchen-frames/ezgif-frame-001.webp`;
+      img.src = `/kitchen-frame/ezgif-frame-001.webp`;
       img.onload = () => {
         if (!isMounted) return;
         loadedImages[0] = img;
@@ -341,7 +341,7 @@ const KitchenHero = () => {
         const img = new Image();
         img.decoding = "async";
         const frame = String(index + 1).padStart(3, "0");
-        img.src = `/kitchen-frames/ezgif-frame-${frame}.webp`;
+        img.src = `/kitchen-frame/ezgif-frame-${frame}.webp`;
 
         img.onload = () => {
           if (!isMounted) return resolve();
