@@ -6,7 +6,7 @@
   position: relative;
   overflow: hidden;
   padding: clamp(50px, 7vw, 90px) clamp(16px, 4vw, 50px) 24px;
-  background: #f7f5f0;
+  background: #535e53;
   color: #292a27;
   box-sizing: border-box;
 }
@@ -151,6 +151,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(20px, 3vw, 36px);
   align-content: start;
+  margin-top: 75px;
 }
 
 .footer-column {
@@ -300,4 +301,11 @@
     border-top: 1px solid rgba(41, 42, 39, 0.08);
     justify-content: space-between;
   }
+}
+
+.footer-logo-img {
+  height: 50px;          
+  width: auto;           
+  display: block;
+  object-fit: contain;
 }

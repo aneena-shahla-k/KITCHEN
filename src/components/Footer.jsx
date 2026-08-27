@@ -5,6 +5,7 @@ import {
   Phone,
   MapPin
 } from "lucide-react";
+import logo from "../images/logo.PNG"; 
 import "../styles/footer.css";
 
 const Footer = () => {
@@ -22,9 +23,13 @@ const Footer = () => {
 
           <div className="footer-intro">
 
+            {/* BRAND LOGO */}
             <div className="footer-brand">
-              <span className="footer-brand-mark">✦</span>
-              <span>Kitchen Craft</span>
+              <img 
+                src={logo} 
+                alt="Kitchen Craft Logo" 
+                className="footer-logo-img" 
+              />
             </div>
 
             <h2>

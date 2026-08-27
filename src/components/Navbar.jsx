@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import logo from "../images/logo.PNG"; 
 import "../styles/navbar.css";
 
 const Navbar = () => {
@@ -19,7 +20,11 @@ const Navbar = () => {
         className="navbar-logo"
         onClick={closeMenu}
       >
-        <span>KitchenCraft</span>
+        <img 
+          src={logo} 
+          alt="KitchenCraft Logo" 
+          className="navbar-logo-img" 
+        />
       </NavLink>
 
 

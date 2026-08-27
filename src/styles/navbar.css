@@ -475,3 +475,9 @@
     font-size: 11px;
   }
 }
+.navbar-logo-img {
+  height: 50px;          /* Adjust height according to your navbar */
+  width: auto;           /* Keeps aspect ratio */
+  display: block;
+  object-fit: contain;
+}
