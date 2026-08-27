@@ -32,13 +32,16 @@ const KitchenHero = () => {
 
   /* ================================
      CANVAS SIZE SETUP (On Resize Only)
+     Capped at dpr = 1 for mobile to save GPU processing
   ================================ */
   const updateCanvasDimensions = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile = window.innerWidth < 768;
+    // Cap DPR to 1 on mobile to prevent GPU lagging
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     const pixelWidth = Math.round(rect.width * dpr);
     const pixelHeight = Math.round(rect.height * dpr);
 
@@ -59,15 +62,37 @@ const KitchenHero = () => {
   }, []);
 
   /* ================================
-     OPTIMIZED DRAW FUNCTION
+     OPTIMIZED DRAW FUNCTION (With Nearest-Frame Fallback)
   ================================ */
   const renderFrame = useCallback((frameNumber) => {
     const canvas = canvasRef.current;
     const ctx = contextRef.current;
     if (!canvas || !ctx) return;
 
-    const imageIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameNumber - 1));
-    const image = imagesRef.current[imageIndex];
+    const targetIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameNumber - 1));
+    let image = imagesRef.current[targetIndex];
+
+    // If frame is skipped/not loaded, search for the nearest loaded frame
+    if (!image || !image.complete) {
+      let step = 1;
+      while (targetIndex - step >= 0 || targetIndex + step < TOTAL_FRAMES) {
+        if (targetIndex - step >= 0) {
+          const img = imagesRef.current[targetIndex - step];
+          if (img && img.complete) {
+            image = img;
+            break;
+          }
+        }
+        if (targetIndex + step < TOTAL_FRAMES) {
+          const img = imagesRef.current[targetIndex + step];
+          if (img && img.complete) {
+            image = img;
+            break;
+          }
+        }
+        step++;
+      }
+    }
 
     if (!image || !image.complete || image.naturalWidth === 0) return;
 
@@ -141,7 +166,7 @@ const KitchenHero = () => {
   };
 
   /* ================================
-     ASSET LOADING PIPELINE
+     ASSET LOADING PIPELINE (With Concurrency & Async Decode)
   ================================ */
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -157,7 +182,21 @@ const KitchenHero = () => {
     const loadedImages = new Array(TOTAL_FRAMES);
     let loadedCount = 0;
 
-    // Helper to load a single image and resolve when loaded/failed
+    // Detect mobile to skip frames (Mobile loads 80 frames, Desktop loads 240)
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
+    const frameStep = isMobile ? 3 : 1; 
+
+    // Generate indices to download
+    const indicesToLoad = [];
+    for (let i = 0; i < TOTAL_FRAMES; i += frameStep) {
+      indicesToLoad.push(i);
+    }
+    // Always include the last frame to ensure a complete transition
+    if (!indicesToLoad.includes(TOTAL_FRAMES - 1)) {
+      indicesToLoad.push(TOTAL_FRAMES - 1);
+    }
+
+    // Load and asynchronously decode images to prevent scroll freezes
     const loadImage = (index) => {
       return new Promise((resolve) => {
         const img = new Image();
@@ -167,52 +206,65 @@ const KitchenHero = () => {
 
         img.onload = () => {
           if (!isMounted) return resolve();
-          loadedCount++;
-          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100));
+          
+          // Force async GPU decoding off the main thread before marking ready
+          img.decode()
+            .then(() => {
+              if (!isMounted) return;
+              loadedImages[index] = img;
+              loadedCount++;
+              setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
 
-          if (index === 0) {
-            renderFrame(1);
-            setReady(true);
-          }
-          resolve();
+              if (index === 0) {
+                renderFrame(1);
+                setReady(true);
+              }
+            })
+            .catch(() => {
+              // Fallback if browser doesn't support/fails decoding
+              if (!isMounted) return;
+              loadedImages[index] = img;
+              loadedCount++;
+              setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
+            })
+            .finally(() => {
+              resolve();
+            });
         };
 
         img.onerror = () => {
           if (!isMounted) return resolve();
           loadedCount++;
-          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100));
+          setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
           resolve();
         };
-
-        loadedImages[index] = img;
       });
     };
 
-    // Load remaining frames with standard concurrency limit (6 parallel workers)
+    // Load remaining frames with concurrent workers
     const startLoadingRemaining = async () => {
-      const remainingIndices = Array.from({ length: TOTAL_FRAMES - 1 }, (_, i) => i + 1);
-      const concurrencyLimit = 6;
+      // Exclude first index (0) since we load it immediately
+      const remainingQueue = indicesToLoad.filter(index => index !== 0);
+      const concurrencyLimit = isMobile ? 4 : 6; // Lower queue size on mobile to save CPU
 
       const worker = async () => {
-        while (remainingIndices.length > 0 && isMounted) {
-          const nextIndex = remainingIndices.shift();
+        while (remainingQueue.length > 0 && isMounted) {
+          const nextIndex = remainingQueue.shift();
           if (nextIndex !== undefined) {
             await loadImage(nextIndex);
           }
         }
       };
 
-      // Launch parallel worker loops
       const workers = Array.from({ length: concurrencyLimit }, () => worker());
       await Promise.all(workers);
     };
 
-    // Initialize loading flow
     const initLoad = async () => {
-      // 1. Prioritize frame 001 first for instant interactivity
+      // Load first frame first so site is interactive
       await loadImage(0);
       
-      // 2. Start preloading the remaining 239 frames in background
+      // Load the rest of the optimized list
       if (isMounted) {
         startLoadingRemaining();
       }
