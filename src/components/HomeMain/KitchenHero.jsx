@@ -3,8 +3,8 @@ import { useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
-const TOTAL_FRAMES = 160;
-const TRANSITION_FRAME = 20;
+const TOTAL_FRAMES = 64;
+const TRANSITION_FRAME = 10;
 
 // How many frames to prefetch ahead of the current scroll position on mobile.
 // This is the main fix for "freezes mid-scroll": the old code only ever
@@ -89,7 +89,7 @@ const KitchenHero = () => {
     const img = new Image();
     img.decoding = "async";
     const frame = String(idx).padStart(3, "0");
-    img.src = `/kitchen/ezgif-frame-${frame}.webp`;
+    img.src = `/kitchen-frames/ezgif-frame-${frame}.webp`;
 
     img.onload = () => {
       // If the user is still near this frame, trigger a redraw.
@@ -303,7 +303,7 @@ const KitchenHero = () => {
     const loadFirstFrame = async () => {
       const img = new Image();
       img.decoding = "async";
-      img.src = `/kitchen/ezgif-frame-001.webp`;
+      img.src = `/kitchen-frames/ezgif-frame-001.webp`;
       img.onload = () => {
         if (!isMounted) return;
         loadedImages[0] = img;
@@ -341,7 +341,7 @@ const KitchenHero = () => {
         const img = new Image();
         img.decoding = "async";
         const frame = String(index + 1).padStart(3, "0");
-        img.src = `/kitchen/ezgif-frame-${frame}.webp`;
+        img.src = `/kitchen-frames/ezgif-frame-${frame}.webp`;
 
         img.onload = () => {
           if (!isMounted) return resolve();
