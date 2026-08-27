@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-// Added useSpring import
 import { useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
@@ -23,20 +22,20 @@ const KitchenHero = () => {
   const [loadProgress, setLoadProgress] = useState(0);
   const [ready, setReady] = useState(false);
 
-  // 1. Get raw scroll progress
+  // Raw scroll progress
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end end"],
   });
 
-  // 2. Smooth the scroll progress using spring physics (inertia)
+  // Smooth scroll progress using spring physics
   const smoothScrollYProgress = useSpring(scrollYProgress, {
-    stiffness: 75,   // Lower stiffness = smoother catch-up momentum
-    damping: 25,     // Damping prevents wobble or bounce back
+    stiffness: 75,
+    damping: 25,
     restDelta: 0.001
   });
 
-  // 3. Map the smoothed scroll progress to frame index
+  // Map progress to frame index
   const frameIndex = useTransform(smoothScrollYProgress, [0, 1], [1, TOTAL_FRAMES]);
 
   /* ================================
@@ -69,17 +68,22 @@ const KitchenHero = () => {
   }, []);
 
   /* ================================
-     DRAW FUNCTION (With Frame Fallback)
+     DRAW FUNCTION
   ================================ */
   const renderFrame = useCallback((frameNumber) => {
     const canvas = canvasRef.current;
     const ctx = contextRef.current;
     if (!canvas || !ctx) return;
 
+    // Recalculate dimensions dynamically if they are 0 on first render
+    if (canvasSizeRef.current.width === 0 || canvasSizeRef.current.height === 0) {
+      updateCanvasDimensions();
+    }
+
     const targetIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameNumber - 1));
     let image = imagesRef.current[targetIndex];
 
-    // Find the nearest loaded frame fallback to prevent flickering
+    // Find the nearest loaded frame fallback
     if (!image || !image.complete) {
       let step = 1;
       while (targetIndex - step >= 0 || targetIndex + step < TOTAL_FRAMES) {
@@ -126,7 +130,7 @@ const KitchenHero = () => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
     lastDrawnFrameRef.current = frameNumber;
-  }, []);
+  }, [updateCanvasDimensions]);
 
   /* ================================
      AUDIO SETUP
@@ -189,7 +193,7 @@ const KitchenHero = () => {
     const loadedImages = new Array(TOTAL_FRAMES);
     let loadedCount = 0;
 
-    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0;
+    const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || navigator.maxTouchPoints > 0);
     const frameStep = isMobile ? 3 : 1; 
 
     const indicesToLoad = [];
@@ -210,33 +214,35 @@ const KitchenHero = () => {
         img.onload = () => {
           if (!isMounted) return resolve();
           
-          img.decode()
-            .then(() => {
-              if (!isMounted) return;
-              loadedImages[index] = img;
-              loadedCount++;
-              setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
+          const handleLoaded = () => {
+            loadedImages[index] = img;
+            loadedCount++;
+            setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
+            if (index === 0) {
+              renderFrame(1);
+              setReady(true);
+            }
+            resolve();
+          };
 
-              if (index === 0) {
-                renderFrame(1);
-                setReady(true);
-              }
-            })
-            .catch(() => {
-              if (!isMounted) return;
-              loadedImages[index] = img;
-              loadedCount++;
-              setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
-            })
-            .finally(() => {
-              resolve();
-            });
+          // ONLY decode on Desktop to avoid memory crashes on low-GB mobile devices
+          if (!isMobile && typeof img.decode === 'function') {
+            img.decode()
+              .then(handleLoaded)
+              .catch(handleLoaded); // Fallback to normal loading if decode fails
+          } else {
+            handleLoaded();
+          }
         };
 
         img.onerror = () => {
           if (!isMounted) return resolve();
           loadedCount++;
           setLoadProgress(Math.round((loadedCount / indicesToLoad.length) * 100));
+          // If first image fails, set ready to true anyway to prevent white screen hang
+          if (index === 0) {
+            setReady(true);
+          }
           resolve();
         };
       });
@@ -244,7 +250,7 @@ const KitchenHero = () => {
 
     const startLoadingRemaining = async () => {
       const remainingQueue = indicesToLoad.filter(index => index !== 0);
-      const concurrencyLimit = isMobile ? 4 : 6;
+      const concurrencyLimit = isMobile ? 3 : 6; // Limit parallel requests on mobile
 
       const worker = async () => {
         while (remainingQueue.length > 0 && isMounted) {
@@ -260,9 +266,16 @@ const KitchenHero = () => {
     };
 
     const initLoad = async () => {
+      // 1. Prioritize frame 001 first for instant interactivity
       await loadImage(0);
+      
+      // 2. Delay preloading slightly so the page load completes smoothly
       if (isMounted) {
-        startLoadingRemaining();
+        setTimeout(() => {
+          if (isMounted) {
+            startLoadingRemaining();
+          }
+        }, 800);
       }
     };
 
@@ -276,7 +289,6 @@ const KitchenHero = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Subscribed directly to draw the frames; useSpring handles the RAF timing beautifully!
     const unsubscribe = frameIndex.on("change", (latest) => {
       const frame = Math.round(latest);
 
