@@ -3,9 +3,8 @@ import { useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import "../../styles/HomeStyles/kitchenHero.css";
 
-const TOTAL_FRAMES = 40;
-const TRANSITION_FRAME = 10;
-
+const TOTAL_FRAMES = 88;
+const TRANSITION_FRAME = 15;
 const MOBILE_PREFETCH_WINDOW = 8;
 
 const KitchenHero = () => {
@@ -16,7 +15,7 @@ const KitchenHero = () => {
   const animFrameId = useRef(null);
   const lastDrawnFrameRef = useRef(-1);
   const currentFrameRef = useRef(1);
-  const scrollDirRef = useRef(1); // +1 = scrolling down, -1 = scrolling up
+  const scrollDirRef = useRef(1);
 
   const canvasSizeRef = useRef({ width: 0, height: 0, dpr: 1 });
   const pendingFrameIndexRef = useRef(null);
@@ -85,7 +84,7 @@ const KitchenHero = () => {
     const img = new Image();
     img.decoding = "async";
     const frame = String(idx).padStart(3, "0");
-    img.src = `/kitchen-frame/ezgif-frame-${frame}.webp`;
+    img.src = `/kitchen-frames/ezgif-frame-${frame}.webp`;
 
     img.onload = () => {
       // If the user is still near this frame, trigger a redraw.
@@ -299,7 +298,7 @@ const KitchenHero = () => {
     const loadFirstFrame = async () => {
       const img = new Image();
       img.decoding = "async";
-      img.src = `/kitchen-frame/ezgif-frame-001.webp`;
+      img.src = `/kitchen-frames/ezgif-frame-001.webp`;
       img.onload = () => {
         if (!isMounted) return;
         loadedImages[0] = img;
@@ -337,7 +336,7 @@ const KitchenHero = () => {
         const img = new Image();
         img.decoding = "async";
         const frame = String(index + 1).padStart(3, "0");
-        img.src = `/kitchen-frame/ezgif-frame-${frame}.webp`;
+        img.src = `/kitchen-frames/ezgif-frame-${frame}.webp`;
 
         img.onload = () => {
           if (!isMounted) return resolve();
