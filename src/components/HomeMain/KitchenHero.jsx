@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../styles/HomeStyles/kitchenHero.css";
-import vid from "../../videos/hero-vid.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -125,7 +124,7 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="hero-video"
-          src={vid}
+          src="https://console.cloudinary.com/app/c-06e2bff90b3ed9000228e5e7e035f9/assets/media_library/search?q=&view_mode=mosaic"
           playsInline
           autoPlay
           preload="auto"
