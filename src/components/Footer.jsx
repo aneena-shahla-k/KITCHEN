@@ -1,121 +1,115 @@
 import React from "react";
-import {
-  ArrowUpRight,
-  Mail,
-  Phone,
-  MapPin
-} from "lucide-react";
-import logo from "../images/logo.PNG"; 
+import { ArrowUpRight } from "lucide-react";
+import logo from "../images/logo.PNG";
 import "../styles/footer.css";
 
 const Footer = () => {
   return (
     <footer className="site-footer">
 
-      <div className="footer-orb footer-orb-one" />
-      <div className="footer-orb footer-orb-two" />
-
       <div className="footer-container">
 
-        {/* MAIN GLASS AREA */}
+        {/* ================================
+            TOP
+        ================================= */}
 
-        <div className="footer-main">
+        <div className="footer-top">
 
-          <div className="footer-intro">
+          <div className="footer-brand-area">
 
-            {/* BRAND LOGO */}
-            <div className="footer-brand">
-              <img 
-                src={logo} 
-                alt="Kitchen Craft Logo" 
-                className="footer-logo-img" 
-              />
-            </div>
+            <img
+              src={logo}
+              alt="Kitchen Craftz"
+              className="footer-logo-img"
+            />
 
-            <h2>
-              Let's create
+            <p className="footer-tagline">
+              Thoughtfully designed kitchens,
               <br />
-              something <em>beautiful.</em>
-            </h2>
-
-            <p>
-              Thoughtfully designed spaces, made around
-              the way you live.
+              made around the way you live.
             </p>
-
-            <a href="/contact" className="footer-start">
-              Start a conversation
-              <ArrowUpRight size={18} />
-            </a>
 
           </div>
 
 
-          {/* LINKS */}
+          <a href="/contact" className="footer-cta">
+            Start a conversation
+            <ArrowUpRight size={16} />
+          </a>
 
-          <div className="footer-navigation">
-
-            <div className="footer-column">
-              <h3>Explore</h3>
-
-              <a href="/">Home</a>
-              <a href="/kitchens">Kitchens</a>
-              <a href="/projects">Our Projects</a>
-              <a href="/materials">Materials</a>
-            </div>
+        </div>
 
 
-            <div className="footer-column">
-              <h3>Company</h3>
+        {/* ================================
+            NAVIGATION
+        ================================= */}
 
-              <a href="/about">About Us</a>
-              <a href="/contact">Contact</a>
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms</a>
-            </div>
+        <div className="footer-middle">
+
+          <div className="footer-column">
+
+            <span className="footer-column-title">
+              Explore
+            </span>
+
+            <a href="/">Home</a>
+            <a href="/kitchens">Kitchens</a>
+            <a href="/projects">Projects</a>
+            <a href="/materials">Materials</a>
+
+          </div>
 
 
-            <div className="footer-column footer-contact">
-              <h3>Get in touch</h3>
+          <div className="footer-column">
 
-              <a href="tel:+919876543210">
-                <Phone size={16} />
-                +91 98765 43210
+            <span className="footer-column-title">
+              Company
+            </span>
+
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms</a>
+
+          </div>
+
+
+          <div className="footer-column">
+
+            <span className="footer-column-title">
+              Connect
+            </span>
+
+            <a href="tel:+919876543210">
+              +91 98765 43210
+            </a>
+
+            <a href="mailto:hello@yourbrand.com">
+              hello@yourbrand.com
+            </a>
+
+            <span className="footer-location">
+              Kerala, India
+            </span>
+
+            <div className="footer-socials">
+
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Instagram
               </a>
 
-              <a href="mailto:hello@yourbrand.com">
-                <Mail size={16} />
-                hello@yourbrand.com
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Facebook
               </a>
 
-              <div className="footer-location">
-                <MapPin size={16} />
-                <span>
-                  Kerala, India
-                </span>
-              </div>
-
-              <div className="footer-socials">
-
-                <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Instagram"
-                >
-                    IG
-                </a>
-
-                <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Facebook"
-                >
-                    FB
-                </a>
-
-                </div>
             </div>
 
           </div>
@@ -123,7 +117,9 @@ const Footer = () => {
         </div>
 
 
-        {/* BOTTOM */}
+        {/* ================================
+            BOTTOM
+        ================================= */}
 
         <div className="footer-bottom">
 
@@ -132,7 +128,7 @@ const Footer = () => {
           </span>
 
           <span>
-            Made with intention
+            Made with intention.
           </span>
 
           <button
@@ -140,12 +136,12 @@ const Footer = () => {
             onClick={() =>
               window.scrollTo({
                 top: 0,
-                behavior: "smooth"
+                behavior: "smooth",
               })
             }
           >
             Back to top
-            <ArrowUpRight size={15} />
+            <ArrowUpRight size={14} />
           </button>
 
         </div>

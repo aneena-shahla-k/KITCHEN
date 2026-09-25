@@ -1,17 +1,11 @@
 /* =========================================================
-   DESIGN PROCESS - WRAPPER & THEME
+   DESIGN PROCESS - SCROLL CONTAINER & STICKY SHELL
 ========================================================= */
-
 .design-process {
   position: relative;
-  height: 140vh;
-  background:
-    radial-gradient(
-      circle at 10% 30%,
-      rgba(104, 117, 104, 0.08),
-      transparent 35%
-    ),
-    #f7f5f0;
+  /* 320vh allows enough scroll distance to smoothly cycle through all 7 steps */
+  height: 320vh;
+  background: #fbf9f6; /* Matching warm cream background */
   color: #292a27;
   box-sizing: border-box;
 }
@@ -26,9 +20,9 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  min-height: 640px;
-  max-height: 860px;
-  padding: clamp(40px, 6vw, 70px) clamp(20px, 5vw, 60px) clamp(20px, 3vw, 36px);
+  min-height: 660px;
+  max-height: 920px;
+  padding: clamp(32px, 4vw, 50px) clamp(20px, 4vw, 60px) clamp(20px, 2.5vw, 32px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,66 +32,97 @@
 /* =========================================================
    HEADER
 ========================================================= */
-
 .process-header {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto clamp(20px, 3vw, 32px);
+  max-width: 1240px;
+  margin: 0 auto clamp(12px, 1.8vw, 22px);
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
 }
 
-.process-header h2 {
+.process-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #636b63;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.process-title-group h2 {
   margin: 0;
-  font-size: clamp(32px, 4.2vw, 56px);
-  line-height: 1.02;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  color: #292a27;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: #1a1e1b;
 }
 
-.process-header h2 em {
+.process-title-group h2 em {
   font-style: normal;
-  color: #687568;
-  font-weight: 400;
+  color: #6a7469;
+  font-weight: 600;
+}
+
+.header-step-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 700;
+}
+
+.counter-current {
+  font-size: 26px;
+  color: #4b584a;
+  letter-spacing: -0.5px;
+}
+
+.counter-slash {
+  color: #a6ad9f;
+  font-size: 16px;
+}
+
+.counter-total {
+  font-size: 15px;
+  color: #889083;
 }
 
 /* =========================================================
-   MAIN LAYOUT (2 COLUMNS)
+   MAIN 2-COLUMN LAYOUT
 ========================================================= */
-
 .process-main {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   flex: 1;
   min-height: 0;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: clamp(28px, 4vw, 50px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 4vw, 56px);
   align-items: center;
 }
 
 /* =========================================================
    LEFT: STEPS & PROGRESS LINE
 ========================================================= */
-
 .process-left {
   position: relative;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding-left: 24px;
+  height: 100%;
 }
 
 .process-line {
   position: absolute;
   left: 0;
-  top: 15%;
-  bottom: 15%;
+  top: 4%;
+  bottom: 4%;
   width: 2px;
-  background: rgba(104, 117, 104, 0.15);
+  background: rgba(75, 88, 74, 0.12);
   border-radius: 2px;
 }
 
@@ -106,31 +131,35 @@
   left: 0;
   top: 0;
   width: 2px;
-  background: #687568;
+  background: #4b584a;
   border-radius: 2px;
-  transition: height 0.45s ease;
+  transition: height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .process-steps {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: clamp(14px, 2.5vw, 24px);
+  gap: clamp(6px, 1.2vw, 12px);
 }
 
 .process-step {
   position: relative;
   display: grid;
-  grid-template-columns: 38px 1fr;
-  gap: 14px;
-  opacity: 0.3;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  opacity: 0.32;
   transform: translateX(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .process-step.active {
   opacity: 1;
-  transform: translateX(6px);
+  transform: translateX(8px);
+  background: #f3efe6;
 }
 
 .process-step.completed {
@@ -138,77 +167,83 @@
 }
 
 .step-marker {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
-  border: 1px solid #e3e4de;
+  border: 1px solid #dcd7cb;
   border-radius: 50%;
   background: #ffffff;
-  color: #777a73;
-  transition: all 0.3s ease;
+  color: #6a7167;
+  transition: all 0.25s ease;
 }
 
 .process-step.active .step-marker {
-  border-color: #687568;
-  background: #e7ece6;
-  color: #687568;
+  border-color: #4b584a;
+  background: #4b584a;
+  color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(75, 88, 74, 0.15);
 }
 
 .process-step.completed .step-marker {
-  background: #687568;
-  border-color: #687568;
+  background: #4b584a;
+  border-color: #4b584a;
   color: #ffffff;
+}
+
+.step-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
 }
 
 .step-number {
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #777a73;
-  margin-right: 6px;
+  font-weight: 700;
+  color: #4b584a;
 }
 
 .step-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: #687568;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #798075;
   text-transform: uppercase;
 }
 
 .step-content h3 {
-  max-width: 340px;
-  margin: 4px 0 6px;
-  font-size: clamp(20px, 2vw, 26px);
-  line-height: 1.15;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #292a27;
+  margin: 3px 0 2px;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.2;
+  font-weight: 600;
+  color: #1a1e1b;
 }
 
 .step-content p {
-  max-width: 360px;
   margin: 0;
-  font-size: clamp(11px, 1vw, 12px);
-  line-height: 1.6;
-  color: #777a73;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #676d65;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* =========================================================
-   RIGHT: VISUAL & GLASS OVERLAY
+   RIGHT: VISUAL & FROSTED GLASS OVERLAY
 ========================================================= */
-
 .process-visual {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 360px;
-  max-height: 480px;
-  border-radius: 18px;
+  min-height: 380px;
+  max-height: 520px;
+  border-radius: 20px;
   overflow: hidden;
-  background: #d9ddd5;
-  box-shadow: 0 16px 40px rgba(40, 45, 38, 0.08);
+  background: #e5e2dd;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
 }
 
 .process-image {
@@ -218,8 +253,8 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transform: scale(1.03);
-  transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform: scale(1.04);
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .process-image.active {
@@ -233,9 +268,9 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.05) 0%,
     transparent 40%,
-    rgba(0, 0, 0, 0.65) 100%
+    rgba(0, 0, 0, 0.7) 100%
   );
   z-index: 2;
   pointer-events: none;
@@ -246,11 +281,11 @@
   position: absolute;
   left: 20px;
   bottom: 20px;
-  width: min(280px, calc(100% - 40px));
+  width: min(300px, calc(100% - 40px));
   padding: 16px 18px;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  background: rgba(41, 42, 39, 0.65);
+  border-radius: 14px;
+  background: rgba(30, 32, 28, 0.72);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: #ffffff;
@@ -261,9 +296,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  font-size: 10px;
-  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 9.5px;
+  font-weight: 700;
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
@@ -275,21 +310,21 @@
   display: grid;
   place-items: center;
   margin-bottom: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: #ffffff;
 }
 
 .process-glass strong {
   display: block;
-  font-size: 13px;
-  line-height: 1.4;
-  font-weight: 400;
+  font-size: 12.5px;
+  line-height: 1.45;
+  font-weight: 500;
   color: #ffffff;
 }
 
-/* Image Step Counter */
+/* Corner Step Counter */
 .visual-counter {
   position: absolute;
   right: 20px;
@@ -297,27 +332,26 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   z-index: 3;
 }
 
 .counter-line {
-  width: 28px;
+  width: 26px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.5);
 }
 
-/* =========================================
-   BOTTOM BAR & CTA
-========================================= */
-
+/* =========================================================
+   BOTTOM BAR
+========================================================= */
 .process-bottom {
   width: 100%;
-  max-width: 1200px;
-  margin: clamp(14px, 2vw, 24px) auto 0;
+  max-width: 1240px;
+  margin: clamp(10px, 1.5vw, 18px) auto 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -329,7 +363,7 @@
   align-items: center;
   gap: 8px;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.15em;
   color: #777a73;
 }
@@ -345,42 +379,28 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
-  border: 1px solid #c8cec5;
-  border-radius: 100px;
-  background: #ffffff;
-  color: #343832;
-  font-size: 12px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: #4b584a;
+  color: #ffffff;
+  font-size: 13px;
   font-weight: 600;
-  text-decoration: none;
+  cursor: pointer;
   transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(75, 88, 74, 0.2);
 }
 
 .process-cta:hover {
-  background: #687568;
-  border-color: #687568;
-  color: #ffffff;
+  background: #3c473b;
   transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(75, 88, 74, 0.3);
 }
 
-/* =========================================
-   RESPONSIVE BREAKPOINTS
-========================================= */
-
-/* Tablet Screens */
-@media (max-width: 900px) {
-  .process-main {
-    grid-template-columns: 1fr 1.1fr;
-    gap: 24px;
-  }
-
-  .process-visual {
-    max-height: 420px;
-  }
-}
-
-/* Mobile Screens (Unstick into Natural Flow) */
-@media (max-width: 720px) {
+/* =========================================================
+   MOBILE RESPONSIVENESS
+========================================================= */
+@media (max-width: 840px) {
   .design-process {
     height: auto;
   }
@@ -390,19 +410,18 @@
     height: auto;
     min-height: 0;
     max-height: none;
-    padding: 60px 16px 40px;
-  }
-
-  .process-header {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 24px;
+    padding: 50px 16px 36px;
   }
 
   .process-main {
     display: flex;
     flex-direction: column-reverse;
-    gap: 20px;
+    gap: 24px;
+  }
+
+  .process-visual {
+    height: 300px;
+    min-height: 300px;
   }
 
   .process-left {
@@ -413,46 +432,14 @@
     display: none;
   }
 
-  .process-steps {
-    gap: 12px;
-  }
-
   .process-step {
-    padding: 14px;
-    border-radius: 12px;
-    background: #ffffff;
-    border: 1px solid #e3e4de;
     opacity: 1;
-    transform: none;
+    background: #ffffff;
+    border: 1px solid #ebe6dd;
   }
 
   .process-step.active {
-    background: #e7ece6;
-    border-color: #aeb8aa;
-  }
-
-  .process-visual {
-    height: 320px;
-    min-height: 320px;
-  }
-
-  .process-glass {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    width: auto;
-  }
-
-  .visual-counter {
-    top: 14px;
-    right: 14px;
-    bottom: auto;
-  }
-
-  .process-bottom {
-    margin-top: 24px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+    background: #f3efe6;
+    border-color: #4b584a;
   }
 }

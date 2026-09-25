@@ -1,0 +1,1245 @@
+/* =========================================================
+   KITCHEN REDESIGN
+========================================================= */
+
+.kitchen-redesign {
+  width: 100%;
+  background: #f8f6ef;
+  color: #3d463b;
+  padding: 125px 5% 115px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.kitchen-redesign *,
+.kitchen-redesign *::before,
+.kitchen-redesign *::after {
+  box-sizing: border-box;
+}
+
+.kitchen-redesign-inner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   TOP LABEL
+========================================================= */
+
+.redesign-top-label {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin-bottom: 42px;
+
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: #858b82;
+  font-weight: 500;
+}
+
+.label-line {
+  width: 34px;
+  height: 1px;
+  background: #747b71;
+}
+
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.redesign-main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 0.72fr)
+    minmax(500px, 1.8fr)
+    minmax(190px, 0.55fr);
+
+  gap: 30px;
+
+  align-items: center;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.redesign-intro {
+  padding-right: 15px;
+}
+
+.redesign-intro h2 {
+  margin: 0;
+
+  color: #3d463b;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 67px;
+  line-height: 0.94;
+
+  letter-spacing: -2.5px;
+
+  font-weight: 600;
+}
+
+.redesign-intro h2 span {
+  font-family: inherit;
+}
+
+.redesign-intro p {
+  max-width: 390px;
+
+  margin: 32px 0 28px;
+
+  color: #85877f;
+
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   BEFORE / AFTER TOGGLE
+========================================================= */
+
+.redesign-toggle {
+  width: 235px;
+  height: 47px;
+
+  display: flex;
+
+  border: 1px solid #d9d7cf;
+
+  border-radius: 50px;
+
+  padding: 3px;
+
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.redesign-toggle button {
+  flex: 1;
+
+  border: none;
+  background: transparent;
+
+  border-radius: 50px;
+
+  color: #4c534b;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.redesign-toggle .toggle-active {
+  background: #4b584a;
+  color: white;
+}
+
+
+/* =========================================================
+   DRAG HINT
+========================================================= */
+
+.drag-hint {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 24px;
+
+  color: #85877f;
+
+  font-size: 13px;
+}
+
+.drag-icon {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d9d7cf;
+
+  border-radius: 50%;
+
+  color: #596255;
+}
+
+
+/* =========================================================
+   MAIN VISUAL
+========================================================= */
+
+.redesign-visual {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 1.58 / 1;
+
+  min-height: 420px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background: #ddd;
+
+  cursor: ew-resize;
+
+  user-select: none;
+
+  touch-action: none;
+
+  box-shadow:
+    0 20px 60px rgba(55, 55, 45, 0.08);
+}
+
+
+/* =========================================================
+   AFTER
+========================================================= */
+
+.redesign-after {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.redesign-after img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+
+/* =========================================================
+   BEFORE
+========================================================= */
+
+.redesign-before {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  height: 100%;
+
+  overflow: hidden;
+
+  z-index: 2;
+}
+
+.before-image-inner {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 100%;
+}
+
+.before-image-inner img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  filter:
+    grayscale(0.25)
+    brightness(0.88)
+    saturate(0.65);
+}
+
+
+/* =========================================================
+   FINISH VISUAL EFFECT
+========================================================= */
+
+.finish-walnut .redesign-after img {
+  filter: saturate(1.05);
+}
+
+.finish-white .redesign-after img {
+  filter:
+    brightness(1.08)
+    saturate(0.75);
+}
+
+.finish-charcoal .redesign-after img {
+  filter:
+    contrast(1.04)
+    saturate(0.8)
+    brightness(0.93);
+}
+
+.finish-custom .redesign-after img {
+  filter:
+    sepia(0.08)
+    saturate(0.9);
+}
+
+
+/* =========================================================
+   IMAGE LABELS
+========================================================= */
+
+.visual-label {
+  position: absolute;
+
+  top: 18px;
+
+  padding: 8px 16px;
+
+  border-radius: 30px;
+
+  font-size: 12px;
+
+  z-index: 8;
+
+  backdrop-filter: blur(10px);
+}
+
+.visual-label-before {
+  left: 18px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  color: #4e554c;
+}
+
+.visual-label-after {
+  right: 18px;
+
+  background: #4b584a;
+
+  color: white;
+}
+
+
+/* =========================================================
+   SLIDER DIVIDER
+========================================================= */
+
+.slider-divider {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 2px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  z-index: 10;
+
+  transform: translateX(-1px);
+
+  pointer-events: none;
+}
+
+.slider-handle {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  color: #4b584a;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.15);
+
+  font-size: 20px;
+
+  pointer-events: none;
+}
+
+.slider-handle span:first-child {
+  margin-right: -2px;
+}
+
+.slider-handle span:last-child {
+  margin-left: -2px;
+}
+
+
+/* =========================================================
+   HOTSPOTS
+========================================================= */
+
+.kitchen-hotspot {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 12;
+
+  border: none;
+
+  background: transparent;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  color: white;
+}
+
+.hotspot-plus {
+  width: 31px;
+  height: 31px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(61, 70, 59, 0.88);
+
+  border: 2px solid rgba(255, 255, 255, 0.9);
+
+  font-size: 18px;
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.2);
+
+  transition: 0.3s ease;
+}
+
+.hotspot-label {
+  margin-left: 7px;
+
+  padding: 8px 14px;
+
+  background: rgba(55, 63, 53, 0.9);
+
+  border-radius: 30px;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+
+  opacity: 0;
+
+  transform: translateX(-8px);
+
+  transition: 0.3s ease;
+
+  pointer-events: none;
+}
+
+.kitchen-hotspot.active .hotspot-label,
+.kitchen-hotspot:hover .hotspot-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.kitchen-hotspot.active .hotspot-plus,
+.kitchen-hotspot:hover .hotspot-plus {
+  background: white;
+  color: #4b584a;
+
+  transform: scale(1.08);
+}
+
+
+/* =========================================================
+   FINISH PANEL
+========================================================= */
+
+.finish-panel {
+  width: 100%;
+
+  padding: 25px 22px;
+
+  border: 1px solid #e5e1d8;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.38);
+
+  min-height: 420px;
+}
+
+.finish-panel-title {
+  font-size: 17px;
+
+  font-weight: 600;
+
+  color: #3d463b;
+
+  margin-bottom: 9px;
+}
+
+.finish-panel > p {
+  margin: 0 0 20px;
+
+  color: #85877f;
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   FINISH OPTIONS
+========================================================= */
+
+.finish-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.finish-option {
+  width: 100%;
+
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  border: 1px solid transparent;
+
+  border-radius: 12px;
+
+  padding: 7px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition: 0.3s ease;
+}
+
+.finish-option:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.finish-option.selected {
+  border-color: #d7d5cc;
+
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.finish-swatch {
+  flex: 0 0 auto;
+
+  width: 43px;
+  height: 43px;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.finish-name {
+  color: #4a5048;
+
+  font-size: 13px;
+}
+
+.finish-check {
+  margin-left: auto;
+
+  width: 19px;
+  height: 19px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #4b584a;
+
+  color: white;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   APPLY BUTTON
+========================================================= */
+
+.finish-divider {
+  height: 1px;
+
+  background: #e2dfd7;
+
+  margin: 18px 0;
+}
+
+.apply-design-btn {
+  width: 100%;
+
+  border: none;
+
+  border-radius: 50px;
+
+  background: #4b584a;
+
+  color: white;
+
+  padding: 13px 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.apply-design-btn:hover {
+  background: #394438;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   DETAILS SECTION
+========================================================= */
+
+.details-section {
+  display: grid;
+
+  grid-template-columns: 0.7fr 2.3fr;
+
+  gap: 30px;
+
+  margin-top: 55px;
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   DETAILS INTRO
+========================================================= */
+
+.details-intro {
+  padding: 35px 20px 20px 10px;
+}
+
+.details-label {
+  font-size: 10px;
+
+  letter-spacing: 2.5px;
+
+  color: #80877d;
+
+  margin-bottom: 17px;
+}
+
+.details-intro h3 {
+  margin: 0;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 34px;
+
+  line-height: 1.05;
+
+  color: #3d463b;
+
+  font-weight: 600;
+}
+
+.details-line {
+  display: block;
+
+  width: 30px;
+  height: 1px;
+
+  margin-top: 25px;
+
+  background: #6f776b;
+}
+
+
+/* =========================================================
+   DETAILS GRID
+========================================================= */
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
+
+.detail-card {
+  padding: 0;
+
+  border: 1px solid #e4e0d7;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.42);
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.detail-card:hover,
+.detail-card.active {
+  transform: translateY(-5px);
+
+  border-color: #bfc3b9;
+
+  box-shadow:
+    0 15px 35px rgba(50, 50, 40, 0.07);
+}
+
+
+/* =========================================================
+   DETAIL IMAGE
+========================================================= */
+
+.detail-image {
+  position: relative;
+
+  width: 100%;
+
+  height: 130px;
+
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: transform 0.6s ease;
+}
+
+.detail-card:hover .detail-image img {
+  transform: scale(1.05);
+}
+
+.detail-image-dot {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(62, 72, 60, 0.85);
+
+  border: 2px solid white;
+
+  color: white;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   DETAIL CONTENT
+========================================================= */
+
+.detail-content {
+  padding: 17px 15px 14px;
+}
+
+.detail-content h4 {
+  margin: 0 0 7px;
+
+  color: #3e463d;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.detail-content > span {
+  display: block;
+
+  color: #85877f;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+}
+
+.detail-bottom {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 18px;
+}
+
+.detail-bottom strong {
+  color: #343a34;
+
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+.detail-arrow {
+  width: 29px;
+  height: 29px;
+
+  border: 1px solid #d8d5cc;
+
+  border-radius: 50%;
+
+  display: flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #4b584a !important;
+
+  font-size: 15px !important;
+
+  transition: 0.3s ease;
+}
+
+.detail-card:hover .detail-arrow,
+.detail-card.active .detail-arrow {
+  background: #4b584a;
+
+  color: white !important;
+
+  border-color: #4b584a;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.kitchen-redesign .redesign-top-label,
+.kitchen-redesign .redesign-intro,
+.kitchen-redesign .redesign-visual,
+.kitchen-redesign .finish-panel,
+.kitchen-redesign .details-section {
+  opacity: 0;
+
+  transform: translateY(35px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+.kitchen-redesign.is-visible .redesign-top-label {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition-delay: 0.05s;
+}
+
+.kitchen-redesign.is-visible .redesign-intro {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition-delay: 0.12s;
+}
+
+.kitchen-redesign.is-visible .redesign-visual {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition-delay: 0.2s;
+}
+
+.kitchen-redesign.is-visible .finish-panel {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition-delay: 0.28s;
+}
+
+.kitchen-redesign.is-visible .details-section {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition-delay: 0.38s;
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 1250px) {
+
+  .kitchen-redesign {
+    padding: 105px 4%;
+  }
+
+  .redesign-main {
+    grid-template-columns:
+      minmax(250px, 0.65fr)
+      minmax(450px, 1.6fr);
+
+    gap: 30px;
+  }
+
+  .finish-panel {
+    grid-column: 2;
+
+    min-height: auto;
+  }
+
+  .finish-options {
+    display: grid;
+
+    grid-template-columns:
+      repeat(4, 1fr);
+
+    gap: 7px;
+  }
+
+  .finish-option {
+    min-height: 55px;
+  }
+
+  .finish-name {
+    font-size: 11px;
+  }
+
+  .finish-check {
+    display: none;
+  }
+
+  .details-section {
+    grid-template-columns: 1fr;
+  }
+
+  .details-intro {
+    padding-left: 0;
+  }
+
+  .details-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .kitchen-redesign {
+    padding: 90px 30px;
+  }
+
+  .redesign-main {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+  }
+
+  .redesign-intro {
+    padding-right: 0;
+  }
+
+  .redesign-intro h2 {
+    font-size: 62px;
+  }
+
+  .redesign-visual {
+    min-height: 450px;
+  }
+
+  .finish-panel {
+    grid-column: auto;
+
+    min-height: auto;
+  }
+
+  .finish-options {
+    grid-template-columns:
+      repeat(4, 1fr);
+  }
+
+  .details-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .details-section {
+    gap: 25px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .kitchen-redesign {
+    padding: 75px 20px 80px;
+  }
+
+  .redesign-top-label {
+    margin-bottom: 28px;
+
+    font-size: 9px;
+
+    gap: 8px;
+
+    letter-spacing: 1.8px;
+  }
+
+  .label-line {
+    width: 25px;
+  }
+
+  .redesign-intro h2 {
+    font-size: 48px;
+
+    line-height: 0.96;
+
+    letter-spacing: -1.5px;
+  }
+
+  .redesign-intro p {
+    margin: 23px 0;
+
+    font-size: 14px;
+
+    line-height: 1.65;
+  }
+
+  .redesign-toggle {
+    width: 205px;
+
+    height: 43px;
+  }
+
+  .drag-hint {
+    font-size: 11px;
+
+    margin-top: 18px;
+  }
+
+  .redesign-visual {
+    aspect-ratio: 1 / 1.05;
+
+    min-height: 0;
+
+    border-radius: 8px;
+  }
+
+  .visual-label {
+    top: 12px;
+
+    padding: 6px 11px;
+
+    font-size: 10px;
+  }
+
+  .visual-label-before {
+    left: 12px;
+  }
+
+  .visual-label-after {
+    right: 12px;
+  }
+
+  .slider-handle {
+    width: 38px;
+    height: 38px;
+
+    font-size: 17px;
+  }
+
+  .kitchen-hotspot {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  .hotspot-label {
+    display: none;
+  }
+
+  .hotspot-plus {
+    width: 29px;
+    height: 29px;
+  }
+
+  .finish-panel {
+    padding: 22px 18px;
+  }
+
+  .finish-panel-title {
+    font-size: 16px;
+  }
+
+  .finish-options {
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 7px;
+  }
+
+  .finish-option {
+    min-height: 58px;
+
+    padding: 7px;
+  }
+
+  .finish-swatch {
+    width: 36px;
+    height: 36px;
+  }
+
+  .finish-name {
+    font-size: 11px;
+  }
+
+  .details-section {
+    margin-top: 45px;
+  }
+
+  .details-intro {
+    padding: 0;
+  }
+
+  .details-intro h3 {
+    font-size: 31px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-image {
+    height: 180px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .kitchen-redesign {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .redesign-intro h2 {
+    font-size: 43px;
+  }
+
+  .redesign-visual {
+    aspect-ratio: 0.9 / 1;
+  }
+
+  .finish-options {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-image {
+    height: 155px;
+  }
+}

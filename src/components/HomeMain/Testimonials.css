@@ -1,0 +1,374 @@
+/* =========================================
+   TESTIMONIALS (Compact / Half Height)
+========================================= */
+
+.testimonials-section {
+  position: relative;
+  width: 100%;
+  background: #fbf9f6;
+  /* Cut from 120px 6% 110px down to ~55px */
+  padding: 140px 6% 150px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.testimonials-container {
+  position: relative;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.testimonials-heading {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px; /* Reduced from 48px */
+}
+
+/* Category Eyebrow matching .ikv-label */
+.testimonials-heading > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #4b584a;
+
+  margin-bottom: 10px; /* Reduced from 22px */
+}
+
+.testimonials-heading > span::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: #4b584a;
+}
+
+/* Heading H2 */
+.testimonials-heading h2 {
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(38px, 3.8vw, 56px); /* Scaled down slightly to fit compact profile */
+  line-height: 0.95;
+  letter-spacing: -1.5px;
+  font-weight: 600;
+
+  color: #3d473d;
+}
+
+.testimonials-heading h2 em {
+  font-style: italic;
+  font-weight: 400;
+  color: #687166;
+}
+
+
+/* =========================================
+   CONTENT / GRID
+========================================= */
+
+.testimonial-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px; /* Reduced from 45px */
+  align-items: stretch;
+}
+
+
+/* =========================================
+   IMAGE (Half Height: ~240px - 260px)
+========================================= */
+
+.testimonial-image-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 250px; /* Cut roughly in half from 480px */
+  height: 250px;
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(47, 52, 46, 0.08);
+}
+
+.testimonial-image-wrap img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1.02);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: testimonialImage 0.6s ease forwards;
+}
+
+.testimonial-image-wrap:hover img {
+  transform: scale(1.05);
+}
+
+@keyframes testimonialImage {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+
+/* =========================================
+   TEXT PANEL (Compact IKV Glass Card)
+========================================= */
+
+.testimonial-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 22px 26px; /* Reduced padding from 42px 40px */
+  min-height: 250px;
+
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(75, 88, 74, 0.08);
+  border-radius: 20px;
+
+  box-shadow: 0 18px 45px rgba(47, 52, 46, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-sizing: border-box;
+}
+
+.quote-mark {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 38px; /* Reduced from 60px */
+  line-height: 0.4;
+  color: #4b584a;
+  margin-bottom: 12px;
+}
+
+.testimonial-text blockquote {
+  max-width: 100%;
+  margin: 0;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(20px, 1.8vw, 25px); /* Scaled down for compact height */
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  font-weight: 500;
+
+  color: #354239;
+
+  animation: testimonialQuote 0.45s ease;
+}
+
+@keyframes testimonialQuote {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   CLIENT METADATA
+========================================= */
+
+.testimonial-client {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px; /* Reduced from 32px */
+}
+
+.testimonial-client > span {
+  width: 22px;
+  height: 1px;
+  background: #4b584a;
+}
+
+.testimonial-client h4 {
+  margin: 0 0 2px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  color: #394139;
+}
+
+.testimonial-client p {
+  margin: 0;
+
+  font-size: 10px;
+  color: #777b75;
+}
+
+
+/* =========================================
+   BOTTOM CONTROLS (Counter & Buttons)
+========================================= */
+
+.testimonial-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 14px; /* Reduced from 32px */
+  padding-top: 12px; /* Reduced from 24px */
+
+  border-top: 1px solid #eeeeeb;
+}
+
+/* Counter */
+.testimonial-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 500;
+
+  color: #777b75;
+}
+
+.counter-line {
+  position: relative;
+  width: 55px;
+  height: 1px;
+  background: #cfd4cd;
+}
+
+.counter-line div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  background: #4b584a;
+  transition: width 0.3s ease;
+}
+
+/* Arrows */
+.testimonial-arrows {
+  display: flex;
+  gap: 6px;
+}
+
+.testimonial-arrows button {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e4e6e2;
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: #4c514b;
+
+  font-size: 12px;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.testimonial-arrows button:hover {
+  background: #4b584a;
+  border-color: #4b584a;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1024px) {
+
+  .testimonials-section {
+    padding: 45px 5% 40px;
+  }
+
+  .testimonial-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .testimonial-image-wrap {
+    height: 220px;
+    min-height: auto;
+  }
+
+  .testimonial-text {
+    min-height: auto;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+
+  .testimonials-section {
+    padding: 35px 16px 30px;
+  }
+
+  .testimonials-heading {
+    margin-bottom: 18px;
+  }
+
+  .testimonials-heading h2 {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .testimonial-image-wrap {
+    height: 180px;
+    border-radius: 16px;
+  }
+
+  .testimonial-text {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .quote-mark {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  .testimonial-text blockquote {
+    font-size: 18px;
+  }
+
+  .testimonial-bottom {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+}

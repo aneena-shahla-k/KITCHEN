@@ -1,0 +1,620 @@
+/* =========================================================
+   WHY CHOOSE US SECTION
+========================================================= */
+
+.why-choose-section {
+  position: relative;
+  width: 100%;
+  background: #fbf9f6;
+  padding: 110px 0 105px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.why-choose-section *,
+.why-choose-section *::before,
+.why-choose-section *::after {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.why-choose-container {
+  width: min(1400px, calc(100% - 120px));
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.why-choose-header {
+  position: relative;
+  margin-bottom: 42px;
+}
+
+.why-section-label {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+
+  margin-bottom: 30px;
+
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: #68736b;
+  text-transform: uppercase;
+}
+
+.why-label-line {
+  width: 44px;
+  height: 1px;
+  background: #8d968e;
+}
+
+.why-choose-title {
+  margin: 0;
+
+  color: #3d473d;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(58px, 5.4vw, 84px);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -2px;
+}
+
+.why-choose-intro {
+  margin: 22px 0 0;
+
+  max-width: 700px;
+
+  color: #7b847d;
+
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   DECORATIVE SCRIPT
+========================================================= */
+
+.why-header-script {
+  position: absolute;
+
+  right: 35px;
+  top: 50px;
+
+  display: flex;
+  flex-direction: column;
+
+  color: #8d958c;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 27px;
+  font-style: italic;
+  line-height: 1.1;
+
+  transform: rotate(-5deg);
+  opacity: 0.8;
+}
+
+.why-header-script span:nth-child(2) {
+  margin-left: 38px;
+}
+
+
+/* =========================================================
+   CARDS GRID
+========================================================= */
+
+.why-choose-grid {
+  width: 100%;
+
+  display: grid;
+
+  /*
+     IMPORTANT:
+     Five equal columns.
+  */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  gap: 16px;
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.why-feature-card {
+  width: 100%;
+  min-width: 0;
+  height: 410px;
+  min-height: 410px;
+  max-height: 610px;
+  display: flex;
+  flex-direction: column;
+
+  background: #f1eee5;
+
+  border: 1px solid #ddd9ce;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 8px 25px rgba(48, 57, 49, 0.055);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.why-feature-card:hover {
+  transform: translateY(-6px);
+
+  border-color: #c9c6ba;
+
+  box-shadow:
+    0 18px 40px rgba(48, 57, 49, 0.11);
+}
+
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.why-feature-image {
+  position: relative;
+
+  width: 100%;
+  height: 200px;
+  min-height: 20px;
+  max-height: 270px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  background: #ddd8cd;
+}
+
+.why-feature-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.why-feature-card:hover .why-feature-image img {
+  transform: scale(1.045);
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.why-image-overlay {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(30, 36, 31, 0.01),
+      rgba(30, 36, 31, 0.08)
+    );
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.why-feature-content {
+  width: 100%;
+
+  /*
+     Remaining space is automatically filled.
+  */
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding: 22px 28px 28px;
+
+  background: #f1eee5;
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.why-feature-icon {
+  width: 62px;
+  height: 62px;
+
+  min-width: 62px;
+  min-height: 62px;
+
+  flex-shrink: 0;
+
+  margin-bottom: 17px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e8e5db;
+
+  border: 1px solid #dddacf;
+
+  color: #4d5950;
+
+  box-shadow:
+    0 3px 10px rgba(50, 55, 48, 0.04);
+}
+
+.why-feature-icon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Georgia, serif;
+  font-size: 28px;
+  line-height: 1;
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.why-feature-title {
+  margin: 0;
+
+  color: #38453b;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+
+  font-size: 29px;
+  font-weight: 600;
+
+  line-height: 1.02;
+
+  letter-spacing: -0.5px;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.why-feature-divider {
+  width: 32px;
+  height: 1px;
+
+  flex-shrink: 0;
+
+  margin: 20px 0 18px;
+
+  background: #9da39b;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.why-feature-description {
+  margin: 0;
+
+  color: #7d857e;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 13.5px;
+
+  line-height: 1.65;
+
+  font-weight: 400;
+
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   DECORATIVE LEAVES
+========================================================= */
+
+.why-leaf-decoration {
+  position: absolute;
+
+  right: -20px;
+  top: -20px;
+
+  width: 190px;
+  height: 210px;
+
+  opacity: 0.55;
+
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+
+  width: 42px;
+  height: 85px;
+
+  border-radius: 100% 0 100% 0;
+
+  background: #aeb5a8;
+
+  opacity: 0.6;
+
+  transform-origin: bottom center;
+}
+
+.leaf::after {
+  content: "";
+
+  position: absolute;
+
+  width: 1px;
+  height: 70%;
+
+  left: 50%;
+  top: 15%;
+
+  background: rgba(64, 75, 66, 0.4);
+
+  transform: rotate(12deg);
+}
+
+.leaf-1 {
+  right: 72px;
+  top: 8px;
+  transform: rotate(25deg);
+}
+
+.leaf-2 {
+  right: 35px;
+  top: 30px;
+  transform: rotate(55deg) scale(0.85);
+}
+
+.leaf-3 {
+  right: 5px;
+  top: 72px;
+  transform: rotate(80deg) scale(0.75);
+}
+
+.leaf-4 {
+  right: 85px;
+  top: 70px;
+  transform: rotate(-15deg) scale(0.7);
+}
+
+.leaf-5 {
+  right: 40px;
+  top: 105px;
+  transform: rotate(105deg) scale(0.6);
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .why-choose-container {
+    width: calc(100% - 70px);
+  }
+
+  .why-choose-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .why-feature-card {
+    height: 590px;
+    min-height: 590px;
+    max-height: 590px;
+  }
+
+  .why-feature-image {
+    height: 260px;
+    min-height: 260px;
+    max-height: 260px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .why-choose-section {
+    padding: 90px 0;
+  }
+
+  .why-choose-container {
+    width: calc(100% - 50px);
+  }
+
+  .why-choose-title {
+    font-size: 64px;
+  }
+
+  .why-header-script {
+    display: none;
+  }
+
+  .why-choose-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .why-feature-card {
+    height: 570px;
+    min-height: 570px;
+    max-height: 570px;
+  }
+
+  .why-feature-image {
+    height: 255px;
+    min-height: 255px;
+    max-height: 255px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .why-choose-section {
+    padding: 75px 0 70px;
+  }
+
+  .why-choose-container {
+    width: calc(100% - 36px);
+  }
+
+  .why-section-label {
+    gap: 12px;
+    margin-bottom: 24px;
+
+    font-size: 9px;
+    letter-spacing: 2.2px;
+  }
+
+  .why-label-line {
+    width: 30px;
+  }
+
+  .why-choose-title {
+    font-size: 51px;
+    letter-spacing: -2px;
+  }
+
+  .why-choose-intro {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .desktop-break {
+    display: none;
+  }
+
+  .why-choose-header {
+    margin-bottom: 32px;
+  }
+
+  .why-choose-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /*
+     On mobile cards remain consistent,
+     but become taller to accommodate width.
+  */
+  .why-feature-card {
+    height: 560px;
+    min-height: 560px;
+    max-height: 560px;
+  }
+
+  .why-feature-image {
+    height: 270px;
+    min-height: 270px;
+    max-height: 270px;
+  }
+
+  .why-feature-content {
+    padding: 21px 25px 28px;
+  }
+
+  .why-feature-icon {
+    width: 60px;
+    height: 60px;
+
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .why-feature-title {
+    font-size: 29px;
+  }
+
+  .why-feature-description {
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .why-choose-container {
+    width: calc(100% - 28px);
+  }
+
+  .why-choose-title {
+    font-size: 45px;
+  }
+
+  .why-feature-card {
+    height: 540px;
+    min-height: 540px;
+    max-height: 540px;
+  }
+
+  .why-feature-image {
+    height: 245px;
+    min-height: 245px;
+    max-height: 245px;
+  }
+
+  .why-feature-title {
+    font-size: 27px;
+  }
+}
