@@ -23,6 +23,11 @@
   width: 52%;
   padding-top: 30px;
 }
+.ikv-heading em{
+  font-style: italic;
+  font-weight: 400;
+  color: #6b7568;
+}
 
 .ikv-label {
   display: flex;

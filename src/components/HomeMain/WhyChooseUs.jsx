@@ -101,7 +101,7 @@ const WhyChooseUs = () => {
           </div>
 
           <h2 className="why-choose-title">
-            Why Choose Us?
+            Why choose us?
           </h2>
 
           <p className="why-choose-intro">

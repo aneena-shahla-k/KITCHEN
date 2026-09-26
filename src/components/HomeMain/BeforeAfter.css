@@ -141,11 +141,9 @@
 }
 
 .before-after-content h2 em {
-  font-weight: 400;
-
-  color: #a38a6d;
-
   font-style: italic;
+  font-weight: 400;
+  color: #6b7568;
 }
 
 

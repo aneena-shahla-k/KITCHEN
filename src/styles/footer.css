@@ -58,8 +58,19 @@
   height: 42px;
 
   display: block;
-
   object-fit: contain;
+
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(25%)
+    sepia(8%)
+    saturate(650%)
+    hue-rotate(70deg)
+    brightness(90%)
+    contrast(88%);
+
+  opacity: 0.9;
 }
 
 .footer-tagline {

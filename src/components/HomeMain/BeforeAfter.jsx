@@ -130,7 +130,7 @@ export default function BeforeAfter({ onExplore }) {
           <h2>
             From Vision
             <br />
-          to Living
+          <em>to living</em>
           </h2>
 
           <p className="section-description">

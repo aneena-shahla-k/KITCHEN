@@ -558,13 +558,12 @@
 /* MAP & INFO CARD WRAPPER */
 .location-map-area {
   position: relative;
-  min-height: 280px;
+  min-height: 330px;
   height: 100%;
+  border-radius: 14px;
+  border: 1px solid #dfdcd1;
   overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid #e3e0d6;
-  background: #e8e9df;
-  display: flex;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .fake-map {

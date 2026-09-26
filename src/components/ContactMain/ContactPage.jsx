@@ -70,9 +70,9 @@ const ContactPage = () => {
           </div>
 
           <h2>
-            Let’s Build
+            Let’s build
             <br />
-            <em>Your Dream Kitchen.</em>
+            <em>your dream kitchen.</em>
           </h2>
 
           <p>

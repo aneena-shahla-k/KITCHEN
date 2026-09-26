@@ -193,9 +193,9 @@ const KitchenPricing = () => {
 
 
             <h2>
-              Know What You're
+              Know what you're
               <br />
-              Paying For
+              <em>paying for</em>
             </h2>
 
 

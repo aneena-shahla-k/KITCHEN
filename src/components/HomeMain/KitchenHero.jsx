@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "../../styles/HomeStyles/kitchenHero.css";
+import "./kitchenHero.css";
 
 gsap.registerPlugin(ScrollTrigger);
 

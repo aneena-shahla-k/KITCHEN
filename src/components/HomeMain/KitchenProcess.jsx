@@ -128,13 +128,13 @@ const KitchenProcess = () => {
           </div>
       </div>
           <h2>
-            From Empty
+            From empty
             <br />
-            Space
+            space
             <br />
-            to Finished
+            <em>to finished
             <br />
-            Kitchen
+            kitchen</em>
           </h2>
 
           <p>

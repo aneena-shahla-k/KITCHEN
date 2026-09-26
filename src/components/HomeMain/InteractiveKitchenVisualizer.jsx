@@ -50,7 +50,7 @@ const InteractiveKitchenVisualizer = () => {
         <h2>
           Interactive
           <br />
-          Kitchen Visualizer
+          <em>kitchen visualizer</em>
         </h2>
 
         <p>
