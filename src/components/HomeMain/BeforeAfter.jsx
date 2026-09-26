@@ -1,72 +1,70 @@
 import React, { useRef, useState } from "react";
-import "./BeforeAfter.css";
-import img1 from "../../images/charcoal-old.png";
-import img11 from "../../images/charcoal-new.png";
-import img2 from "../../images/custom-old.png";
-import img22 from "../../images/custom-new.png";
-import img3 from "../../images/white-old.png";
-import img33 from "../../images/white-new.png";
-import img4 from "../../images/waln-old.png";
-import img44 from "../../images/walnut-new.png";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Sparkles,
+  Layers3,
+  Home,
+} from "lucide-react";
 
+import "./BeforeAfter.css";
+
+// Replace these with your actual BEFORE / AFTER images
+import kitchenBefore from "../../images/custom-old.png";
+import kitchenAfter from "../../images/custom-new.png";
 
 const projects = [
   {
-    id: "01",
-    title: "Contemporary Family Kitchen",
-    style: "Modern",
-    materials: "Laminate + Quartz",
-    storage: "Tall Unit + Pantry + Soft-Close Drawers",
-
-    before: img1,
-    after: img11,
+    title: "Kitchen Redesign",
+    category: "Residential Kitchen",
+    before: kitchenBefore,
+    after: kitchenAfter,
+    description: "Modern · Functional · Elegant",
   },
-  {
-    id: "02",
-    title: "Urban Minimal Kitchen",
-    style: "Minimal",
-    materials: "Matte Finish + Quartz",
-    storage: "Tall Unit + Pull-Outs + Soft-Close Drawers",
 
-    before: img2,
-    after: img22,
-  },
-  {
-    id: "03",
-    title: "Elegant Urban Kitchen",
-    style: "Contemporary",
-    materials: "Matte Finish + Quartz",
-    storage: "Pantry + Pull-Outs + Soft-Close Drawers",
-
-    before: img3,
-    after: img33,
-  },
-  {
-    id: "04",
-    title: "Scandinavian Kitchen",
-    style: "Scandinavian",
-    materials: "Oak Finish + Quartz",
-    storage: "Open Shelves + Pantry + Deep Drawers",
-
-    before: img4,
-    after: img44,
-  },
-  
+  // Add more projects here
+  // {
+  //   title: "Living Space",
+  //   category: "Interior Transformation",
+  //   before: livingBefore,
+  //   after: livingAfter,
+  //   description: "Warm · Minimal · Contemporary",
+  // },
 ];
 
-export default function BeforeAfter() {
-  const [activeProject, setActiveProject] = useState(0);
+const features = [
+  {
+    icon: Sparkles,
+    title: "Modern Aesthetics",
+    text: "Timeless designs that elevate your everyday life.",
+  },
+  {
+    icon: Layers3,
+    title: "Premium Materials",
+    text: "Quality finishes designed for lasting beauty.",
+  },
+  {
+    icon: Home,
+    title: "Smart Functionality",
+    text: "Beautiful spaces that work around your lifestyle.",
+  },
+];
+
+export default function BeforeAfter({ onExplore }) {
+  const [projectIndex, setProjectIndex] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
 
-  const sliderRef = useRef(null);
-  const dragging = useRef(false);
+  const containerRef = useRef(null);
+  const draggingRef = useRef(false);
 
-  const project = projects[activeProject];
+  const project = projects[projectIndex];
 
   const updateSlider = (clientX) => {
-    if (!sliderRef.current) return;
+    if (!containerRef.current) return;
 
-    const rect = sliderRef.current.getBoundingClientRect();
+    const rect = containerRef.current.getBoundingClientRect();
 
     let position = ((clientX - rect.left) / rect.width) * 100;
 
@@ -76,7 +74,7 @@ export default function BeforeAfter() {
   };
 
   const handlePointerDown = (e) => {
-    dragging.current = true;
+    draggingRef.current = true;
 
     e.currentTarget.setPointerCapture?.(e.pointerId);
 
@@ -84,293 +82,221 @@ export default function BeforeAfter() {
   };
 
   const handlePointerMove = (e) => {
-    if (!dragging.current) return;
+    if (!draggingRef.current) return;
 
     updateSlider(e.clientX);
   };
 
   const handlePointerUp = () => {
-    dragging.current = false;
+    draggingRef.current = false;
   };
 
-  const selectProject = (index) => {
-    setActiveProject(index);
+  const nextProject = () => {
+    setProjectIndex((current) => {
+      return current === projects.length - 1 ? 0 : current + 1;
+    });
+
+    setSliderPosition(50);
+  };
+
+  const previousProject = () => {
+    setProjectIndex((current) => {
+      return current === 0 ? projects.length - 1 : current - 1;
+    });
+
     setSliderPosition(50);
   };
 
   return (
-    <section className="ba-section">
-      <div className="ba-container">
+    <section className="before-after-section">
+      <div className="before-after-orb before-after-orb-one" />
+      <div className="before-after-orb before-after-orb-two" />
 
-        {/* Decorative leaves */}
-        <div className="ba-decoration">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <div className="before-after-container">
 
-        {/* HEADER */}
-        <div className="ba-header">
-
-          <div className="ba-heading-area">
-            <div className="ba-section-label">
-              <span className="ba-label-line"></span>
-              <span>BEFORE &amp; AFTER</span>
-            </div>
-
-            <h2 className="ba-title">
-              Real Kitchens.
-              <br />
-              Real Transformations.
-            </h2>
-
-            <p className="ba-intro">
-              See how we turn ordinary spaces into extraordinary kitchens —
-              <br className="ba-desktop-break" />
-              with smart design, premium materials and expert craftsmanship.
-            </p>
+        {/* LEFT CONTENT */}
+        <motion.div
+          className="before-after-content"
+          initial={{ opacity: 0, x: -35 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="section-eyebrow">
+            <span />
+            OUR TRANSFORMATION
           </div>
 
-          <div className="ba-header-note">
-            <div className="ba-note-text">
-              Same Space.
-              <br />
-              A Whole New Story.
-            </div>
+          <h2>
+            From Vision
+            <br />
+          to Living
+          </h2>
+
+          <p className="section-description">
+            See how we transform spaces with thoughtful design,
+            premium materials and intelligent planning.
+          </p>
+
+          <div className="transformation-features">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+
+              return (
+                <motion.div
+                  className="transformation-feature"
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.15 + index * 0.1,
+                  }}
+                >
+                  <div className="feature-icon">
+                    <Icon size={18} strokeWidth={1.5} />
+                  </div>
+
+                  <div>
+                    <h4>{feature.title}</h4>
+                    <p>{feature.text}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
-        </div>
+          <button
+            className="explore-projects-btn"
+            onClick={onExplore}
+          >
+            <span>EXPLORE MORE PROJECTS</span>
+            <ArrowUpRight size={17} />
+          </button>
+        </motion.div>
 
-        {/* MAIN CONTENT */}
-        <div className="ba-main-grid">
+        {/* RIGHT VISUAL */}
+        <motion.div
+          className="before-after-visual"
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.9 }}
+        >
 
-          {/* SLIDER */}
           <div
-            className="ba-slider"
-            ref={sliderRef}
-            onPointerDown={handlePointerDown}
+            ref={containerRef}
+            className="comparison-wrapper"
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            onPointerLeave={(e) => {
-              if (e.buttons === 0) {
-                dragging.current = false;
-              }
-            }}
           >
 
-            {/* AFTER IMAGE - BACKGROUND */}
-            <img
-              src={project.after}
-              alt={`${project.title} after renovation`}
-              className="ba-image ba-after-image"
-              draggable="false"
-            />
+            {/* AFTER IMAGE */}
+            <div className="comparison-after">
+              <img
+                src={project.after}
+                alt={`${project.title} after`}
+                draggable="false"
+              />
+
+              <div className="comparison-label after-label">
+                AFTER
+              </div>
+            </div>
 
             {/* BEFORE IMAGE */}
             <div
-              className="ba-before-wrapper"
+              className="comparison-before"
               style={{
                 width: `${sliderPosition}%`,
               }}
             >
-              <img
-                src={project.before}
-                alt={`${project.title} before renovation`}
-                className="ba-image ba-before-image"
-                draggable="false"
-              />
+              <div className="before-image-inner">
+                <img
+                  src={project.before}
+                  alt={`${project.title} before`}
+                  draggable="false"
+                />
+              </div>
+
+              <div className="comparison-label before-label">
+                BEFORE
+              </div>
             </div>
 
-            {/* BEFORE LABEL */}
-            <div className="ba-image-label ba-before-label">
-              BEFORE
-            </div>
-
-            {/* AFTER LABEL */}
-            <div className="ba-image-label ba-after-label">
-              AFTER
-            </div>
-
-            {/* DIVIDER */}
+            {/* SLIDER LINE */}
             <div
-              className="ba-divider"
+              className="comparison-line"
               style={{
                 left: `${sliderPosition}%`,
               }}
             >
-              <div className="ba-drag-handle">
-                <span>‹</span>
-                <span>›</span>
-              </div>
+              <button
+                className="comparison-handle"
+                onPointerDown={handlePointerDown}
+                aria-label="Drag to compare before and after"
+              >
+                <ArrowLeft size={16} />
+                <ArrowRight size={16} />
+              </button>
             </div>
 
+            {/* BOTTOM PROJECT CARD */}
+            <div className="project-info-card">
+
+              <div className="project-thumbnail">
+                <img
+                  src={project.before}
+                  alt=""
+                />
+              </div>
+
+              <div className="project-info-text">
+                <span>{project.category}</span>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+              </div>
+
+            </div>
           </div>
 
-          {/* PROJECT DETAILS */}
-          <aside className="ba-project-info">
+          {/* PROJECT NAVIGATION */}
+          <div className="comparison-bottom">
 
-            <div className="ba-project-number">
-              PROJECT {project.id}
+            <div className="project-counter">
+              <strong>
+                {String(projectIndex + 1).padStart(2, "0")}
+              </strong>
+
+              <span>/</span>
+
+              <span>
+                {String(projects.length).padStart(2, "0")}
+              </span>
             </div>
 
-            <h3 className="ba-project-title">
-              {project.title}
-            </h3>
-
-            <div className="ba-info-list">
-
-              <div className="ba-info-row">
-
-                <div className="ba-info-icon">
-                  <span className="ba-icon-tag"></span>
-                </div>
-
-                <div>
-                  <div className="ba-info-label">
-                    Style
-                  </div>
-
-                  <div className="ba-info-value">
-                    {project.style}
-                  </div>
-                </div>
-
-              </div>
-
-              <div className="ba-info-row">
-
-                <div className="ba-info-icon">
-                  <span className="ba-icon-layers"></span>
-                </div>
-
-                <div>
-                  <div className="ba-info-label">
-                    Materials
-                  </div>
-
-                  <div className="ba-info-value">
-                    {project.materials}
-                  </div>
-                </div>
-
-              </div>
-
-              <div className="ba-info-row">
-
-                <div className="ba-info-icon">
-                  <span className="ba-icon-storage"></span>
-                </div>
-
-                <div>
-                  <div className="ba-info-label">
-                    Storage
-                  </div>
-
-                  <div className="ba-info-value">
-                    {project.storage}
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div className="ba-cta-wrapper">
+            <div className="comparison-navigation">
 
               <button
-                className="ba-cta"
-                type="button"
+                onClick={previousProject}
+                aria-label="Previous project"
               >
-                <span>View More Transformations</span>
+                <ArrowLeft size={17} />
+              </button>
 
-                <span className="ba-cta-arrow">
-                  →
-                </span>
+              <button
+                onClick={nextProject}
+                aria-label="Next project"
+              >
+                <ArrowRight size={17} />
               </button>
 
             </div>
-
-          </aside>
-
-        </div>
-
-        {/* PROJECT THUMBNAILS */}
-        <div className="ba-project-selector">
-
-          <button
-            className="ba-nav-arrow"
-            type="button"
-            onClick={() =>
-              setActiveProject(
-                activeProject === 0
-                  ? projects.length - 1
-                  : activeProject - 1
-              )
-            }
-            aria-label="Previous project"
-          >
-            ‹
-          </button>
-
-          <div className="ba-thumbnails">
-
-            {projects.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`ba-thumbnail ${
-                  activeProject === index
-                    ? "is-active"
-                    : ""
-                }`}
-                onClick={() => selectProject(index)}
-              >
-
-                <div className="ba-thumbnail-image">
-
-                  <img
-                    src={item.after}
-                    alt={item.title}
-                    draggable="false"
-                  />
-
-                  <div className="ba-thumbnail-divider"></div>
-
-                  <div className="ba-thumbnail-handle">
-                    ‹›
-                  </div>
-
-                </div>
-
-                <div className="ba-thumbnail-title">
-                  Project {item.id} — {item.title}
-                </div>
-
-              </button>
-            ))}
-
           </div>
 
-          <button
-            className="ba-nav-arrow"
-            type="button"
-            onClick={() =>
-              setActiveProject(
-                activeProject === projects.length - 1
-                  ? 0
-                  : activeProject + 1
-              )
-            }
-            aria-label="Next project"
-          >
-            ›
-          </button>
-
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

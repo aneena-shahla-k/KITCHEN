@@ -451,45 +451,13 @@ const KitchenPricing = () => {
             </div>
 
 
-            {/* =============================================
-                TABLE FOOTER
-            ============================================= */}
-
-            <div className="pricing-table-footer">
-
-
               <div className="pricing-total">
-
-                <span>
-                  ESTIMATED PROJECT COST
-                </span>
-
-                <strong>
-                  {currentPricing.total}
-                </strong>
-
                 <p>
                   Final pricing depends on measurements,
                   material selection, hardware, accessories
                   and installation requirements.
                 </p>
-
               </div>
-
-
-              <button
-                type="button"
-                className="pricing-footer-button"
-              >
-                Get Detailed Quote
-
-                <span>
-                  →
-                </span>
-
-              </button>
-
-            </div>
 
           </div>
 

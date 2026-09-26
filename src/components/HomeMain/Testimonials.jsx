@@ -50,9 +50,9 @@ const Testimonials = () => {
         <div className="testimonials-heading">
           <span>CLIENT STORIES</span>
           <h2>
-            What our Clients
+            What Our Clients
             <br />
-            <em>say.</em>
+            Response
           </h2>
         </div>
 

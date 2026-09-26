@@ -106,7 +106,7 @@ const WhyChooseUs = () => {
 
           <p className="why-choose-intro">
             We go beyond beautiful kitchens — we bring expertise,
-            <br className="desktop-break" />
+            <br/>
             quality and complete support, at every step.
           </p>
 

@@ -1,0 +1,405 @@
+/* =========================================
+   MATERIALS HERO
+========================================= */
+
+.materials-hero {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  color: #354239;
+}
+
+
+/* =========================================
+   SOFT OVERLAY
+========================================= */
+
+.materials-hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(249, 247, 241, 0.97) 0%,
+      rgba(249, 247, 241, 0.92) 27%,
+      rgba(249, 247, 241, 0.55) 45%,
+      rgba(249, 247, 241, 0.04) 68%,
+      rgba(249, 247, 241, 0) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.materials-hero-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1450px;
+
+  margin: 0 auto;
+
+  padding: 90px 8% 90px 10%;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.materials-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 30px;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: #68736b;
+}
+
+.materials-eyebrow-line {
+  width: 44px;
+  height: 1px;
+
+  background: #8d968e;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.materials-hero-title {
+  margin: 0;
+  font-family: "Cormorant Garamond",serif;
+  font-size: clamp(48px, 5.1vw, 65px);
+  line-height: 0.92;
+  font-weight: 510;
+  letter-spacing: -2px;
+  color: #3d473d;
+}
+
+.materials-hero-title em {
+  font-style: italic;
+  font-weight: 400;
+
+  color: #6b7568;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.materials-hero-description {
+  max-width: 620px;
+  margin: 18px 0 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #858a83;
+  margin-bottom: 30px;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.materials-hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 145px;
+
+  padding: 11px 15px;
+
+  border: 1px solid rgba(75, 88, 74, 0.18);
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  box-shadow:
+    0 8px 24px rgba(60, 66, 57, 0.08);
+
+  text-decoration: none;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: 0.2px;
+
+  color: #3d463b;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.materials-hero-button:hover {
+  background: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 28px rgba(60, 66, 57, 0.12);
+}
+
+.materials-button-arrow {
+  font-size: 14px;
+
+  line-height: 1;
+
+  transition: transform 0.3s ease;
+}
+
+.materials-hero-button:hover .materials-button-arrow {
+  transform: translateX(4px);
+}
+
+
+/* =========================================
+   RIGHT MATERIAL NAVIGATION
+========================================= */
+
+.materials-hero-nav {
+  position: absolute;
+
+  z-index: 4;
+
+  right: 5.5%;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+  padding-left: 15px;
+
+  border-left: 1px solid rgba(53, 66, 57, 0.28);
+}
+
+.materials-hero-nav a {
+  position: relative;
+
+  text-decoration: none;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  letter-spacing: 1.7px;
+
+  color: rgba(53, 66, 57, 0.48);
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.materials-hero-nav a:hover {
+  color: #354239;
+
+  transform: translateX(2px);
+}
+
+.materials-hero-nav a.active {
+  color: #354239;
+}
+
+.materials-hero-nav a.active::before {
+  content: "";
+
+  position: absolute;
+
+  left: -16px;
+
+  top: 50%;
+
+  width: 2px;
+
+  height: 13px;
+
+  transform: translateY(-50%);
+
+  background: #4b584a;
+}
+
+
+/* =========================================
+   BOTTOM LINE
+========================================= */
+
+.materials-hero-bottom-line {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 1px;
+
+  background: rgba(75, 88, 74, 0.12);
+
+  z-index: 5;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .materials-hero {
+    min-height: 500px;
+  }
+
+  .materials-hero-content {
+    padding-left: 7%;
+  }
+
+  .materials-hero-title {
+    font-size: 62px;
+  }
+
+  .materials-hero-nav {
+    right: 3%;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .materials-hero {
+    min-height: 650px;
+
+    align-items: flex-end;
+
+    background-position: 62% center;
+  }
+
+  .materials-hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(249, 247, 241, 0.1) 0%,
+        rgba(249, 247, 241, 0.25) 25%,
+        rgba(249, 247, 241, 0.72) 58%,
+        rgba(249, 247, 241, 0.97) 100%
+      );
+  }
+
+  .materials-hero-content {
+    padding: 80px 24px 65px;
+  }
+
+  .materials-hero-eyebrow {
+    margin-bottom: 18px;
+
+    font-size: 8px;
+
+    letter-spacing: 1.8px;
+  }
+
+  .materials-eyebrow-line {
+    width: 22px;
+  }
+
+  .materials-hero-title {
+    max-width: 500px;
+
+    font-size: 48px;
+
+    line-height: 0.94;
+
+    letter-spacing: -1.8px;
+  }
+
+  .materials-hero-description {
+    max-width: 330px;
+
+    margin-top: 20px;
+
+    font-size: 11px;
+
+    line-height: 1.65;
+  }
+
+  .materials-hero-button {
+    margin-top: 2px;
+  }
+
+  .materials-hero-nav {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .materials-hero {
+    min-height: 590px;
+
+    background-position: 60% center;
+  }
+
+  .materials-hero-content {
+    padding:
+      70px
+      20px
+      45px;
+  }
+
+  .materials-hero-title {
+    font-size: 43px;
+
+    letter-spacing: -1.5px;
+  }
+
+  .materials-hero-description {
+    max-width: 290px;
+
+    font-size: 10.5px;
+  }
+
+}

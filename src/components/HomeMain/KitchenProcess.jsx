@@ -121,10 +121,12 @@ const KitchenProcess = () => {
         {/* LEFT INTRO */}
         <div className="kitchen-process-intro">
 
+        <div className="pricing-eyebrow">
+          <span></span>
           <div className="kitchen-process-label">
             OUR PROCESS
           </div>
-
+      </div>
           <h2>
             From Empty
             <br />
@@ -140,12 +142,7 @@ const KitchenProcess = () => {
             to the kitchen you imagined.
           </p>
 
-          <button
-            className="kitchen-process-arrow"
-            aria-label="View process"
-          >
-            →
-          </button>
+          
 
         </div>
 

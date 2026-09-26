@@ -45,7 +45,6 @@ const InteractiveKitchenVisualizer = () => {
         <div className="ikv-label">
           <span></span>
           INTERACTIVE TOOL
-          <span></span>
         </div>
 
         <h2>
@@ -64,7 +63,6 @@ const InteractiveKitchenVisualizer = () => {
       {/* LARGE KITCHEN VISUAL */}
       <div className="ikv-visual">
         <img src={img} alt="Modern kitchen" />
-
         <div className="ikv-image-fade"></div>
       </div>
 

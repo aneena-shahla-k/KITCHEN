@@ -1,15 +1,13 @@
 /* =========================================
-   FINAL VIDEO
+   FINAL VIDEO (Styled to Match IKV)
 ========================================= */
 
 .final-video-section {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
-
+  min-height: 650px;
   overflow: hidden;
-
   background: #4b584a;
 }
 
@@ -20,15 +18,11 @@
 
 .final-video {
   position: absolute;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   display: block;
 }
 
@@ -39,38 +33,29 @@
 
 .final-video-dark {
   position: absolute;
-
   inset: 0;
-
   background: rgba(20, 27, 21, 0);
-
   transition: background 1s ease;
 }
 
 
 /* =========================================
-   CTA CONTENT
+   CTA CONTENT (Centered Floating Layout)
 ========================================= */
 
 .final-video-content {
   position: absolute;
-
   left: 50%;
-  bottom: 65px;
-
-  width: min(900px, 90%);
-
+  bottom: 80px;
+  width: min(850px, 92%);
   transform: translate(-50%, 30px);
-
   text-align: center;
-
   opacity: 0;
-
   pointer-events: none;
-
+  z-index: 10;
   transition:
     opacity 0.8s ease,
-    transform 0.8s ease;
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
@@ -82,120 +67,127 @@
 
 .final-video-section.show-cta .final-video-content {
   opacity: 1;
-
   transform: translate(-50%, 0);
-
   pointer-events: auto;
 }
 
 
 /* =========================================
-   LABEL
+   LABEL (Matching .ikv-label Style)
 ========================================= */
 
 .final-video-label {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
 
-  margin-bottom: 18px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #cfd4cd;
 
-  font-family: Arial, sans-serif;
+  margin-bottom: 22px;
+}
 
-  font-size: 9px;
-  letter-spacing: 3px;
-
-  color: rgba(255, 255, 255, 0.7);
+/* Matching the IKV 32px line accent */
+.final-video-label::before,
+.final-video-label::after {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: rgba(207, 212, 205, 0.6);
 }
 
 
 /* =========================================
-   HEADING
+   HEADING (Matching .ikv-heading h2)
 ========================================= */
 
 .final-video-content h2 {
   margin: 0;
 
   font-family: "Cormorant Garamond", Georgia, serif;
-
-  font-size: clamp(48px, 5vw, 76px);
-
+  font-size: clamp(52px, 5.2vw, 84px);
   line-height: 0.92;
-
-  letter-spacing: -2.5px;
-
-  font-weight: 500;
+  letter-spacing: -2px;
+  font-weight: 600;
 
   color: #ffffff;
 }
 
 .final-video-content h2 em {
   font-style: italic;
-
   font-weight: 400;
-
-  color: #e5e7df;
+  color: #d8ded6;
 }
 
 
 /* =========================================
-   DESCRIPTION
+   DESCRIPTION (Matching .ikv-heading p)
 ========================================= */
 
 .final-video-content p {
-  margin: 22px auto 0;
+  margin: 24px auto 0;
+  max-width: 580px;
 
-  max-width: 520px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 400;
 
-  font-family: Arial, sans-serif;
-
-  font-size: 12px;
-
-  line-height: 1.6;
-
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 
 /* =========================================
-   BUTTON
+   BUTTON (Matching .create-btn Pill Aesthetics)
 ========================================= */
 
 .final-video-button {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
+  gap: 12px;
 
-  gap: 20px;
+  margin-top: 32px;
+  padding: 14px 34px;
 
-  margin-top: 25px;
-
-  padding: 14px 20px;
-
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
 
   background: #ffffff;
+  color: #354035;
 
-  color: #3d463b;
-
-  font-family: Arial, sans-serif;
-
-  font-size: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 
   cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
   transition: all 0.3s ease;
 }
 
 .final-video-button span {
   font-size: 15px;
+  transition: transform 0.25s ease;
 }
 
 .final-video-button:hover {
   background: #4b584a;
-
   color: #ffffff;
-
+  border-color: #4b584a;
   transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.final-video-button:hover span {
+  transform: translateX(4px);
 }
 
 
@@ -205,19 +197,17 @@
 
 .final-video-features {
   display: flex;
-
   align-items: center;
   justify-content: center;
+  gap: 28px;
 
-  gap: 30px;
+  margin-top: 28px;
 
-  margin-top: 25px;
-
-  font-family: Arial, sans-serif;
-
-  font-size: 8px;
-
-  letter-spacing: 1px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 
   color: rgba(255, 255, 255, 0.65);
 }
@@ -228,56 +218,69 @@
 
 .final-video-features span:not(:last-child)::after {
   content: "";
-
   position: absolute;
-
-  right: -16px;
+  right: -15px;
   top: 50%;
+  transform: translateY(-50%);
 
   width: 3px;
   height: 3px;
-
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 
 /* =========================================
-   MOBILE
+   RESPONSIVE (Aligned to 760px)
 ========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
 
   .final-video-section {
-    height: 700px;
-    min-height: 0;
+    height: 90vh;
+    min-height: 540px;
   }
 
   .final-video-content {
     bottom: 40px;
+    width: calc(100% - 36px);
+  }
 
-    width: calc(100% - 40px);
+  .final-video-label {
+    font-size: 10px;
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .final-video-label::before,
+  .final-video-label::after {
+    width: 20px;
   }
 
   .final-video-content h2 {
-    font-size: 44px;
-
-    letter-spacing: -1.5px;
+    font-size: 46px;
+    letter-spacing: -1px;
   }
 
   .final-video-content p {
-    font-size: 11px;
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 440px;
+    margin-top: 18px;
+  }
 
-    max-width: 360px;
+  .final-video-button {
+    margin-top: 24px;
+    padding: 12px 28px;
+    font-size: 12px;
   }
 
   .final-video-features {
     flex-direction: column;
-
-    gap: 9px;
-
-    font-size: 8px;
+    gap: 10px;
+    font-size: 9px;
+    margin-top: 22px;
   }
 
   .final-video-features span:not(:last-child)::after {

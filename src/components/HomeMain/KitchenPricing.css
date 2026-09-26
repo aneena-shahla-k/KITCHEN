@@ -33,14 +33,11 @@
 
 .pricing-header {
   width: 100%;
-
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-
   position: relative;
-
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
 }
 
 .pricing-header-left {
@@ -55,18 +52,20 @@
 .pricing-eyebrow {
   display: flex;
   align-items: center;
-  gap: 18px;
-
-  margin-bottom: 27px;
+  gap: 17px;
+  margin-bottom: 30px;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: #68736b;
+  text-transform: uppercase;
 }
 
 .pricing-eyebrow span {
   width: 44px;
   height: 1px;
-
-  background: #899087;
-
-  flex-shrink: 0;
+  background: #8d968e;
 }
 
 .pricing-eyebrow p {
@@ -87,17 +86,11 @@
 
 .pricing-header h2 {
   margin: 0;
-
   color: #3d473d;
-
   font-family: "Cormorant Garamond", serif;
-
-  font-size: clamp(58px, 5.4vw, 86px);
-
-  font-weight: 600;
-
+  font-size: clamp(48px, 5.1vw, 65px);
+  font-weight: 510;
   line-height: 0.92;
-
   letter-spacing: -2px;
 }
 
@@ -108,13 +101,9 @@
 
 .pricing-description {
   max-width: 620px;
-
   margin: 18px 0 0;
-
   color: #858a83;
-
   font-size: 15px;
-
   line-height: 1.7;
 }
 
@@ -286,25 +275,36 @@
 ========================================================= */
 
 .pricing-main-image {
+  position: relative;          /* ::after കൃത്യമായി overlay ആകാൻ */
   width: 100%;
-
-  height: 560px;
-
+  height: 400px;
   overflow: hidden;
-
   border-radius: 16px;
-
   background: #ddd8ce;
 }
 
+/* Image-inte bottom-il white fade വരാൻ overlay */
+.pricing-main-image::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48%;               
+  background: linear-gradient(
+    to bottom,
+    rgba(251, 249, 246, 0) 0%,
+    rgba(251, 249, 246, 0.65) 50%,
+    rgba(251, 249, 246, 1) 100%
+  );
+  pointer-events: none;      
+  z-index: 1;
+}
 .pricing-main-image img {
   width: 100%;
   height: 100%;
-
   display: block;
-
   object-fit: cover;
-
   transition: transform 0.8s ease;
 }
 
@@ -321,7 +321,7 @@
   position: absolute;
   left: 24px;
   right: 24px;
-  bottom: 4px;
+  bottom: -1px;
 
   min-height: 215px;
 
@@ -758,9 +758,9 @@
 }
 
 .pricing-total p {
-  max-width: 500px;
+  max-width: 600px;
 
-  margin: 9px 0 0;
+  margin: 20px 25px 20px;
 
   color: #969b94;
 
@@ -836,7 +836,7 @@
 
   grid-template-columns: repeat(4, 1fr);
 
-  margin-top: 48px;
+  margin-top: 58px;
 }
 
 .pricing-benefit {

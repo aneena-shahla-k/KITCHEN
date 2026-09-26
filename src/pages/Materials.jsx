@@ -1,10 +1,14 @@
 import React from 'react'
-import MaterialsPage from '../components/MaterialsMain/MaterialsPage'
+import MaterialsHero from '../components/MaterialsMain/MaterialsHero'
+import MaterialsCollection from '../components/MaterialsMain/MaterialsCollection'
+import MaterialCta from '../components/MaterialsMain/MaterialCta'
 
 export default function Material() {
   return (
     <div>
-        <MaterialsPage/>
+      <MaterialsHero/>
+      <MaterialsCollection/>
+      <MaterialCta/>
     </div>
   )
 }
