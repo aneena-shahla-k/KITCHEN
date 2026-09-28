@@ -381,9 +381,9 @@
   }
 
   .materials-hero-description {
-    max-width: 290px;
-
-    font-size: 10.5px;
+    font-size: 13px;
+    margin-top: 14px;
+    line-height: 1.6;
   }
 
 }

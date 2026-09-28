@@ -658,6 +658,11 @@
         rgba(248, 247, 241, 1) 100%
       );
   }
+  .about-hero-overlay {
+    line-height: 1.6;
+    font-size: 13px;
+    margin-top: 14px;
+  }
 
   .about-hero-content {
     padding: 40px 7% 48px;
@@ -702,6 +707,11 @@
 
     gap: 30px;
   }
+  .journey-container p{
+    line-height: 1.6;
+    font-size: 13px;
+    margin-top: 14px;
+  }
 
   .journey-image {
     height: 220px;
@@ -726,6 +736,11 @@
 
   .projects-header {
     margin-bottom: 30px;
+  }
+  .projects-header p {
+    line-height: 1.6;
+    margin-top: 14px;
+    font-size: 13px;
   }
 
   .project-filters {

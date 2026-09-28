@@ -842,14 +842,9 @@
   }
 
   .section-description {
-    width: 100%;
-    max-width: 100%;
-
-    margin: 24px 0 30px;
-
-    font-size: 14px;
-
-    line-height: 1.7;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .transformation-features {

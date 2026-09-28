@@ -345,7 +345,8 @@
   }
 
   .material-cta-content p {
-    font-size: 10px;
-    max-width: 270px;
+    font-size: 13px;
+    margin-top: 14px;
+    line-height: 1.6;
   }
 }

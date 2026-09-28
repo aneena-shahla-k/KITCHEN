@@ -593,12 +593,10 @@
   }
 
   .kitchen-process-intro p {
-    max-width: 320px;
-
-    margin-left: 0;
-    margin-right: 0;
-
-    font-size: 14px;
+    
+    margin-top: 14px;
+    line-height: 1.6;
+    font-size: 13px;
   }
 
   .kitchen-process-arrow {
