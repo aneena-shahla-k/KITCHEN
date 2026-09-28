@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Volume2 } from "lucide-react";
 import "./kitchenHero.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -8,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
+
   const [isAudioBlocked, setIsAudioBlocked] = useState(false);
 
   useLayoutEffect(() => {
@@ -18,9 +20,10 @@ export default function Hero() {
 
     video.volume = 1;
 
-    // -----------------------------------------
-    // PLAY WITH SOUND (FALLBACK TO MUTED IF BLOCKED)
-    // -----------------------------------------
+    // =========================================
+    // PLAY HERO VIDEO
+    // =========================================
+
     const playHeroVideo = () => {
       video.muted = false;
       video.volume = 1;
@@ -34,49 +37,80 @@ export default function Hero() {
           })
           .catch(() => {
             video.muted = true;
+
             video.play().catch(() => {});
+
             setIsAudioBlocked(true);
           });
       }
     };
 
-    // -----------------------------------------
-    // STOP VIDEO & SOUND ON LEAVING SECTION
-    // -----------------------------------------
+    // =========================================
+    // STOP VIDEO WHEN LEAVING HERO
+    // =========================================
+
     const stopHeroVideo = () => {
       video.pause();
       video.muted = true;
     };
 
-    // -----------------------------------------
+    // =========================================
     // UNMUTE ON USER INTERACTION
-    // -----------------------------------------
+    // =========================================
+
     const handleFirstInteraction = () => {
       if (video) {
         video.muted = false;
         video.volume = 1;
+
         if (video.paused) {
           video.play().catch(() => {});
         }
+
         setIsAudioBlocked(false);
       }
 
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener(
+        "pointerdown",
+        handleFirstInteraction
+      );
+
+      window.removeEventListener(
+        "touchstart",
+        handleFirstInteraction
+      );
+
+      window.removeEventListener(
+        "keydown",
+        handleFirstInteraction
+      );
     };
 
-    window.addEventListener("pointerdown", handleFirstInteraction);
-    window.addEventListener("touchstart", handleFirstInteraction);
-    window.addEventListener("keydown", handleFirstInteraction);
+    window.addEventListener(
+      "pointerdown",
+      handleFirstInteraction
+    );
 
+    window.addEventListener(
+      "touchstart",
+      handleFirstInteraction
+    );
+
+    window.addEventListener(
+      "keydown",
+      handleFirstInteraction
+    );
+
+    // Initial play
     playHeroVideo();
 
-    // -----------------------------------------
-    // SCROLL TRIGGER HANDLERS
-    // -----------------------------------------
+    // =========================================
+    // GSAP SCROLL TRIGGER
+    // =========================================
+
     const heroTrigger = ScrollTrigger.create({
       trigger: section,
+
       start: "top top",
       end: "bottom top",
 
@@ -97,30 +131,60 @@ export default function Hero() {
       },
     });
 
+    // =========================================
+    // CLEANUP
+    // =========================================
+
     return () => {
       heroTrigger.kill();
+
       stopHeroVideo();
 
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener(
+        "pointerdown",
+        handleFirstInteraction
+      );
+
+      window.removeEventListener(
+        "touchstart",
+        handleFirstInteraction
+      );
+
+      window.removeEventListener(
+        "keydown",
+        handleFirstInteraction
+      );
     };
   }, []);
 
+  // =========================================
+  // MANUAL UNMUTE
+  // =========================================
+
   const handleManualUnmute = (e) => {
     e.stopPropagation();
+
     const video = videoRef.current;
+
     if (video) {
       video.muted = false;
       video.volume = 1;
+
       video.play().catch(() => {});
+
       setIsAudioBlocked(false);
     }
   };
 
   return (
-    <section ref={sectionRef} className="hero-section">
+    <section
+      ref={sectionRef}
+      className="hero-section"
+    >
       <div className="hero-video-wrap">
+
+        {/* HERO VIDEO */}
+
         <video
           ref={videoRef}
           className="hero-video"
@@ -131,18 +195,32 @@ export default function Hero() {
           loop={false}
         />
 
+        {/* VIDEO OVERLAY */}
+
         <div className="hero-overlay" />
+
+        {/* SOUND BUTTON */}
 
         {isAudioBlocked && (
           <button
             type="button"
             className="hero-unmute-btn"
             onClick={handleManualUnmute}
+            aria-label="Enable hero video sound"
           >
-            <span className="unmute-icon">🔊</span>
-            <span>Tap for Sound</span>
+            <span className="unmute-icon">
+              <Volume2
+                size={14}
+                strokeWidth={1.8}
+              />
+            </span>
+
+            <span className="unmute-text">
+              Tap for Sound
+            </span>
           </button>
         )}
+
       </div>
     </section>
   );

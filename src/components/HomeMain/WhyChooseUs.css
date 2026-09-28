@@ -83,20 +83,15 @@
 
 .why-header-script {
   position: absolute;
-
   right: 35px;
   top: 50px;
-
   display: flex;
   flex-direction: column;
-
   color: #8d958c;
-
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 27px;
   font-style: italic;
   line-height: 1.1;
-
   transform: rotate(-5deg);
   opacity: 0.8;
 }
@@ -112,23 +107,15 @@
 
 .why-choose-grid {
   width: 100%;
-
   display: grid;
-
-  /*
-     IMPORTANT:
-     Five equal columns.
-  */
   grid-template-columns: repeat(5, minmax(0, 1fr));
-
   gap: 16px;
-
   align-items: stretch;
 }
 
 
 /* =========================================================
-   CARD
+   CARD (DESKTOP)
 ========================================================= */
 
 .why-feature-card {
@@ -139,18 +126,11 @@
   max-height: 610px;
   display: flex;
   flex-direction: column;
-
   background: #f1eee5;
-
   border: 1px solid #ddd9ce;
-
   border-radius: 14px;
-
   overflow: hidden;
-
-  box-shadow:
-    0 8px 25px rgba(48, 57, 49, 0.055);
-
+  box-shadow: 0 8px 25px rgba(48, 57, 49, 0.055);
   transition:
     transform 0.4s ease,
     box-shadow 0.4s ease,
@@ -159,11 +139,8 @@
 
 .why-feature-card:hover {
   transform: translateY(-6px);
-
   border-color: #c9c6ba;
-
-  box-shadow:
-    0 18px 40px rgba(48, 57, 49, 0.11);
+  box-shadow: 0 18px 40px rgba(48, 57, 49, 0.11);
 }
 
 
@@ -173,52 +150,36 @@
 
 .why-feature-image {
   position: relative;
-
   width: 100%;
   height: 200px;
   min-height: 20px;
   max-height: 270px;
-
   flex-shrink: 0;
-
   overflow: hidden;
-
   background: #ddd8cd;
 }
 
 .why-feature-image img {
   width: 100%;
   height: 100%;
-
   display: block;
-
   object-fit: cover;
-
-  transition:
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .why-feature-card:hover .why-feature-image img {
   transform: scale(1.045);
 }
 
-
-/* =========================================================
-   IMAGE OVERLAY
-========================================================= */
-
 .why-image-overlay {
   position: absolute;
   inset: 0;
-
   pointer-events: none;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(30, 36, 31, 0.01),
-      rgba(30, 36, 31, 0.08)
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 36, 31, 0.01),
+    rgba(30, 36, 31, 0.08)
+  );
 }
 
 
@@ -228,117 +189,39 @@
 
 .why-feature-content {
   width: 100%;
-
-  /*
-     Remaining space is automatically filled.
-  */
   flex: 1;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   padding: 22px 28px 28px;
-
   background: #f1eee5;
 }
 
-
-/* =========================================================
-   ICON
-========================================================= */
-
-.why-feature-icon {
-  width: 62px;
-  height: 62px;
-
-  min-width: 62px;
-  min-height: 62px;
-
-  flex-shrink: 0;
-
-  margin-bottom: 17px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #e8e5db;
-
-  border: 1px solid #dddacf;
-
-  color: #4d5950;
-
-  box-shadow:
-    0 3px 10px rgba(50, 55, 48, 0.04);
-}
-
-.why-feature-icon span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-family: Georgia, serif;
-  font-size: 28px;
-  line-height: 1;
-}
-
-
-/* =========================================================
-   CARD TITLE
-========================================================= */
-
 .why-feature-title {
   margin: 0;
-
   color: #38453b;
-
   font-family: "Cormorant Garamond", Georgia, serif;
-
   font-size: 29px;
   font-weight: 600;
-
   line-height: 1.02;
-
   letter-spacing: -0.5px;
 }
-
-
-/* =========================================================
-   DIVIDER
-========================================================= */
 
 .why-feature-divider {
   width: 32px;
   height: 1px;
-
   flex-shrink: 0;
-
   margin: 20px 0 18px;
-
   background: #9da39b;
 }
 
-
-/* =========================================================
-   DESCRIPTION
-========================================================= */
-
 .why-feature-description {
   margin: 0;
-
   color: #7d857e;
-
   font-family: "Inter", sans-serif;
-
   font-size: 13.5px;
-
   line-height: 1.65;
-
   font-weight: 400;
-
   max-width: 100%;
 }
 
@@ -349,46 +232,32 @@
 
 .why-leaf-decoration {
   position: absolute;
-
   right: -20px;
   top: -20px;
-
   width: 190px;
   height: 210px;
-
   opacity: 0.55;
-
   pointer-events: none;
 }
 
 .leaf {
   position: absolute;
-
   width: 42px;
   height: 85px;
-
   border-radius: 100% 0 100% 0;
-
   background: #aeb5a8;
-
   opacity: 0.6;
-
   transform-origin: bottom center;
 }
 
 .leaf::after {
   content: "";
-
   position: absolute;
-
   width: 1px;
   height: 70%;
-
   left: 50%;
   top: 15%;
-
   background: rgba(64, 75, 66, 0.4);
-
   transform: rotate(12deg);
 }
 
@@ -428,7 +297,6 @@
 ========================================================= */
 
 @media (max-width: 1200px) {
-
   .why-choose-container {
     width: calc(100% - 70px);
   }
@@ -439,15 +307,15 @@
   }
 
   .why-feature-card {
-    height: 590px;
-    min-height: 590px;
-    max-height: 590px;
+    height: auto;
+    min-height: 480px;
+    max-height: none;
   }
 
   .why-feature-image {
-    height: 260px;
-    min-height: 260px;
-    max-height: 260px;
+    height: 220px;
+    min-height: auto;
+    max-height: none;
   }
 }
 
@@ -457,9 +325,8 @@
 ========================================================= */
 
 @media (max-width: 900px) {
-
   .why-choose-section {
-    padding: 90px 0;
+    padding: 80px 0;
   }
 
   .why-choose-container {
@@ -467,7 +334,7 @@
   }
 
   .why-choose-title {
-    font-size: 64px;
+    font-size: 54px;
   }
 
   .why-header-script {
@@ -476,106 +343,101 @@
 
   .why-choose-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    gap: 16px;
   }
 
   .why-feature-card {
-    height: 570px;
-    min-height: 570px;
-    max-height: 570px;
+    height: auto;
+    min-height: auto;
+    max-height: none;
   }
 
   .why-feature-image {
-    height: 255px;
-    min-height: 255px;
-    max-height: 255px;
+    height: 200px;
+    min-height: auto;
+    max-height: none;
   }
 }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE (COMPACT & CLEAN)
 ========================================================= */
 
 @media (max-width: 600px) {
-
   .why-choose-section {
-    padding: 75px 0 70px;
+    padding: 55px 0 60px;
   }
 
   .why-choose-container {
-    width: calc(100% - 36px);
+    width: calc(100% - 32px);
   }
 
   .why-section-label {
     gap: 12px;
-    margin-bottom: 24px;
-
+    margin-bottom: 16px;
     font-size: 9px;
-    letter-spacing: 2.2px;
+    letter-spacing: 2px;
   }
 
   .why-label-line {
-    width: 30px;
+    width: 28px;
   }
 
   .why-choose-title {
-    font-size: 51px;
-    letter-spacing: -2px;
+    font-size: 38px;
+    line-height: 1.05;
+    letter-spacing: -1px;
   }
 
   .why-choose-intro {
-    font-size: 14px;
-    line-height: 1.65;
-  }
-
-  .desktop-break {
-    display: none;
+    font-size: 13px;
+    margin-top: 12px;
+    line-height: 1.6;
   }
 
   .why-choose-header {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   .why-choose-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 14px;
   }
 
-  /*
-     On mobile cards remain consistent,
-     but become taller to accommodate width.
-  */
+  /* ഫിക്സഡ് 560px മാറ്റി ഉള്ളടക്കത്തിനനുസരിച്ച് ഓട്ടോമാറ്റിക് ആയി ക്രമീകരിക്കുന്നു */
   .why-feature-card {
-    height: 560px;
-    min-height: 560px;
-    max-height: 560px;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    border-radius: 12px;
   }
 
+  /* ഫോട്ടോയുടെ ഉയരം 270px-ൽ നിന്ന് 170px ആക്കി ചുരുക്കി */
   .why-feature-image {
-    height: 270px;
-    min-height: 270px;
-    max-height: 270px;
+    height: 170px !important;
+    min-height: auto !important;
+    max-height: none !important;
   }
 
+  /* ഉള്ളിലെ പാഡിംഗ് വെട്ടിച്ചുരുക്കി */
   .why-feature-content {
-    padding: 21px 25px 28px;
-  }
-
-  .why-feature-icon {
-    width: 60px;
-    height: 60px;
-
-    min-width: 60px;
-    min-height: 60px;
+    padding: 16px 18px 20px;
   }
 
   .why-feature-title {
-    font-size: 29px;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .why-feature-divider {
+    margin: 10px 0 10px;
+    width: 26px;
   }
 
   .why-feature-description {
-    font-size: 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
   }
 }
 
@@ -585,28 +447,19 @@
 ========================================================= */
 
 @media (max-width: 390px) {
-
-  .why-choose-container {
-    width: calc(100% - 28px);
-  }
-
   .why-choose-title {
-    font-size: 45px;
-  }
-
-  .why-feature-card {
-    height: 540px;
-    min-height: 540px;
-    max-height: 540px;
+    font-size: 34px;
   }
 
   .why-feature-image {
-    height: 245px;
-    min-height: 245px;
-    max-height: 245px;
+    height: 155px !important;
   }
 
   .why-feature-title {
-    font-size: 27px;
+    font-size: 20px;
+  }
+
+  .why-feature-content {
+    padding: 14px 15px 18px;
   }
 }

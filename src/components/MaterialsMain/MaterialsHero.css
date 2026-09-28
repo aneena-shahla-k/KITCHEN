@@ -187,54 +187,38 @@
 
 .materials-hero-nav {
   position: absolute;
-
   z-index: 4;
-
   right: 5.5%;
-
   top: 50%;
-
   transform: translateY(-50%);
-
   display: flex;
-
   flex-direction: column;
-
   gap: 15px;
-
   padding-left: 15px;
-
   border-left: 1px solid rgba(53, 66, 57, 0.28);
 }
 
 .materials-hero-nav a {
   position: relative;
-
   text-decoration: none;
-
   font-family: Arial, sans-serif;
-
-  font-size: 8px;
-
-  font-weight: 500;
-
+  font-size: 10px;
+  font-weight: 530;
   letter-spacing: 1.7px;
-
-  color: rgba(53, 66, 57, 0.48);
-
+  color: black;
   transition:
     color 0.25s ease,
     transform 0.25s ease;
 }
 
 .materials-hero-nav a:hover {
-  color: #354239;
+  color: #000000;
 
   transform: translateX(2px);
 }
 
 .materials-hero-nav a.active {
-  color: #354239;
+  color: #000000;
 }
 
 .materials-hero-nav a.active::before {

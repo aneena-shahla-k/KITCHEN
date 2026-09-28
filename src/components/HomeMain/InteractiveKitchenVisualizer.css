@@ -469,42 +469,86 @@ max-width: 620px;
 
 
 @media (max-width: 760px) {
-
   .ikv-section {
-    padding: 80px 20px;
+    padding: 40px 16px 60px;
+  }
+
+  .ikv-heading {
+    width: 100%;
+    padding-top: 0;
+    margin-bottom: 24px;
+  }
+
+  .ikv-label {
+    margin-bottom: 16px;
   }
 
   .ikv-heading h2 {
-    font-size: 54px;
+    font-size: 38px;
+    line-height: 1.05;
     letter-spacing: -1px;
   }
 
   .ikv-heading p {
-    font-size: 15px;
+    font-size: 14px;
+    margin-top: 14px;
   }
 
+  /* Compact image container for mobile */
   .ikv-visual {
-    height: 480px;
-    border-radius: 25px;
+    height: 260px;
+    border-radius: 18px;
+    margin-bottom: 20px;
   }
 
+  /* Let panels size automatically and clear desktop absolute offsets */
   .ikv-panel {
+    display: block;
     width: 100%;
+    height: auto !important; /* overrides desktop 430px fixed height */
+    top: auto !important;    /* cancels desktop top: 370px offset */
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin-top: 16px;
     margin-right: 0;
+    box-shadow: 0 10px 30px rgba(47, 52, 46, 0.07);
   }
 
   .upload-panel,
   .preference-panel {
-    padding: 20px;
+    padding: 18px;
+  }
+
+  .upload-box {
+    height: auto;
+    padding: 24px 12px;
   }
 
   .upload-actions {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 8px;
+  }
+
+  .upload-actions button {
+    flex: 1 1 120px;
+    justify-content: center;
   }
 
   .pref-row {
+    flex-direction: column;
     align-items: flex-start;
+    gap: 8px;
     padding: 12px 0;
+  }
+
+  .pref-row label {
+    flex: none;
+    font-weight: 600;
+  }
+
+  .color-wrap {
+    gap: 12px;
   }
 }
