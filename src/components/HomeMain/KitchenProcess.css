@@ -45,7 +45,6 @@
 .kitchen-process-intro {
   width: 100%;
   min-width: 0;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;

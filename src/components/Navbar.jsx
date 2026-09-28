@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import logo from "../images/logo.PNG"; 
+
+import logo from "../images/logo.PNG";
 import "../styles/navbar.css";
 
 const Navbar = () => {
@@ -11,25 +12,38 @@ const Navbar = () => {
     setOpen(false);
   };
 
+  const toggleMenu = () => {
+    setOpen((prev) => !prev);
+  };
+
   return (
     <nav className="navbar">
 
-      {/* LOGO */}
+      {/* =====================================================
+          LOGO
+      ====================================================== */}
+
       <NavLink
         to="/"
         className="navbar-logo"
         onClick={closeMenu}
+        aria-label="KitchenCraft Home"
       >
-        <img 
-          src={logo} 
-          alt="KitchenCraft Logo" 
-          className="navbar-logo-img" 
+        <img
+          src={logo}
+          alt="KitchenCraft Logo"
+          className="navbar-logo-img"
         />
       </NavLink>
 
 
-      {/* NAVIGATION */}
-      <div className={`navbar-links ${open ? "open" : ""}`}>
+      {/* =====================================================
+          NAVIGATION
+      ====================================================== */}
+
+      <div
+        className={`navbar-links ${open ? "open" : ""}`}
+      >
 
         <NavLink
           to="/"
@@ -42,6 +56,7 @@ const Navbar = () => {
           Home
         </NavLink>
 
+
         <NavLink
           to="/materials"
           onClick={closeMenu}
@@ -52,6 +67,7 @@ const Navbar = () => {
           Materials
         </NavLink>
 
+
         <NavLink
           to="/projects"
           onClick={closeMenu}
@@ -61,6 +77,7 @@ const Navbar = () => {
         >
           Projects
         </NavLink>
+
 
         <NavLink
           to="/contact"
@@ -75,7 +92,10 @@ const Navbar = () => {
       </div>
 
 
-      {/* QUOTE */}
+      {/* =====================================================
+          GET A QUOTE
+      ====================================================== */}
+
       <NavLink
         to="/contact"
         className={({ isActive }) =>
@@ -84,21 +104,30 @@ const Navbar = () => {
         onClick={closeMenu}
       >
         <span>Get a Quote</span>
+
         <ArrowRight size={15} />
       </NavLink>
 
 
-      {/* MOBILE MENU */}
+      {/* =====================================================
+          MOBILE MENU BUTTON
+      ====================================================== */}
+
       <button
+        type="button"
         className="navbar-menu"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
+        onClick={toggleMenu}
+        aria-label={
+          open
+            ? "Close navigation menu"
+            : "Open navigation menu"
+        }
         aria-expanded={open}
       >
         {open ? (
-          <X size={22} />
+          <X size={21} strokeWidth={1.8} />
         ) : (
-          <Menu size={22} />
+          <Menu size={21} strokeWidth={1.8} />
         )}
       </button>
 
